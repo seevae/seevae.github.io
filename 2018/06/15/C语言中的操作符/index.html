@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="日常学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言C语言中各种各样的操作符使得C语言程序灵活多变，使用好各类操作符更能使程序灵巧轻便，这里记录下自己学习的操作符，也与各位共享">
+<meta name="keywords" content="日常学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言中的操作符">
+<meta property="og:url" content="http://seevae.github.io/2018/06/15/C语言中的操作符/index.html">
+<meta property="og:site_name" content="Hero">
+<meta property="og:description" content="前言C语言中各种各样的操作符使得C语言程序灵活多变，使用好各类操作符更能使程序灵巧轻便，这里记录下自己学习的操作符，也与各位共享">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-03T03:25:59.524Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C语言中的操作符">
+<meta name="twitter:description" content="前言C语言中各种各样的操作符使得C语言程序灵活多变，使用好各类操作符更能使程序灵巧轻便，这里记录下自己学习的操作符，也与各位共享">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://seevae.github.io/2018/06/15/C语言中的操作符/">
+
+
+
+
+
+  <title>C语言中的操作符 | Hero</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hero</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">十年一开花的忍者神龟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/blog/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://seevae.github.io/blog/2018/06/15/C语言中的操作符/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C语言中的操作符</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/C语言/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>C语言中各种各样的操作符使得C语言程序灵活多变，使用好各类操作符更能使程序灵巧轻便，这里记录下自己学习的操作符，也与各位共享<br><a id="more"></a></p>
+<h2 id="1-算数操作符"><a href="#1-算数操作符" class="headerlink" title="1.算数操作符"></a>1.算数操作符</h2><p>算数操作符中有<br> <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ -  *  /  %</span><br></pre></td></tr></table></figure></p>
+<p> 此处对 / 和 % 做些说明：</p>
+<h3 id="：对于除法来说两个数中有一个是浮点数，则执行的是浮点数除法，两个都是整数，则执行的是整数除法"><a href="#：对于除法来说两个数中有一个是浮点数，则执行的是浮点数除法，两个都是整数，则执行的是整数除法" class="headerlink" title="/：对于除法来说两个数中有一个是浮点数，则执行的是浮点数除法，两个都是整数，则执行的是整数除法"></a>/：对于除法来说两个数中有一个是浮点数，则执行的是浮点数除法，两个都是整数，则执行的是整数除法</h3><h3 id="：对于取余，符号后一定是整数，不能是浮点数，如：-3-0（错）"><a href="#：对于取余，符号后一定是整数，不能是浮点数，如：-3-0（错）" class="headerlink" title="%：对于取余，符号后一定是整数，不能是浮点数，如：%3.0（错）"></a>%：对于取余，符号后一定是整数，不能是浮点数，如：%3.0（错）</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"a=%d  b=%d"</span>,a/<span class="number">3</span>,a%<span class="number">3</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果<br>a=3  b=1<br>说明：取余看的是余数，除法看的是商</p>
+<h2 id="2-移位操作符"><a href="#2-移位操作符" class="headerlink" title="2.移位操作符"></a>2.移位操作符</h2><p>左移操作   &lt;&lt;<br>右移操作   &gt;&gt;<br>移位移的是数字在内存中存的二进制的补码，移位移的是二进制位<br>移位操作如果不给自己赋值是不会改变自己的，表达式是移位后的结果<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> b = a&lt;&lt;<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> c = a&gt;&gt;<span class="number">1</span>; </span><br><span class="line">	<span class="comment">//整数的原码，反码，补码都相同 </span></span><br><span class="line">	<span class="comment">//00000000 00000000 00000000 00001010</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"a = %d\n"</span>,a);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"b = %d\n"</span>,b);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果：a = 20   b = 5<br>左移：左边直接丢弃，右边补零，有x2的效果<br>右移：①算术右移：右边丢弃，左边补符号位<br>      ②逻辑右移：右边丢弃，左边补0<br>      而这两种右移方式执行哪一个，完全取决于你的编译器，但经测试，大部分编译器都采用算术右移，更合理一点<br>      waring： 对于移位运算符，不要移动负数位，这个是标准未定义的</p>
+<h2 id="3-位操作符"><a href="#3-位操作符" class="headerlink" title="3.位操作符"></a>3.位操作符</h2><h3 id="按位与-amp-与：一个是零-则为零，两个为一，才为一"><a href="#按位与-amp-与：一个是零-则为零，两个为一，才为一" class="headerlink" title="按位与 &amp; :与：一个是零 则为零，两个为一，才为一"></a>按位与 &amp; :与：一个是零 则为零，两个为一，才为一</h3><h3 id="按位或-一个为1则为1，两个为0，才为0"><a href="#按位或-一个为1则为1，两个为0，才为0" class="headerlink" title="按位或 |:一个为1则为1，两个为0，才为0"></a>按位或 |:一个为1则为1，两个为0，才为0</h3><h3 id="按位异或-相同为0，相异为-1"><a href="#按位异或-相同为0，相异为-1" class="headerlink" title="按位异或 ^:相同为0，相异为 1"></a>按位异或 ^:相同为0，相异为 1</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">int</span> b = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> c = a&amp;b;</span><br><span class="line">	<span class="keyword">int</span> d = a|b;</span><br><span class="line">	<span class="keyword">int</span> k = a^b;</span><br><span class="line">	<span class="comment">//a:11111111 11111111 11111111 11111111</span></span><br><span class="line">	<span class="comment">//b:00000000 00000000 00000000 00001010</span></span><br><span class="line">	<span class="comment">//a&amp;b:00000000 00000000 00000000 00001010</span></span><br><span class="line">	<span class="comment">//a|b:11111111 11111111 11111111 11111111</span></span><br><span class="line">	<span class="comment">//a^b:11111111 11111111 11111111 11110101  k的补码</span></span><br><span class="line">	<span class="comment">//11111111 111111111 11111111 11110100  补码-1</span></span><br><span class="line">	<span class="comment">//10000000 000000000 00000000 00001011  补码-1取反得k的原码 即-11 </span></span><br><span class="line">	<span class="comment">//异或：相同为0，相异为 1</span></span><br><span class="line">	<span class="comment">//与：一个是零 则为零，两个为一，才为一 </span></span><br><span class="line">	<span class="comment">//或： 一个为1则为1，两个为0，才为0 </span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"c = %d d = %d k = %d"</span>,c,d,k);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果： c = 10   d = -1   k = -11</p>
+<h2 id="4-赋值操作符"><a href="#4-赋值操作符" class="headerlink" title="4.赋值操作符(=)"></a>4.赋值操作符(=)</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> weight = <span class="number">60</span>;  <span class="comment">//使用赋值操作符赋值</span></span><br></pre></td></tr></table></figure>
+<p>赋值操作符可以连续使用  a = x = y+1</p>
+<h3 id="复合赋值符"><a href="#复合赋值符" class="headerlink" title="复合赋值符"></a>复合赋值符</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = a+<span class="number">10</span>;</span><br><span class="line">a += <span class="number">10</span>;</span><br><span class="line"><span class="comment">//两种表达的效果相同，第二种便是复合赋值符</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-单目操作符"><a href="#5-单目操作符" class="headerlink" title="5.单目操作符"></a>5.单目操作符</h2><h3 id="正值："><a href="#正值：" class="headerlink" title="正值：+"></a>正值：+</h3><h3 id="负值："><a href="#负值：" class="headerlink" title="负值：-"></a>负值：-</h3><h3 id="逻辑反操作-！"><a href="#逻辑反操作-！" class="headerlink" title="逻辑反操作 ！"></a>逻辑反操作 ！</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> flag = <span class="number">10</span>;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"%d"</span>,!flag); <span class="comment">//真变假</span></span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果： 0</p>
+<p>对一个数的二进制位进行取反  ~</p>
+<h3 id="取地址：-amp"><a href="#取地址：-amp" class="headerlink" title="取地址： &amp;"></a>取地址： &amp;</h3><h4 id="取变量地址"><a href="#取变量地址" class="headerlink" title="取变量地址"></a>取变量地址</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"%p"</span>,&amp;a); <span class="comment">//可以打印出a的地址</span></span><br></pre></td></tr></table></figure>
+<h4 id="数组取地址："><a href="#数组取地址：" class="headerlink" title="数组取地址："></a>数组取地址：</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> arr[<span class="number">10</span>] = &#123;<span class="number">0</span>&#125;;    <span class="comment">//数组名相当于首元素的地址 </span></span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"%p\n"</span>,arr);</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"%p\n"</span>,arr+<span class="number">1</span>);</span><br><span class="line">   </span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"%p\n"</span>,&amp;arr);   <span class="comment">//取出的是数组的地址</span></span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"%p\n"</span>,&amp;arr+<span class="number">1</span>); <span class="comment">////&amp;arr+1 跳过了整个数组指向末尾 </span></span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：0028FE98<br>          0028FE9C<br>          0028FE98<br>          0028FEC0<br>数组名加1与数组首元素差4个字节而取地址数组名加1则与取地址数组名差了40个字节，即一整个数组</p>
+<h4 id="函数取地址"><a href="#函数取地址" class="headerlink" title="函数取地址"></a>函数取地址</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"heeh\n"</span>);</span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">"%p"</span>,&amp;test);</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="操作数的类型长度（以字节为单位）：-sizeof"><a href="#操作数的类型长度（以字节为单位）：-sizeof" class="headerlink" title="操作数的类型长度（以字节为单位）： sizeof"></a>操作数的类型长度（以字节为单位）： sizeof</h3><p>sizeof的作用：就是返回一个对象或者类型所占的内存字节数。<br>三个程序说明sizeof<br>①<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> arr[<span class="number">10</span>] = &#123;<span class="number">0</span>&#125;; </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,<span class="keyword">sizeof</span>(a));          <span class="comment">//4字节</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,<span class="keyword">sizeof</span>(<span class="keyword">int</span>));        <span class="comment">//4</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,<span class="keyword">sizeof</span>(arr));        <span class="comment">//40</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,<span class="keyword">sizeof</span>(<span class="keyword">int</span> [<span class="number">10</span>]));   <span class="comment">//40</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>由此可见，sizeof可以求一个变量的内存大小。也可以求数组的内存大小<br>②<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> arr[<span class="number">10</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,<span class="keyword">sizeof</span> a);</span><br><span class="line">   <span class="comment">// printf("%d\n",sizeof int);   类型一定要带上（）否则是无法运行的</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果为4<br>此程序说明sizeof是个操作符，他并不是个函数<br>③<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	short s = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">6</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,<span class="keyword">sizeof</span>(s=a+<span class="number">8</span>));  <span class="comment">//2</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,a);              <span class="comment">//6</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>,s);                <span class="comment">//10</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此处运行结果为 2  6  10<br>此处说明，sizeof内的表达式不参与计算，sizeof所计算的变量类型遵从被赋值的变量</p>
+<h3 id="对一个数的二进制数取反："><a href="#对一个数的二进制数取反：" class="headerlink" title="对一个数的二进制数取反：~"></a>对一个数的二进制数取反：~</h3><p>将一个数的二进制序列取反。0变1,1变0<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,~<span class="number">10</span>);</span><br><span class="line">	<span class="comment">//00000000 00000000 00000000 00001010  </span></span><br><span class="line">	<span class="comment">//11111111 11111111 11111111 11110101  补码</span></span><br><span class="line">	<span class="comment">//10000000 00000000 00000000 00001010</span></span><br><span class="line">	<span class="comment">//10000000 00000000 00000000 00001011</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果 -11</p>
+<h3 id="前置–-后置–-：-–"><a href="#前置–-后置–-：-–" class="headerlink" title="前置–  后置– ： –"></a>前置–  后置– ： –</h3><pre><code>前置++  后置++ ： ++
+</code></pre><p>这里只用了解前置的情况下先自增（自减）在使用，后置的情况下先使用在自增（自减）。<br>值得注意的是指针的++  –<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">10</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> *p = a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,p);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,++p);</span><br><span class="line">	<span class="comment">//char c = 'a';</span></span><br><span class="line">	<span class="comment">//char *p = &amp;c;</span></span><br><span class="line">	<span class="comment">//printf("%p\n",p);</span></span><br><span class="line">	<span class="comment">//printf("%p\n",++p);</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果：2686612  2686616<br>相差了4个字节，由此可见自增自减也不一定任何情况下都是加一或减一，这和他所指向的类型的关系有关,当换成字符类型，又变为加减1字节</p>
+<h3 id="间接访问操作符（解引用操作符）："><a href="#间接访问操作符（解引用操作符）：" class="headerlink" title="间接访问操作符（解引用操作符）： *"></a>间接访问操作符（解引用操作符）： *</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> *p = &amp;a;   <span class="comment">//第一个*表示指针变量 </span></span><br><span class="line">    *p = <span class="number">20</span>;      <span class="comment">//第二个*为解引用操作，间接访问 </span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解引用的作用是拿到某个地址，通过地址找到其内容。</p>
+<h3 id="强制类型转换：（类型）"><a href="#强制类型转换：（类型）" class="headerlink" title="强制类型转换：（类型）"></a>强制类型转换：（类型）</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = (<span class="keyword">int</span>)<span class="number">3.14</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>强制类型转换容易丢失精度，一般不建议使用</p>
+<h2 id="6-关系操作符"><a href="#6-关系操作符" class="headerlink" title="6.关系操作符"></a>6.关系操作符</h2><p>C语言中的关系操作符有 &gt; &gt;=  &lt;  &lt;=  !=  == 这些关系运算符较为简单，不o做多余赘述,须记住在比较两个字符的时候，是不能用 == 的，而是要用strcmp</p>
+<h2 id="7-逻辑操作符"><a href="#7-逻辑操作符" class="headerlink" title="7.逻辑操作符"></a>7.逻辑操作符</h2><h3 id="逻辑与："><a href="#逻辑与：" class="headerlink" title="逻辑与："></a>逻辑与：</h3><p>&amp;&amp;：逻辑与，读作并且<br>表达式左右两边都为真，那么结果才为真<br>口诀：一假则假</p>
+<h3 id="逻辑或："><a href="#逻辑或：" class="headerlink" title="逻辑或："></a>逻辑或：</h3><p>||：逻辑或，读作或者<br>表达式左右两边，有一个为真，那么结果就为真<br>口诀：一真则真</p>
+<h3 id="逻辑运算符的短路问题"><a href="#逻辑运算符的短路问题" class="headerlink" title="逻辑运算符的短路问题"></a>逻辑运算符的短路问题</h3><p>tips:非0为真，0为假<br>短路的情况：<br>&amp;&amp;：左边如果为假，则右边短路（右边不会被执行）<br>||：左边如果为真，则右边短路（右边不会执行）<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>,a = <span class="number">0</span>,b = <span class="number">2</span>,c = <span class="number">3</span>,d = <span class="number">4</span>;</span><br><span class="line">    i = a++ &amp;&amp; ++b &amp;&amp; d++;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"a = %d\nb = %d\nc = %d\nd = %d\n"</span>,a,b,c,d);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行结果 1 2 3 4<br>原因： a = 0为假导致 a++ &amp;&amp; ++b 为假，所以++b短路，不执行， b=2，然后a++ &amp;&amp; ++b 整体为假，导致a++ &amp;&amp; ++b &amp;&amp; d++为假，所以d++不执行，d = 4，整个过程只有a自增了一下，a =1</p>
+<h2 id="8-条件操作符（三目操作符）"><a href="#8-条件操作符（三目操作符）" class="headerlink" title="8.条件操作符（三目操作符）"></a>8.条件操作符（三目操作符）</h2><p>如果希望获得两个数中最大的一个，可以使用 if 语句，例如：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(a&gt;b)&#123;</span><br><span class="line">    max = a;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    max = b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>不过，C语言提供了一种更加简单的方法，叫做条件运算符，语法格式为：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">表达式<span class="number">1</span> ? 表达式<span class="number">2</span> : 表达式<span class="number">3</span></span><br><span class="line">条件运算符是C语言中唯一的一个三目运算符，其求值规则为：如果表达式<span class="number">1</span>的值为真，则以表达式<span class="number">2</span> 的值作为整个条件表达式的值，否则以表达式<span class="number">3</span>的值作为整个条件表达式的值。条件表达式通常用于赋值语句之中。</span><br><span class="line">上面的 <span class="keyword">if</span> <span class="keyword">else</span> 语句等价于：</span><br><span class="line">```c </span><br><span class="line">max = (a&gt;b) ? a : b;</span><br></pre></td></tr></table></figure></p>
+<p>该语句的语义是：如a&gt;b为真，则把a赋予max，否则把b 赋予max。<br>三目操作符完全可以用if-else替代</p>
+<h2 id="9-逗号表达式"><a href="#9-逗号表达式" class="headerlink" title="9.逗号表达式"></a>9.逗号表达式</h2><p>逗号表达式，就是用逗号隔开的多个表达式。<br>逗号表达式，从左向右依次执行。整个表达式的结果是最后一个表达式<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> c = (a&gt;b,a=b+<span class="number">10</span>,a,b=a+<span class="number">1</span>);</span><br></pre></td></tr></table></figure></p>
+<p>运行结果 c = 13</p>
+<h2 id="10-下标引用、函数调用和结构成员"><a href="#10-下标引用、函数调用和结构成员" class="headerlink" title="10.下标引用、函数调用和结构成员"></a>10.下标引用、函数调用和结构成员</h2><h3 id="下表引用"><a href="#下表引用" class="headerlink" title="下表引用"></a>下表引用</h3><p>arr[10]中[]就是下标引用操作符，他有两个操作数 arr和10<br>①除了优先级之外，下表引用和间接访问完全相同。如下面两个表达式是等同的：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr[<span class="number">4</span>];</span><br><span class="line">*(arr+<span class="number">4</span>);</span><br></pre></td></tr></table></figure></p>
+<p>②4[arr]表达式是合法的<br>表达的意思与<em>(4+arr)也就是</em>(arr+4)是完全一样的。但是绝对不应该这么写，影响程序的可读性。<br>附：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[<span class="number">10</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">0</span>&#125;;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,arr[<span class="number">4</span>]);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,*(arr+<span class="number">4</span>));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,*(<span class="number">4</span>+arr));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,<span class="number">4</span>[arr]);</span><br><span class="line">	 </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span>    <span class="comment">//最少一个操作数 </span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"heh\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> x+y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    test();      <span class="comment">//()为函数调用操作符 ，test函数名为他的操作数 </span></span><br><span class="line">    Add(<span class="number">1</span>,<span class="number">2</span>);    <span class="comment">//三个函数操作数 </span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="访问一个结构的成员"><a href="#访问一个结构的成员" class="headerlink" title="访问一个结构的成员"></a>访问一个结构的成员</h3><p>结构体代码的基本结构<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Stu</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">	<span class="keyword">char</span> name[<span class="number">20</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">	<span class="keyword">float</span> score;	</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Stu</span> <span class="title">s</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Stu</span>* <span class="title">ps</span> = &amp;<span class="title">s</span>;</span>    <span class="comment">//结构体指针 </span></span><br><span class="line">	<span class="built_in">strcpy</span>(s.name,<span class="string">"zhang san "</span>);  <span class="comment">//把一个字符串拷贝到另一个空间 </span></span><br><span class="line">	s.age = <span class="number">20</span>;</span><br><span class="line">	s.score = <span class="number">60.0f</span>;</span><br><span class="line"><span class="comment">//	printf("%s %d %f",s.name,s.age,s.score);</span></span><br><span class="line"><span class="comment">//	printf("%s %d %f",(*ps).name, (*ps).age, (*ps).score);   //通过结构体指针输出，但这个过于繁琐，可以改为 -&gt;</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s %d %f"</span>,ps-&gt;name,ps-&gt;score,ps-&gt;age);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：<br>①在定义结构体时大括号后一定有一个分号；<br>②结构体是一个类型，没有占用空间，只是个模板（地图），等同于int，float等，他是通过s才创建空间的；<br>③从结构体到主函数的过程叫做实例化；<br>④获取结构体成员：通过结构体指针可以获取结构体成员，一般形式为：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(*ps).name</span><br></pre></td></tr></table></figure></p>
+<p>或者：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps-&gt;name</span><br></pre></td></tr></table></figure></p>
+<p>第一种写法中，.的优先级高于<em>，(</em>name)两边的括号不能少。<br>第二种写法中，-&gt;是一个新的运算符，习惯称它为“箭头”，有了它，可以通过结构体指针直接取得结构体成员；这也是-&gt;在C语言中的唯一用途。<br>上面的两种写法是等效的，我们通常采用后面的写法，这样更加直观。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/日常学习/" rel="tag"># 日常学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/06/04/if语句的规范化问题/" rel="next" title="if语句的规范化问题">
+                <i class="fa fa-chevron-left"></i> if语句的规范化问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/06/23/数组解析/" rel="prev" title="数组解析">
+                数组解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Qi</p>
+              <p class="site-description motion-element" itemprop="description">蜜汁希望</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-算数操作符"><span class="nav-number">1.1.</span> <span class="nav-text">1.算数操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#：对于除法来说两个数中有一个是浮点数，则执行的是浮点数除法，两个都是整数，则执行的是整数除法"><span class="nav-number">1.1.1.</span> <span class="nav-text">/：对于除法来说两个数中有一个是浮点数，则执行的是浮点数除法，两个都是整数，则执行的是整数除法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#：对于取余，符号后一定是整数，不能是浮点数，如：-3-0（错）"><span class="nav-number">1.1.2.</span> <span class="nav-text">%：对于取余，符号后一定是整数，不能是浮点数，如：%3.0（错）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-移位操作符"><span class="nav-number">1.2.</span> <span class="nav-text">2.移位操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-位操作符"><span class="nav-number">1.3.</span> <span class="nav-text">3.位操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按位与-amp-与：一个是零-则为零，两个为一，才为一"><span class="nav-number">1.3.1.</span> <span class="nav-text">按位与 &amp; :与：一个是零 则为零，两个为一，才为一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按位或-一个为1则为1，两个为0，才为0"><span class="nav-number">1.3.2.</span> <span class="nav-text">按位或 |:一个为1则为1，两个为0，才为0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按位异或-相同为0，相异为-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">按位异或 ^:相同为0，相异为 1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-赋值操作符"><span class="nav-number">1.4.</span> <span class="nav-text">4.赋值操作符(=)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复合赋值符"><span class="nav-number">1.4.1.</span> <span class="nav-text">复合赋值符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-单目操作符"><span class="nav-number">1.5.</span> <span class="nav-text">5.单目操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正值："><span class="nav-number">1.5.1.</span> <span class="nav-text">正值：+</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负值："><span class="nav-number">1.5.2.</span> <span class="nav-text">负值：-</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑反操作-！"><span class="nav-number">1.5.3.</span> <span class="nav-text">逻辑反操作 ！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取地址：-amp"><span class="nav-number">1.5.4.</span> <span class="nav-text">取地址： &amp;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#取变量地址"><span class="nav-number">1.5.4.1.</span> <span class="nav-text">取变量地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组取地址："><span class="nav-number">1.5.4.2.</span> <span class="nav-text">数组取地址：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数取地址"><span class="nav-number">1.5.4.3.</span> <span class="nav-text">函数取地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作数的类型长度（以字节为单位）：-sizeof"><span class="nav-number">1.5.5.</span> <span class="nav-text">操作数的类型长度（以字节为单位）： sizeof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对一个数的二进制数取反："><span class="nav-number">1.5.6.</span> <span class="nav-text">对一个数的二进制数取反：~</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前置–-后置–-：-–"><span class="nav-number">1.5.7.</span> <span class="nav-text">前置–  后置– ： –</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#间接访问操作符（解引用操作符）："><span class="nav-number">1.5.8.</span> <span class="nav-text">间接访问操作符（解引用操作符）： *</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强制类型转换：（类型）"><span class="nav-number">1.5.9.</span> <span class="nav-text">强制类型转换：（类型）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-关系操作符"><span class="nav-number">1.6.</span> <span class="nav-text">6.关系操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-逻辑操作符"><span class="nav-number">1.7.</span> <span class="nav-text">7.逻辑操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑与："><span class="nav-number">1.7.1.</span> <span class="nav-text">逻辑与：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑或："><span class="nav-number">1.7.2.</span> <span class="nav-text">逻辑或：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑运算符的短路问题"><span class="nav-number">1.7.3.</span> <span class="nav-text">逻辑运算符的短路问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-条件操作符（三目操作符）"><span class="nav-number">1.8.</span> <span class="nav-text">8.条件操作符（三目操作符）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-逗号表达式"><span class="nav-number">1.9.</span> <span class="nav-text">9.逗号表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-下标引用、函数调用和结构成员"><span class="nav-number">1.10.</span> <span class="nav-text">10.下标引用、函数调用和结构成员</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下表引用"><span class="nav-number">1.10.1.</span> <span class="nav-text">下表引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数调用"><span class="nav-number">1.10.2.</span> <span class="nav-text">函数调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问一个结构的成员"><span class="nav-number">1.10.3.</span> <span class="nav-text">访问一个结构的成员</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

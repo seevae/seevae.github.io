@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="日常学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言前一篇关于数据库的文章总结了所有的常用基本操作,此文将围绕雇员信息表(oracle 9i的经典测试表)以习题为主的讲解方式来总结一下MySQL的内置函数,复合查询,内外连接,最后将针对索引特性,事务管理,视图特性以及用户管理进行详细总结">
+<meta name="keywords" content="日常学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL数据库从入门到跑路(二)">
+<meta property="og:url" content="http://seevae.github.io/2019/01/03/MySQL数据库从入门到跑路-二/index.html">
+<meta property="og:site_name" content="Hero">
+<meta property="og:description" content="前言前一篇关于数据库的文章总结了所有的常用基本操作,此文将围绕雇员信息表(oracle 9i的经典测试表)以习题为主的讲解方式来总结一下MySQL的内置函数,复合查询,内外连接,最后将针对索引特性,事务管理,视图特性以及用户管理进行详细总结">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://seevae.github.io/img/205.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/206.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/207.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/208.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/209.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/210.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/211.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/212.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/213.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/214.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/217.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/215.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/216.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/218.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/219.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/220.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/221.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/222.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/223.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/224.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/225.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/226.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/227.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/228.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/229.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/230.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/231.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/232.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/233.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/234.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/235.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/236.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/237.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/238.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/239.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/240.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/241.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/242.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/243.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/244.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/245.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/246.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/247.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/248.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/249.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/250.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/251.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/252.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/253.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/254.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/255.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/256.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/257.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/258.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/259.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/260.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/261.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/262.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/263.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/264.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/265.JPG">
+<meta property="og:updated_time" content="2019-08-07T09:23:06.629Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL数据库从入门到跑路(二)">
+<meta name="twitter:description" content="前言前一篇关于数据库的文章总结了所有的常用基本操作,此文将围绕雇员信息表(oracle 9i的经典测试表)以习题为主的讲解方式来总结一下MySQL的内置函数,复合查询,内外连接,最后将针对索引特性,事务管理,视图特性以及用户管理进行详细总结">
+<meta name="twitter:image" content="http://seevae.github.io/img/205.JPG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://seevae.github.io/2019/01/03/MySQL数据库从入门到跑路-二/">
+
+
+
+
+
+  <title>MySQL数据库从入门到跑路(二) | Hero</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hero</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">十年一开花的忍者神龟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/blog/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://seevae.github.io/blog/2019/01/03/MySQL数据库从入门到跑路-二/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL数据库从入门到跑路(二)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/MySQL数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前一篇关于数据库的文章总结了所有的常用基本操作,此文将围绕雇员信息表(oracle 9i的经典测试表)以习题为主的讲解方式来总结一下MySQL的内置函数,复合查询,内外连接,最后将针对索引特性,事务管理,视图特性以及用户管理进行详细总结<br><a id="more"></a></p>
+<h1 id="雇员信息表"><a href="#雇员信息表" class="headerlink" title="雇员信息表"></a>雇员信息表</h1><p>雇员信息表(oracle 9i的经典测试表)总共分为三张分表EMP员工表,DEPT部门表,SALGRADE工资登记表<br>表具体内容如下图<br><img src="/img/205.JPG" alt><br>之后的很多内容都是围绕着这三张表展开学习的~</p>
+<h1 id="group-by子句的使用"><a href="#group-by子句的使用" class="headerlink" title="group by子句的使用"></a>group by子句的使用</h1><p>在select中使用group by子句可以对指定列进行分组查询</p>
+<h2 id="显示每个部门的平均工资和最高工资"><a href="#显示每个部门的平均工资和最高工资" class="headerlink" title="显示每个部门的平均工资和最高工资"></a>显示每个部门的平均工资和最高工资</h2><p>每个部门为分组查询的指定列,显示他们的平均工资和最高工资<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> deptno,<span class="keyword">avg</span>(sal),<span class="keyword">max</span>(sal) </span><br><span class="line"><span class="keyword">from</span> emp </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> deptno;</span><br></pre></td></tr></table></figure></p>
+<h2 id="显示每个部门每种岗位的平均工资和最低工资"><a href="#显示每个部门每种岗位的平均工资和最低工资" class="headerlink" title="显示每个部门每种岗位的平均工资和最低工资"></a>显示每个部门每种岗位的平均工资和最低工资</h2><p>每个部门的每个岗位作为分组查询的指定列<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> deptno,job,<span class="keyword">avg</span>(sal),<span class="keyword">min</span>(sal) </span><br><span class="line"><span class="keyword">from</span> emp </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> deptno,job;</span><br></pre></td></tr></table></figure></p>
+<h2 id="显示平均工资低于2000的部门和他的平均工资"><a href="#显示平均工资低于2000的部门和他的平均工资" class="headerlink" title="显示平均工资低于2000的部门和他的平均工资"></a>显示平均工资低于2000的部门和他的平均工资</h2><p>在这里多出来了一个条件,平均工资低于2000,在此之前我们遇到需要判定条件的情况都是使用where,在group by子句中有专用来判定条件的关键词having,用法和where基本一样<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> deptno,<span class="keyword">avg</span>(sal) <span class="keyword">as</span> myavg </span><br><span class="line"><span class="keyword">from</span> emp </span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> deptno </span><br><span class="line"><span class="keyword">having</span> myavg&lt;<span class="number">2000</span>;</span><br></pre></td></tr></table></figure></p>
+<h1 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h1><p>MySQL像Java一样,也为我们提供了很多的方法,方便我们的查询工作</p>
+<h2 id="日期函数"><a href="#日期函数" class="headerlink" title="日期函数"></a>日期函数</h2><h3 id="当前日期-current-date"><a href="#当前日期-current-date" class="headerlink" title="当前日期:current_date()"></a>当前日期:current_date()</h3><p>获得年月日<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">current_date</span>();</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/206.JPG" alt></p>
+<h3 id="当前时间-current-time"><a href="#当前时间-current-time" class="headerlink" title="当前时间:current_time()"></a>当前时间:current_time()</h3><p>获得时分秒<br><img src="/img/207.JPG" alt><br>注意:当前日期指得是当前的日子,当前时间指的是此时的时间</p>
+<h3 id="当前时间戳-current-timestamp"><a href="#当前时间戳-current-timestamp" class="headerlink" title="当前时间戳:current_timestamp"></a>当前时间戳:current_timestamp</h3><p>获得时间戳<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">current_timestamp</span>();</span><br></pre></td></tr></table></figure></p>
+<h3 id="返回datetime参数的日期部分-date-datetime"><a href="#返回datetime参数的日期部分-date-datetime" class="headerlink" title="返回datetime参数的日期部分:date(datetime)"></a>返回datetime参数的日期部分:date(datetime)</h3><p>假设我们有如下的表:<br><img src="/img/208.JPG" alt><br>使用如下SQL语句<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ProductName, <span class="built_in">DATE</span>(OrderDate) <span class="keyword">AS</span> OrderDate</span><br><span class="line"><span class="keyword">FROM</span> Orders</span><br><span class="line"><span class="keyword">WHERE</span> OrderId=<span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
+<p>结果:<br><img src="/img/209.JPG" alt></p>
+<h3 id="在date中添加时期或时间-date-add-date-interval-d-value-type"><a href="#在date中添加时期或时间-date-add-date-interval-d-value-type" class="headerlink" title="在date中添加时期或时间:date_add(date,interval d_value_type)"></a>在date中添加时期或时间:date_add(date,interval d_value_type)</h3><p>interval 后的数值单位可以是i:year,minute,second,day<br>在日期的基础上加日期<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">date_add</span>(<span class="string">'2018 12-25'</span>,<span class="built_in">interval</span> <span class="number">10</span> <span class="keyword">day</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/210.JPG" alt></p>
+<h3 id="在date中减去日期或时间-date-sub-date-interval-d-value-type"><a href="#在date中减去日期或时间-date-sub-date-interval-d-value-type" class="headerlink" title="在date中减去日期或时间:date_sub(date,interval d_value_type)"></a>在date中减去日期或时间:date_sub(date,interval d_value_type)</h3><p>在日期的基础上减去时间<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">date_sub</span>(<span class="string">'2019-01-04'</span>,<span class="built_in">interval</span> <span class="number">10</span> <span class="keyword">day</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="两个日期的差-单位是天-detediff-datel-date2"><a href="#两个日期的差-单位是天-detediff-datel-date2" class="headerlink" title="两个日期的差,单位是天:detediff(datel,date2)"></a>两个日期的差,单位是天:detediff(datel,date2)</h3><p>计算两个日期之间相差多少天<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">datediff</span>(<span class="string">'2019-01-04'</span>,<span class="string">'2018-12-25'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>要注意这里是第一个时间减去第二个时间,如果第一个时间小于第二个时间是会为负数的</p>
+<h3 id="当前日期时间-now"><a href="#当前日期时间-now" class="headerlink" title="当前日期时间:now()"></a>当前日期时间:now()</h3><p><img src="/img/211.JPG" alt><br>返回结果和时间戳的一样</p>
+<h3 id="简单案例一-创建一个生日表"><a href="#简单案例一-创建一个生日表" class="headerlink" title="简单案例一:创建一个生日表"></a>简单案例一:创建一个生日表</h3><p>step1:创建一张表记录生日<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> bir(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">	birthday <span class="built_in">date</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>step2:以当期日期作为生日插入表中<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> bir(birthday) <span class="keyword">values</span> (<span class="keyword">current_date</span>());</span><br></pre></td></tr></table></figure></p>
+<p>step3:查看<br><img src="/img/212.JPG" alt></p>
+<h3 id="简单案例二-创建一个留言板"><a href="#简单案例二-创建一个留言板" class="headerlink" title="简单案例二:创建一个留言板"></a>简单案例二:创建一个留言板</h3><p>step1:创建一个留言板<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> msg(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">	<span class="keyword">content</span> <span class="built_in">varchar</span>(<span class="number">30</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">	sendtime datetime</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>step2:插入数据<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> msg (<span class="keyword">content</span>,sendtime) <span class="keyword">values</span>(<span class="string">'第一条留言'</span>,<span class="keyword">now</span>()),(<span class="string">'第二条留言'</span>,<span class="keyword">now</span>());</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> msg (<span class="keyword">content</span>,sendtime) <span class="keyword">values</span>(<span class="string">'第三条留言'</span>,<span class="keyword">now</span>());</span><br></pre></td></tr></table></figure></p>
+<p>step3:查看<br><img src="/img/213.JPG" alt></p>
+<h4 id="显示所有留言信息-发布时间只显示日期-不显示时间"><a href="#显示所有留言信息-发布时间只显示日期-不显示时间" class="headerlink" title="显示所有留言信息,发布时间只显示日期,不显示时间"></a>显示所有留言信息,发布时间只显示日期,不显示时间</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">content</span>,<span class="built_in">date</span>(sendtime) <span class="keyword">from</span> msg;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/214.JPG" alt></p>
+<h4 id="查询在2分钟内发布的帖子"><a href="#查询在2分钟内发布的帖子" class="headerlink" title="查询在2分钟内发布的帖子"></a>查询在2分钟内发布的帖子</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> msg <span class="keyword">where</span> <span class="keyword">date_add</span>(sendtime,<span class="built_in">interval</span> <span class="number">2</span> <span class="keyword">minute</span>)&gt;<span class="keyword">now</span>();</span><br></pre></td></tr></table></figure>
+<p>在两分钟内发布的消息则要求发布时间加上两分钟大于我们当前的时间</p>
+<h2 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h2><p><img src="/img/217.JPG" alt></p>
+<h3 id="charset-返回字符串的字符集"><a href="#charset-返回字符串的字符集" class="headerlink" title="charset(返回字符串的字符集)"></a>charset(返回字符串的字符集)</h3><p>获取emp表的ename列的字符集<br><img src="/img/215.JPG" alt></p>
+<h3 id="concat-连接字符串"><a href="#concat-连接字符串" class="headerlink" title="concat(连接字符串)"></a>concat(连接字符串)</h3><p>要求显示student表中的信息,显示格式为:”xxx的语文是xxx分,数学xxx分”<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">concat</span>(<span class="keyword">name</span>,<span class="string">'的语文是'</span>,chinese,<span class="string">'分'</span>,<span class="string">'数学是'</span>,math,<span class="string">'分'</span>) <span class="keyword">as</span> <span class="string">'分数'</span> <span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure></p>
+<h3 id="length-string"><a href="#length-string" class="headerlink" title="length(string)"></a>length(string)</h3><p>求学生表中学生姓名占用的字节数<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">length</span>(<span class="keyword">name</span>),<span class="keyword">name</span> <span class="keyword">from</span> student;</span><br></pre></td></tr></table></figure></p>
+<h3 id="replace-字符串替换"><a href="#replace-字符串替换" class="headerlink" title="replace(字符串替换)"></a>replace(字符串替换)</h3><p>将emp表中所有名字中有S的替换成’上海’<br>select ename,replace(ename,’S’,’上海’) from emp;</p>
+<h3 id="substring-截取字符串"><a href="#substring-截取字符串" class="headerlink" title="substring(截取字符串)"></a>substring(截取字符串)</h3><p>截取emp表中ename字段的第二个到第三个字符<br><img src="/img/216.JPG" alt></p>
+<h3 id="lcase-转换成小写-ucase-转换成大写"><a href="#lcase-转换成小写-ucase-转换成大写" class="headerlink" title="lcase(转换成小写)/ucase(转换成大写)"></a>lcase(转换成小写)/ucase(转换成大写)</h3><p>以首字母小写的方式显示所有员工姓名<br>思路:将人名的第一个字母摘出来变为小写并和从第二个字母处开始的字符串进行连接<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">concat</span>(<span class="keyword">lcase</span>(<span class="keyword">substring</span>(ename,<span class="number">1</span>,<span class="number">1</span>)),<span class="keyword">substring</span>(ename,<span class="number">2</span>)) <span class="keyword">from</span> emp;</span><br></pre></td></tr></table></figure></p>
+<h2 id="数学函数"><a href="#数学函数" class="headerlink" title="数学函数"></a>数学函数</h2><p><img src="/img/218.JPG" alt></p>
+<h3 id="绝对值"><a href="#绝对值" class="headerlink" title="绝对值"></a>绝对值</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">abs</span>(<span class="number">-21</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="向上取整"><a href="#向上取整" class="headerlink" title="向上取整"></a>向上取整</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">ceiling</span>(<span class="number">23.04</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="向下取整"><a href="#向下取整" class="headerlink" title="向下取整"></a>向下取整</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">floor</span>(<span class="number">23.7</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="保留两位小数-小数四舍五入"><a href="#保留两位小数-小数四舍五入" class="headerlink" title="保留两位小数(小数四舍五入)"></a>保留两位小数(小数四舍五入)</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 两个参数,第一个参数是原数,第二个参数是要保留的位数</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">format</span>(<span class="number">12.34576</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="产生随机数"><a href="#产生随机数" class="headerlink" title="产生随机数"></a>产生随机数</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">rand</span>();</span><br></pre></td></tr></table></figure>
+<p>rand()函数只能生成0-1之间的随机小数,如果想要生成0到10,0到100之间的就要rand()*相应的值<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 生成0-100之间的小数</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">format</span>(<span class="keyword">rand</span>()*<span class="number">100</span>,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 生成0-100之间的整数(采用四舍五入的规则)</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">format</span>(<span class="keyword">rand</span>()*<span class="number">100</span>,<span class="number">2</span>);</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">floor</span>(<span class="keyword">rand</span>()*<span class="number">100</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a>其他函数</h2><h3 id="user-查询当前用户"><a href="#user-查询当前用户" class="headerlink" title="user()查询当前用户"></a>user()查询当前用户</h3><p>查询结果是指用户从哪里来的<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">user</span>();</span><br></pre></td></tr></table></figure></p>
+<h3 id="md5-str-对一个字符串进行md5摘要-摘要后得到一个32位字符串"><a href="#md5-str-对一个字符串进行md5摘要-摘要后得到一个32位字符串" class="headerlink" title="md5(str)对一个字符串进行md5摘要,摘要后得到一个32位字符串"></a>md5(str)对一个字符串进行md5摘要,摘要后得到一个32位字符串</h3><p>摘要实际上就是一种该数据库的加密手段<br><img src="/img/219.JPG" alt></p>
+<h3 id="显示当前正在使用的数据库"><a href="#显示当前正在使用的数据库" class="headerlink" title="显示当前正在使用的数据库"></a>显示当前正在使用的数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">database</span>();</span><br></pre></td></tr></table></figure>
+<h3 id="password-函数-MySQL数据库使用该函数对用户加密"><a href="#password-函数-MySQL数据库使用该函数对用户加密" class="headerlink" title="password()函数,MySQL数据库使用该函数对用户加密"></a>password()函数,MySQL数据库使用该函数对用户加密</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> passwod(<span class="string">'root'</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="/img/220.JPG" alt></p>
+<h3 id="ifnull-val1-val2-如果val1为null-返回val2-否则返回val1的值"><a href="#ifnull-val1-val2-如果val1为null-返回val2-否则返回val1的值" class="headerlink" title="ifnull(val1,val2) 如果val1为null,返回val2,否则返回val1的值"></a>ifnull(val1,val2) 如果val1为null,返回val2,否则返回val1的值</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">ifnull</span>(<span class="string">'abc'</span>,<span class="string">'265'</span>);</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">ifnull</span>(<span class="literal">null</span>,<span class="string">'22'</span>);</span><br></pre></td></tr></table></figure>
+<h1 id="复合查询"><a href="#复合查询" class="headerlink" title="复合查询"></a>复合查询</h1><h2 id="多表查询"><a href="#多表查询" class="headerlink" title="多表查询"></a>多表查询</h2><p>此节多以习题的形式来演示<br>在实际的应用开发中数据往往来自不同的表,所以需要多张表同时进行查询.我们使用一开始所导入的三张表进行下面的操作</p>
+<h3 id="显示雇员名-雇员工资以及所在部门的名字"><a href="#显示雇员名-雇员工资以及所在部门的名字" class="headerlink" title="显示雇员名,雇员工资以及所在部门的名字"></a>显示雇员名,雇员工资以及所在部门的名字</h3><p>按照题干要求我们写出如下的语句<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询雇员名,雇员工资及部门编号从下列两个表中</span></span><br><span class="line"><span class="keyword">select</span> emp.ename,emp.sal,emp.deptno</span><br><span class="line"><span class="keyword">from</span> emp,dept;</span><br></pre></td></tr></table></figure></p>
+<p>此时结果:<br><img src="/img/221.JPG" alt><br>我们可以看到每一个人的信息都显示了四次,这可不是我们需要的结果,我们想要的只是每一个人的信息依次显示一次,为什么会造成这样的结果呢?<br>这是因为如上的查询方式没有过滤方式,从两个表中查询的数据有重叠(两个表中都有deptno),于是数据库在进行查询操作时将两个表中的内容进行了集合运算,得到了一个笛卡尔积<br><img src="/img/222.JPG" alt><br>为了解决如上问题,我们需要添加一个过滤条件,让emp表中的deptno=dept表中的deptno字段的记录<br>更改SQL语句,如下:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> emp.ename,emp.sal,emp.deptno</span><br><span class="line"><span class="keyword">from</span> emp,dept</span><br><span class="line"><span class="keyword">where</span> emp.deptno = dept.deptno</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/223.JPG" alt></p>
+<h3 id="显示部门号为10的部门名-员工名和工资"><a href="#显示部门号为10的部门名-员工名和工资" class="headerlink" title="显示部门号为10的部门名,员工名和工资"></a>显示部门号为10的部门名,员工名和工资</h3><p><img src="/img/224.JPG" alt></p>
+<h3 id="显示各个员工的姓名-工资-及工资级别"><a href="#显示各个员工的姓名-工资-及工资级别" class="headerlink" title="显示各个员工的姓名,工资,及工资级别"></a>显示各个员工的姓名,工资,及工资级别</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> emp.ename,emp.sal,salgrade.grade</span><br><span class="line"><span class="keyword">from</span> emp,salgrade</span><br><span class="line"><span class="keyword">where</span> emp.sal <span class="keyword">between</span> losal <span class="keyword">and</span> hisal;</span><br></pre></td></tr></table></figure>
+<h2 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h2><p>自连接是指在同一张表连接查询,即要查询的信息都在一张表中,且各种信息之间具有关联<br>案例:显示员工FORD的上级领导的编号和姓名<br>使用子查询的方式<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> empno,ename <span class="keyword">from</span> emp <span class="keyword">where</span> emp.empno = (<span class="keyword">select</span> mgr <span class="keyword">from</span> emp <span class="keyword">where</span> ename=<span class="string">'FORD'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>使用多表查询(自查询)<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 使用到表的别名(这个别名是自己起的)</span></span><br><span class="line"><span class="keyword">select</span> leader.empno,leader.ename</span><br><span class="line"><span class="keyword">from</span> emp leader,emp worker</span><br><span class="line"><span class="keyword">where</span> leader.empno = worker.mgr</span><br><span class="line"><span class="keyword">and</span> worker.ename=<span class="string">'FORD'</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><p>子查询是指嵌套在其他sql语句中的select语句,也叫嵌套查询</p>
+<h3 id="单行子查询"><a href="#单行子查询" class="headerlink" title="单行子查询"></a>单行子查询</h3><p>返回一行记录的子查询</p>
+<h4 id="显示SMITH同一部门的员工"><a href="#显示SMITH同一部门的员工" class="headerlink" title="显示SMITH同一部门的员工"></a>显示SMITH同一部门的员工</h4><p><img src="/img/225.JPG" alt></p>
+<h3 id="多行自查询"><a href="#多行自查询" class="headerlink" title="多行自查询"></a>多行自查询</h3><p>返回多行记录的子查询</p>
+<h4 id="例题1-in关键字的使用"><a href="#例题1-in关键字的使用" class="headerlink" title="例题1:in关键字的使用"></a>例题1:in关键字的使用</h4><p>查询和10号部门的工作相同的雇员的名字，岗位，工资，部门号，但是不包含10自己的<br>首先我们需要知道的是10号部门的工作都有哪些(子查询)<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 在这里进行去重操作,因为一个部门中可能会有多个人进行同样的工作</span></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> job <span class="keyword">from</span> emp <span class="keyword">where</span> deptno=<span class="number">10</span>;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/226.JPG" alt><br>如上图,10号部门所承担所有工作种类如图</p>
+<p>题干中要求查询和10号部门的工作相同的雇员信息,我们的第一步查找返回的结果有三个(体现了返回多行记录),意味着我们接下来要找出其他部门也从事这三个工作中的任意一个工作的雇员</p>
+<p>这时候就要用上子查询中多行子查询经常使用的关键字:in<br>in的作用:使用in的时候，会把子句中的查询作为结果缓存下来，然后在主查询中对每个记录分别进行查询,in相当于多个or的连接体<br>要注意的是in只能返回一个字段<br>在此题中主查询会依次查询in条件中的每一种情况(即三种工作)</p>
+<p>接下来进行主查询<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ename,job,sal,deptno</span><br><span class="line"><span class="keyword">from</span> emp</span><br><span class="line"><span class="keyword">where</span> job <span class="keyword">in</span> (<span class="keyword">select</span> <span class="keyword">distinct</span> job <span class="keyword">from</span> emp <span class="keyword">where</span> deptno=<span class="number">10</span>) <span class="keyword">and</span> deptno != <span class="number">10</span>;</span><br></pre></td></tr></table></figure></p>
+<p>最终结果:<br><img src="/img/227.JPG" alt></p>
+<h4 id="例题2-all关键字的使用"><a href="#例题2-all关键字的使用" class="headerlink" title="例题2:all关键字的使用"></a>例题2:all关键字的使用</h4><p>显示工资比部门30的所有员工的工资高的员工的姓名,工资和部门号<br>第一步:根据题意我们首先需要知道部门30的所有员工的工资情况<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sal <span class="keyword">from</span> emp <span class="keyword">where</span> deptno=<span class="number">30</span>;</span><br></pre></td></tr></table></figure></p>
+<p>查询结果:<br><img src="/img/228.JPG" alt><br>第二步:将第一步的查询结果作为条件使用关键字all进行主查询<br>关键字all:当查询关键字设定为ALL时，即所有的条目均要同时满足设定条件<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 主查询</span></span><br><span class="line"><span class="keyword">select</span> ename,sal,deptno</span><br><span class="line"><span class="keyword">from</span> emp</span><br><span class="line"><span class="keyword">where</span> sal&gt; <span class="keyword">all</span>(<span class="keyword">select</span> sal <span class="keyword">from</span> emp <span class="keyword">where</span> deptno=<span class="number">30</span>);</span><br></pre></td></tr></table></figure></p>
+<p>最终结果:<br><img src="/img/229.JPG" alt></p>
+<h4 id="例三-any关键字的使用"><a href="#例三-any关键字的使用" class="headerlink" title="例三:any关键字的使用"></a>例三:any关键字的使用</h4><p>显示工资比部门30中任意员工的工资高的员工的姓名,工资和部门号<br>此题和上一题的区别在于例二中查询的目标对象是要比30部门中的任何一个人的工资都高,而此题是要求目标对象的工资只要高于30部门中的任何一个就可以了<br>第一步:依然是查出来30部门的所有人的工资情况:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sal <span class="keyword">from</span> emp <span class="keyword">where</span> deptno=<span class="number">30</span>;</span><br></pre></td></tr></table></figure></p>
+<p>第二步:以第一步做条件,使用关键字any做主查询<br>any关键字:顾名思义,任意,只要有一个条件满足,则满足<br>在此题中,第一步查询出了部门30的所有人的工资,使用any关键字只要满足大于其中一个人的工资便成立<br>主查询:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ename,sal,deptno </span><br><span class="line"><span class="keyword">from</span> emp </span><br><span class="line"><span class="keyword">where</span> sal&gt;<span class="keyword">any</span>(<span class="keyword">select</span> sal <span class="keyword">from</span> emp <span class="keyword">where</span> deptno=<span class="number">30</span>);</span><br></pre></td></tr></table></figure></p>
+<p>查询结果:<br><img src="/img/230.JPG" alt></p>
+<h3 id="多列子查询"><a href="#多列子查询" class="headerlink" title="多列子查询"></a>多列子查询</h3><p>单行子查询是指子查询只返回单列,单行数据;多行子查询是指返回单列多行数据,都是针对单列而言的,而多列子查询则是指查询返回多个列数据的子查询语句</p>
+<h4 id="例-查询和SMITH的部门和岗位完全相同的所有雇员-不含SMITH本人"><a href="#例-查询和SMITH的部门和岗位完全相同的所有雇员-不含SMITH本人" class="headerlink" title="例:查询和SMITH的部门和岗位完全相同的所有雇员,不含SMITH本人"></a>例:查询和SMITH的部门和岗位完全相同的所有雇员,不含SMITH本人</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ename </span><br><span class="line"><span class="keyword">from</span> emp </span><br><span class="line"><span class="keyword">where</span> (deptno,job)=(<span class="keyword">select</span> deptno,job <span class="keyword">from</span> emp <span class="keyword">where</span> ename=<span class="string">'SMITH'</span>)</span><br><span class="line"><span class="keyword">and</span> ename &lt;&gt; <span class="string">'SMITH'</span>;</span><br></pre></td></tr></table></figure>
+<p>查询结果:<br><img src="/img/231.JPG" alt></p>
+<h3 id="在from子句中使用子查询"><a href="#在from子句中使用子查询" class="headerlink" title="在from子句中使用子查询"></a>在from子句中使用子查询</h3><p>from型子查询:把内层的查询结果当成临时表,供外层sql再次查询.查询结果可以当成表看待.临时表要使用一个别名</p>
+<h4 id="例一-显示高于自己所在部门平均工资的员工的姓名-部门-工资-平均工资"><a href="#例一-显示高于自己所在部门平均工资的员工的姓名-部门-工资-平均工资" class="headerlink" title="例一:显示高于自己所在部门平均工资的员工的姓名,部门,工资,平均工资"></a>例一:显示高于自己所在部门平均工资的员工的姓名,部门,工资,平均工资</h4><p>step1:查询各个部门的平均工资,并将列重命名构成一张临时表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">avg</span>(sal) <span class="keyword">as</span> asal,deptno <span class="keyword">as</span> dt <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> deptno;</span><br></pre></td></tr></table></figure></p>
+<p>临时表如下:<br><img src="/img/232.JPG" alt><br>step2:在from子句中使用子查询<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ename,deptno,sal,<span class="keyword">format</span>(asal,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">from</span> emp,(<span class="keyword">select</span> <span class="keyword">avg</span>(sal) <span class="keyword">as</span> asal,deptno <span class="keyword">as</span> dt <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> deptno) <span class="keyword">as</span> tmp</span><br><span class="line"><span class="keyword">where</span> emp.sal&gt;tmp.asal <span class="keyword">and</span> emp.deptno=tmp.dt;</span><br></pre></td></tr></table></figure></p>
+<p>查询结果加分析:<br><img src="/img/233.JPG" alt></p>
+<h4 id="例二-查找每个部门工资最高的人的姓名-工资-部门-最高工资"><a href="#例二-查找每个部门工资最高的人的姓名-工资-部门-最高工资" class="headerlink" title="例二:查找每个部门工资最高的人的姓名,工资,部门,最高工资"></a>例二:查找每个部门工资最高的人的姓名,工资,部门,最高工资</h4><p>思路与例一相同<br><img src="/img/234.JPG" alt></p>
+<h4 id="例三-显示每个部门的信息-部门名-编号-地址-和人员数量"><a href="#例三-显示每个部门的信息-部门名-编号-地址-和人员数量" class="headerlink" title="例三:显示每个部门的信息(部门名,编号,地址)和人员数量"></a>例三:显示每个部门的信息(部门名,编号,地址)和人员数量</h4><p>方法一:使用多表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> dept.dname,dept.deptno,dept.loc,<span class="keyword">count</span>(*) <span class="keyword">as</span> <span class="string">'部门人数'</span></span><br><span class="line"><span class="keyword">from</span> emp,dept </span><br><span class="line"><span class="keyword">where</span> emp.deptno=dept.deptno</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> dept.deptno;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/235.JPG" alt><br>方法二:使用子查询<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> dept.dname,dept.deptno,dept.loc,tmp.mycnt</span><br><span class="line"><span class="keyword">from</span> dept,(<span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">as</span> mycnt,deptno <span class="keyword">from</span> emp <span class="keyword">group</span> <span class="keyword">by</span> deptno) <span class="keyword">as</span> tmp</span><br><span class="line"><span class="keyword">where</span> dept.deptno=tmp.deptno;</span><br></pre></td></tr></table></figure></p>
+<p>两种方法,结果都相同</p>
+<h3 id="合并查询"><a href="#合并查询" class="headerlink" title="合并查询"></a>合并查询</h3><p>为了合并多个select的执行结果,可以使用集合操作符union,union all</p>
+<h4 id="union"><a href="#union" class="headerlink" title="union"></a>union</h4><p>该操作符用于取得两个结果集的并集.当使用该操作符时,会自动去掉结果集中的重复行<br>案例:将工资大于2500或职位是MANAGER的人找出来<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ename,sal,job <span class="keyword">from</span> emp <span class="keyword">where</span> sal&gt;<span class="number">2500</span> <span class="keyword">union</span></span><br><span class="line"><span class="keyword">select</span> ename,sal,job <span class="keyword">from</span> emp <span class="keyword">where</span> job=<span class="string">'MANAGER'</span>; <span class="comment">-- 去掉了重复记录</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/236.JPG" alt></p>
+<h4 id="union-all"><a href="#union-all" class="headerlink" title="union all"></a>union all</h4><p>该操作符用于取得两个结果集的并集.当使用该操作符时,不会去掉结果集中的重复行<br><img src="/img/237.JPG" alt></p>
+<h1 id="表的内外连接"><a href="#表的内外连接" class="headerlink" title="表的内外连接"></a>表的内外连接</h1><p>表的连接分为内连和外连</p>
+<h2 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h2><p>内连接实际上就是利用where子句对两种表形成的笛卡儿积进行筛选,我们前面学习的查询都是内连接,也是在开发过程中使用的最多的连接查询<br>标准格式:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段 <span class="keyword">from</span> 表<span class="number">1</span> <span class="keyword">inner</span> <span class="keyword">join</span> 表<span class="number">2</span> 连接条件 <span class="keyword">and</span> 其他条件;</span><br></pre></td></tr></table></figure></p>
+<p>例;显示SMITH的名字和部门名称<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--之前的写法</span></span><br><span class="line"><span class="keyword">select</span> ename,dname </span><br><span class="line"><span class="keyword">from</span> emp,dept </span><br><span class="line"><span class="keyword">where</span> ename=<span class="string">'SMITH'</span> <span class="keyword">and</span> emp.deptno=dept.deptno;</span><br><span class="line"></span><br><span class="line"><span class="comment">--用标准的内连接写法</span></span><br><span class="line"><span class="keyword">select</span> ename,dname </span><br><span class="line"><span class="keyword">from</span> emp <span class="keyword">inner</span> <span class="keyword">join</span> dept </span><br><span class="line"><span class="keyword">on</span> emp.deptno=dept.deptno <span class="keyword">and</span> ename=<span class="string">'SMITH'</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h2><p>外连接分为左外连接和右外连接</p>
+<h3 id="左外连接"><a href="#左外连接" class="headerlink" title="左外连接"></a>左外连接</h3><p>如果联合查询,左侧的表完全显示我们就说是左外连接<br>语法:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 字段名 <span class="keyword">from</span> 表名<span class="number">1</span> <span class="keyword">left</span> <span class="keyword">join</span> 表名<span class="number">2</span> <span class="keyword">on</span> 连接条件</span><br></pre></td></tr></table></figure></p>
+<p>实例:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 建两张表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> stuu (<span class="keyword">id</span> <span class="built_in">int</span>, <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">30</span>)); <span class="comment">-- 学生表</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> stuu <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'jack'</span>),(<span class="number">2</span>,<span class="string">'tom'</span>),(<span class="number">3</span>,<span class="string">'kity'</span>),(<span class="number">4</span>,<span class="string">'nono'</span>); </span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> exam (<span class="keyword">id</span> <span class="built_in">int</span>, grade <span class="built_in">int</span>); <span class="comment">-- 成绩表</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> exam <span class="keyword">values</span>(<span class="number">1</span>, <span class="number">56</span>),(<span class="number">2</span>,<span class="number">76</span>),(<span class="number">11</span>, <span class="number">8</span>);</span><br></pre></td></tr></table></figure></p>
+<p>查询所有学生的成绩,如果这个学生没有成绩,也要将学生的个人信息显示出来<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 当左边表和右边表没有匹配时,也会显示左边表的数据</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> stuu <span class="keyword">left</span> <span class="keyword">join</span> exam <span class="keyword">on</span> stu.id=exam.id;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/238.JPG" alt></p>
+<h3 id="右外连接"><a href="#右外连接" class="headerlink" title="右外连接"></a>右外连接</h3><p>和左外连接相反,如果联合查询,右侧的表完全显示<br>例:对stuu表和exam表联合查询,把所有的成绩都显示出来,即使这个成绩没有学生与他对应,也要显示出来<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> stuu <span class="keyword">right</span> <span class="keyword">join</span> exam <span class="keyword">on</span> stu.id=exam.id;</span><br></pre></td></tr></table></figure></p>
+<h1 id="索引特性"><a href="#索引特性" class="headerlink" title="索引特性"></a>索引特性</h1><p>索引:用来提高数据库的性能,不用加内存,不用改程序,不用调sql,只要执行正确的create index,查询速度就可能成百上千倍的提升.但是,凡事有利必有弊,查询速度的提高是以插入,更新,删除的速度为代价的,这些写操作,增加了大量的io.所以他的价值,在于提高一个海量数据的检索速度<br>常见索引有如下几种:<br>主键索引<br>唯一索引<br>普通索引<br>全文索引</p>
+<h2 id="索引具体用途举例"><a href="#索引具体用途举例" class="headerlink" title="索引具体用途举例:"></a>索引具体用途举例:</h2><p>假设我们此时有一张8000000条记录的表,此时我们想要查找表中员工编号为998877的员工<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> empno=<span class="number">998877</span>;</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到这一条查询耗时了4.93秒,可能会有人认为4.93秒不算太慢,可是这仅仅是在本机一个人来操作,如果放在公网中,加入同时有10000个人并发查询,那么很有可能数据库就崩溃导致死机了(在实际的开发中,我们认为一个查询语句的速度要保证在0.1秒之内)<br>如何解决这样缓慢的查询呢?<br>那便是创建索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 给员工号创建索引</span></span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> emp <span class="keyword">add</span> <span class="keyword">index</span>(empno);</span><br></pre></td></tr></table></figure></p>
+<p>然后重复上面的查询过程,看看这时候的查询耗时多少<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> empno=<span class="number">998877</span>;</span><br></pre></td></tr></table></figure></p>
+<p>此时查询的速率已经明显提升了不止一点,如果是在一个大数据的环境下,那可真是大效率的优化</p>
+<h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><p>这里不对原理进行详细的说明,想要了解可以看看这个大神的文章:<a href="https://zhuanlan.zhihu.com/p/23624390" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/23624390</a><br>只说明一点,当没有创建索引的时候,数据在磁盘存储器上是无序放置的,一行一行的排列的很整齐,跟我们认知中的表基本是一样的,这样在查询时就只能一条一条数据的进行遍历,O(n)的时间复杂度使得查询十分的缓慢.<br>如果给表加上了索引,那么表在磁盘上的存储结构就由整齐排列的结构转变成了树状结构,也就是平衡树的结构,也就是说,整个表就变成了一个索引,这时查找一个数据的时间复杂度就变为了O(logN),于是查找的效率便得到的惊人的提升<br><img src="/img/239.JPG" alt><br>索引的一些说明:<br>1.占用磁盘空间<br>2.当添加一条记录,除了添加到表中,还要维护二叉树,速度有影响<br>3.当我们添加一个索引,不能够解决所有查询问题,需要分别给字段建立索引<br>4.索引是以空间换时间</p>
+<h2 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h2><h3 id="主键索引-聚集索引"><a href="#主键索引-聚集索引" class="headerlink" title="主键索引(聚集索引)"></a>主键索引(聚集索引)</h3><p>创建主键索引的三种方式<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 在创建表的时候直接在字段名后指定primary key</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> user1(<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>,<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">30</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 在创建表的最后,指定某列或某几列为主键索引</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> user2(<span class="keyword">id</span> <span class="built_in">int</span>,<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">30</span>),primary <span class="keyword">key</span>(<span class="keyword">id</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">--创建表之后在添加主键</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> user3(<span class="keyword">id</span> <span class="built_in">int</span>,<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">30</span>));</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> user3 <span class="keyword">add</span> primary <span class="keyword">key</span>(<span class="keyword">id</span>);</span><br></pre></td></tr></table></figure></p>
+<p>主键索引的特点:<br>一个表中,最多只能有一个主键索引<br>主键索引的效率很高<br>创建主键索引的列,他的值不能为null,且不能重复<br>主键索引的列基本上是int</p>
+<h3 id="唯一索引-非聚集索引"><a href="#唯一索引-非聚集索引" class="headerlink" title="唯一索引(非聚集索引)"></a>唯一索引(非聚集索引)</h3><p>唯一索引的创建和主键索引相似<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 表定义时在某列后直接指定unique唯一属性</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> user4(<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>,<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">30</span>) <span class="keyword">unique</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建表,在表的后面指定某列或几列为unique</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> user5(<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>,<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">30</span>),<span class="keyword">unique</span>(<span class="keyword">name</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建表后子指定唯一索引</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> user6(<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>,<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">30</span>));</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> user6 <span class="keyword">add</span> <span class="keyword">unique</span>(<span class="keyword">name</span>);</span><br></pre></td></tr></table></figure></p>
+<p>唯一索引的特点:<br>1.一个表中可以有多个唯一索引<br>2.查询效率高<br>3.如果在某一列建立唯一索引,必须保证这列不能有重复数据<br>4.如果一个唯一索引上指定not null,等价于主键索引</p>
+<h3 id="普通索引的创建"><a href="#普通索引的创建" class="headerlink" title="普通索引的创建"></a>普通索引的创建</h3><p>三种创建普通索引的方式<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 在表的定义最后,指定某列为索引</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> user8(<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>,<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">30</span>),email <span class="built_in">varchar</span>(<span class="number">30</span>),<span class="keyword">index</span>(<span class="keyword">name</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建表之后指定某列为普通索引</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> user9(<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>,<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">30</span>),email <span class="built_in">varchar</span>(<span class="number">30</span>));</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> user9 <span class="keyword">add</span> <span class="keyword">index</span>(<span class="keyword">name</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建一个索引名为 idx_name的索引</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> user9(<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>,<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">30</span>),email <span class="built_in">varchar</span>(<span class="number">30</span>));</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">index</span> idx_name <span class="keyword">on</span> user10(<span class="keyword">name</span>);</span><br></pre></td></tr></table></figure></p>
+<p>普通索引的特点:<br>一个表中可以有多个普通索引,开发中比较常用<br>如果某列需要创建索引,但是该列有重复的值,那么我们就应该使用普通索引</p>
+<h3 id="全文索引的创建"><a href="#全文索引的创建" class="headerlink" title="全文索引的创建"></a>全文索引的创建</h3><p>当对文章字段或有大量文字的字段进行索引时,会使用到全文索引.mysql提供全文索引机制,但是要求表的存储引擎必须是MyISAM,并且默认的全文索引支持英文,不支持中文.如果对中文进行全文检索,可以使用sphinx的中文版(core<br>seek)<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建一张表,插入数据,并创建全文索引</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> articles(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">unsigned</span> auto_increment <span class="keyword">not</span> <span class="literal">null</span> primary <span class="keyword">key</span>,</span><br><span class="line">	title <span class="built_in">varchar</span>(<span class="number">200</span>),</span><br><span class="line">	<span class="keyword">body</span> <span class="built_in">text</span>,</span><br><span class="line">	fulltext(title,<span class="keyword">body</span>)</span><br><span class="line">)<span class="keyword">engine</span>=MyISAM;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 插入数据</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> articles (title,<span class="keyword">body</span>) <span class="keyword">VALUES</span></span><br><span class="line">    (<span class="string">'MySQL Tutorial'</span>,<span class="string">'DBMS stands for DataBase ...'</span>),</span><br><span class="line">    (<span class="string">'How To Use MySQL Well'</span>,<span class="string">'After you went through a ...'</span>), </span><br><span class="line">    (<span class="string">'Optimizing MySQL'</span>,<span class="string">'In this tutorial we will show ...'</span>), </span><br><span class="line">    (<span class="string">'1001 MySQL Tricks'</span>,<span class="string">'1. Never run mysqld as root. 2. ...'</span>), </span><br><span class="line">    (<span class="string">'MySQL vs. YourSQL'</span>,<span class="string">'In the following database comparison ...'</span>), </span><br><span class="line">    (<span class="string">'MySQL Security'</span>,<span class="string">'When configured properly, MySQL ...'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>● 查询有没有database数据<br>使用之前我们用的查询方式:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> articles <span class="keyword">where</span> <span class="keyword">body</span> <span class="keyword">like</span> <span class="string">'%database%'</span>;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/240.JPG" alt><br>使用这种方式是肯定可以找到的,但是我们可以用explain工具看一下到底用没用到索引<br><img src="/img/241.JPG" alt><br>● 使用全文索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> articles</span><br><span class="line"><span class="keyword">where</span> <span class="keyword">match</span>(title,<span class="keyword">body</span>) against (<span class="string">'database'</span>);</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/242.JPG" alt><br>在使用explain来分析下这个sql语句<br><img src="/img/243.JPG" alt></p>
+<h2 id="查询索引"><a href="#查询索引" class="headerlink" title="查询索引"></a>查询索引</h2><p>●  方法一:show keys from 表名<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show keys from goods\G </span><br><span class="line">    *********** 1. row *********** </span><br><span class="line">           Table: goods    &lt;= 表名 </span><br><span class="line">      Non_unique: 0        &lt;= 0表示唯一索引 </span><br><span class="line">        Key_name: PRIMARY  &lt;= 主键索引</span><br><span class="line">    Seq_in_index: 1</span><br><span class="line">     Column_name: goods_id &lt;= 索引在哪列</span><br><span class="line">       Collation: A </span><br><span class="line">     Cardinality: 0 </span><br><span class="line">        Sub_part: NULL</span><br><span class="line">          Packed: NULL</span><br><span class="line">            Null:</span><br><span class="line">      Index_type: BTREE   &lt;= 以二叉树形式的索引</span><br><span class="line">         <span class="keyword">Comment</span>:</span><br><span class="line"><span class="number">1</span> <span class="keyword">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure></p>
+<p>●  第二种方法:show index from 表名;<br>●  第三种方法:desc 表名;   —&gt;直接查看表结构</p>
+<h2 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h2><p>●  第一种方法,删除主键索引:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">drop</span> primary <span class="keyword">key</span>;</span><br></pre></td></tr></table></figure></p>
+<p>● 第二种方法,其他索引的删除:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">drop</span> <span class="keyword">index</span> 索引名; <span class="comment">--索引名就是show keys from 表名中的key_name字段</span></span><br></pre></td></tr></table></figure></p>
+<p>例如删除user10的索引:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> user10 <span class="keyword">drop</span> <span class="keyword">index</span> idx_name;</span><br></pre></td></tr></table></figure></p>
+<p>● 第三种方法:drop index 索引名 on 表名<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">index</span> <span class="keyword">name</span> <span class="keyword">on</span> user8;</span><br></pre></td></tr></table></figure></p>
+<h2 id="索引的创建原则"><a href="#索引的创建原则" class="headerlink" title="索引的创建原则"></a>索引的创建原则</h2><p>● 比较频繁作为查询条件的字段应该创建索引<br>● 唯一性太差的字段不适合单独创建索引,即使频繁作为查询条件<br>● 更新非常频繁的字段不适合作创建索引<br>● 不会出现在where子句中的字段不该创建索引</p>
+<h1 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h1><h2 id="什么是事务"><a href="#什么是事务" class="headerlink" title="什么是事务?"></a>什么是事务?</h2><p>事务是数据库系统中执行的一个工作单位,他是由用户定义的一组操作序列.一个事务可以是一组SQL语句,一条SQL语句或者整个程序,一个应用程序可以包括多个事务.通俗点讲,事务就是一组由DML语句组成SQL语句模块;这些语句在逻辑上存在相关性,这一组DML语句要么全部成功要么全部失败,是一个整体.只要当这一组DML语句全部执行完成,那么才能够说这个事务被完成.MySQL提供事务这种机制,保证我们达到这样的效果.事务还规定不同的客户端看到的数据是不相同的<br><img src="/img/244.JPG" alt></p>
+<h2 id="事务基本操作举例"><a href="#事务基本操作举例" class="headerlink" title="事务基本操作举例"></a>事务基本操作举例</h2><p>这里用一个银行转账的问题来具体说明下什么是事务,事务应该怎么进行操作<br>1.首先,创建一张测试表<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">account</span>(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>,</span><br><span class="line">	<span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="string">''</span>,</span><br><span class="line">	balance <span class="built_in">decimal</span>(<span class="number">10</span>,<span class="number">2</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="number">0.0</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>2.在了解一下几个有关事务的关键词<br>●  开始一个事务<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">start</span> <span class="keyword">transaction</span>;</span><br></pre></td></tr></table></figure></p>
+<p>●  创建一个保存点<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">savepoint</span> 保存点名;</span><br></pre></td></tr></table></figure></p>
+<p>●  回到保存点<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">rollback</span> <span class="keyword">to</span>;</span><br></pre></td></tr></table></figure></p>
+<p>(如果没有设置保存点直接就回到了事务的开始)<br>3.事务演示<br>目的:现在张三和李四都向银行卡里存了50万,然后张三想要将其中的25万转账给李四<br>银行操作:<br>先将两人的50万都存入银行写进数据库中<br><img src="/img/245.JPG" alt><br>然后进行转账操作,在张三的账户中扣除25万,在李四的账户中加上25万<br>但是由于工作人员的操作事务,在李四的账户中少加了5万<br><img src="/img/246.JPG" alt><br>这时候就可以返回到我们之前的保存点point2<br><img src="/img/247.JPG" alt><br>然后再重新进行数据的处理,最终完成并提交事务<br><img src="/img/248.JPG" alt><br>4.使用事务的好处<br>在上例中使用事务的好处就很明显.事务的成功取决于事务单元帐户相互依赖的操作行为是否能全部执行成功，只要有一个操作行为失败，整个事务将失败。例如上例中张三和李四的银行账户金额都是500000元，张三需要把自己帐户中的250000元人民币转到李四的账户上。这个过程看似简单，实际上涉及了一系列的数据库操作，但是可以简单地视为两步基本操作，即从张三的帐户金额中扣除250000元，以及将李四帐户中金额添加250000元人民币。假设第1步数据库操作成功，而第二步失败的话，将导致整个操作失败，并且张三帐户金额将被扣除250000元人民币,转账没成功,钱还没了,这谁顶的住….事务机制就可以避免此类情况，以保证整个操作的完成，如果某步操作出错，之前所作的数据库操作则将全部失效。</p>
+<h2 id="事务操作注意事项"><a href="#事务操作注意事项" class="headerlink" title="事务操作注意事项"></a>事务操作注意事项</h2><p>●  如果没有设置保存点,也可以回滚,但是只能回滚到事务的开始,直接使用rollback(前提是事务还没有提交)<br>●  如果一个事务被提交了(commit),则不可以进行回滚(rollback)<br>●  可以选择回滚到哪个保存点(例如本例中的point1和point2都可以选择性的回滚)<br>●  InnoDB支持事务,MyISAM不支持事务,MySQL数据库默认的存储引擎就是InnoDB</p>
+<h2 id="事务的隔离级别"><a href="#事务的隔离级别" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h2><p>当有多个客户端同时操作数据库中的某张表,MySQL为我们提供了隔离级别让不同的客户端或者线程进行隔离操作,使得不同的事务在操作数据时,具有隔离性,从而保证数据的一致性</p>
+<h3 id="无隔离性会造成的问题"><a href="#无隔离性会造成的问题" class="headerlink" title="无隔离性会造成的问题"></a>无隔离性会造成的问题</h3><h4 id="脏读"><a href="#脏读" class="headerlink" title="脏读"></a>脏读</h4><p>所谓脏读是指是指当一个事务正在访问数据，并且对数据进行了修改，而这种修改还没有提交到数据库中，这时，另外一个事务<br>也访问这个数据，然后使用了这个数据。<br>举个栗子:<br>1.张三的原工资为5000元,但是有一天财务人员在操纵数据库时不小心将他的工资修改为了8000元(但未提交事务)<br>2.恰好这时张三没事查了查自己的工资发现自己的工资是8000元,他十分高兴,认为这个月涨工资了<br>3.过了一会,财务发现了自己的这个错误,回滚了事务,将他的工资重新修改回了5000<br>像这样,张三记取的工资数8000就是一个脏数据,这种现象就叫做脏读.</p>
+<h4 id="不可重复读"><a href="#不可重复读" class="headerlink" title="不可重复读"></a>不可重复读</h4><p>是指在一个事务内，多次读同一数据。在这个事务还没有结束时，另外一个事务也访问该同一数据。那么，在第一个事务中的两次读数据之间，由于第二个事务的修改，那么第一个事务两次读到的的数据可能是不一样的。这样就 发生了在一个事务内两次读到的数据是不一样的，因此称为是不可重复读。<br>简单点说就是a事务在一个事务中重复读取某个数据但是因为事务b对数据的修改造成事务a重复读取的数据不一致的现象<br>同样举个栗子:<br>1.在事务1中，Mary 读取了自己的工资为1000,操作并没有完成<br>2.在事务2中，这时财务人员修改了Mary的工资为2000,并提交了事务.<br>3.在事务1中，Mary 再次读取自己的工资时，工资变为了2000<br>由此Mary两次读取的自己的工资不一致的这种现象叫做不可重复读</p>
+<p>解决办法:如果只有在修改事务完全提交之后才可以读取数据，则可以避免该问题</p>
+<h4 id="幻读"><a href="#幻读" class="headerlink" title="幻读"></a>幻读</h4><p>是指当事务不是独立执行时发生的一种现象，例如第一个事务对一个表中的数据进行了修改，这种修改涉及到表中的全部数据行。同时，第二个事务也修改这个表中的数据，这种修改是向表中插入一行新数据。那么，以后就会发 生操作第一个事务的用户发现表中还有没有修改的数据行，就好象发生了幻觉一样。<br>例子:<br>1.a工作员的任务是将一个有十条数据的工资表中每个人都加上1000元<br>2.在a工作员进行整表操作的时候,b工作人员向表中又插入了一条数据<br>3.此时a工作人员完成了之前十人工资加1000的操作,此时他回过头来检查自己的工作发现怎么少修改了一条数据,但是又清楚记得自己明明是对整表进行了修改<br>这种好像幻觉一样的操作,叫做幻读<br>解决办法：如果在操作事务完成数据处理之前，任何其他事务都不可以添加新数据，则可避免该问题</p>
+<h3 id="事务的隔离级别-1"><a href="#事务的隔离级别-1" class="headerlink" title="事务的隔离级别"></a>事务的隔离级别</h3><p>为了解决上面的这些无事务隔离出现的问题,MySQL为我们带来了事务的隔离级别<br><img src="/img/249.JPG" alt><br>在这里我们演示一下可串行化隔离级别<br>●  首先要会查看当前的隔离级别<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @@tx_isolation;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/250.JPG" alt><br>●  然后设置隔离级别为可串行化(serializable)<br>此时一个事务中只允许一个线程进行访问,具体看图中解释<br><img src="/img/251.JPG" alt><br>MySQL默认的隔离级别是可重复读,一般情况下不要修改<br>可串行化隔离级别原理图:<br><img src="/img/252.JPG" alt></p>
+<h2 id="事务的ACID特性"><a href="#事务的ACID特性" class="headerlink" title="事务的ACID特性"></a>事务的ACID特性</h2><p>事务是单个的工作单元。如果某个事务成功，则在该事务中进行的所有数据更改均会提交，成为数据库中的永久组成部分。如果事务遇到错误且必须取消或回滚，则所有数据更改均被清除。一个逻辑工作单元必须有ACID属性，只有这样才能成为一个事务。ACID属性有以下4个属性。<br>●  原子性:事务是应用中最小的执行单元,是应用中不可再分的最小逻辑执行体<br>●  一致性:事务执行的结果,必须使数据库从一个一致性状态,变到另一个一致性状态.当数据库只包含事务成功提交的结果时,数据库处于一致性状态.如果系统运行发生中断,某个事务尚未完成而被迫中断,而已经完成的事务对数据库的修改已经被写入库中,此时数据库就处于一种不一致的状态,因此一致性是通过原子性来保证的<br>●  隔离性:各个事务的执行互不干扰，任意一个事务的内部操作对其他并发事务都是隔离的。也就是说，并发执行的事务之间不能看到对方的中间状态，并发执行的事务之间不能互相影响。<br>●  持久性:持久性是指一个事务一旦被提交，它对数据库所做的改变都要记录到永久存储其中（如：磁盘）.</p>
+<h1 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h1><h2 id="什么是视图"><a href="#什么是视图" class="headerlink" title="什么是视图?"></a>什么是视图?</h2><p>试图是一个虚拟表,其内容由查询定义.同真实表一样,视图包含一系列带有名称的列和行数据.视图的数据变化会影响到基表,基表的数据变化也会影响到试图</p>
+<h2 id="视图的主要作用"><a href="#视图的主要作用" class="headerlink" title="视图的主要作用"></a>视图的主要作用</h2><p>1.视图可以用来保证安全,只让用户看到我们想要他们看到的东西<br>2.可以把一些复杂的查询包装成一个视图,这样在下一次想要查询同样的数据的时候就可以直接查询视图,而不必在输入复杂的查询命令进行查询了</p>
+<h2 id="视图的基本使用"><a href="#视图的基本使用" class="headerlink" title="视图的基本使用"></a>视图的基本使用</h2><p>●  创建视图语法<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> 视图名 <span class="keyword">as</span> <span class="keyword">select</span>语句;</span><br></pre></td></tr></table></figure></p>
+<p>●  事例<br>创建视图:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建视图</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">view</span> v_ename_dname <span class="keyword">as</span> <span class="keyword">select</span> ename,dname </span><br><span class="line"><span class="keyword">from</span> emp,dept </span><br><span class="line"><span class="keyword">where</span> emp.deptno=dept.deptno;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查看视图</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> v_ename_dname;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 顺表查看一下原表</span></span><br><span class="line"><span class="keyword">select</span> ename,dname </span><br><span class="line"><span class="keyword">from</span> emp,dept </span><br><span class="line"><span class="keyword">where</span> emp.deptno=dept.deptno;</span><br><span class="line"></span><br><span class="line"><span class="comment">--此时发现视图内容其实就是原表的内容</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/253.JPG" alt><br>●  修改视图,对基表数据会有影响<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 修改视图</span></span><br><span class="line"><span class="keyword">update</span> v_ename_dname <span class="keyword">set</span> dname=<span class="string">'SALES'</span> <span class="keyword">where</span> ename=<span class="string">'CLARK'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查看基表变化</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> ename=<span class="string">'CLARK'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>●  修改基表,对视图有影响<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 对基表进行修改</span></span><br><span class="line"><span class="keyword">update</span> EMP <span class="keyword">set</span> deptno=<span class="number">20</span> <span class="keyword">where</span> ename=<span class="string">'JAMES'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 查看视图中的数据变化</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> v_ename_dname <span class="keyword">where</span> ename=<span class="string">'JAMES'</span>;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/254.JPG" alt><br>●  删除视图<br>drop view 视图名</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>视图是一个虚拟的表,即实际上是不存在这个表的,他是他在形式表现上又和一张真正的表一样,以及对他的操作都和表一样<br>我们可以查看一下所有的表<br><img src="/img/255.JPG" alt><br>可以看到,视图是作为表出现在数据库中的,但由于他又不是一个真正的表,所以在给视图取名时最好加上前缀 v_…. 这样便于阅读,一看就知道是个视图</p>
+<h2 id="视图规则和限制"><a href="#视图规则和限制" class="headerlink" title="视图规则和限制"></a>视图规则和限制</h2><p>1.与表一样,视图必须唯一命名(不能出现同名视图或表名)<br>2.创建视图数目无限制,但要考虑复杂查询创建为视图之后的性能影响<br>3.视图不能添加索引,也不能有关联的触发器或者默认值<br>4.视图可以提高安全性,必须具有足够的访问权限<br>5.order by可以用在视图中,但是如果从该视图检索数据select中也含有prder by,那么该视图中的prder by将被覆盖<br>6.视图可以和表一起使用</p>
+<h1 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h1><p>同Linux一样,MySQL也有权限限制,如果每一个人都可以使用root权限,随意操纵数据库,那么是极其不安全的,所以这时就要使用MySQL的用户管理</p>
+<h2 id="用户"><a href="#用户" class="headerlink" title="用户"></a>用户</h2><h3 id="用户信息"><a href="#用户信息" class="headerlink" title="用户信息"></a>用户信息</h3><p>MySQL中的用户信息,都存储在系统数据库mysql中的user表中<br><img src="/img/256.JPG" alt><br><img src="/img/257.JPG" alt><br>我们针对性的查询一下三个字段的信息<br><img src="/img/258.JPG" alt><br>字段解释:<br>●  host:表示这个用户可以从哪个主机登陆,如果是localhost,表示只能从本机登陆<br>●  user:用户名<br>●  authentication_string:用户密码通过password函数加密后的<br>●  *_priv:用户拥有的权限</p>
+<h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><p>● 语法:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 这里的登陆主机指可以登录的用户的id地址,如果写成%那么在任何主机都可以访问</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">'用户名'</span>@<span class="string">'登陆主机/ip'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'密码'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>创建用户事例:<br>创建一个用户名为luoluo只能在本机登陆,密码为123456的用户<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">'luoluo'</span>@<span class="string">'localhost'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'123456'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>此时在重新查看用户信息<br><img src="/img/259.JPG" alt></p>
+<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><p>语法:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> <span class="string">'用户名'</span>@<span class="string">'主机名'</span></span><br></pre></td></tr></table></figure></p>
+<p>删除刚刚创建的用户luoluo<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> <span class="string">'luoluo'</span>@<span class="string">'localhost'</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/260.JPG" alt><br>此时用户名为luoluo的用户就不存在了</p>
+<h3 id="用户密码修改"><a href="#用户密码修改" class="headerlink" title="用户密码修改"></a>用户密码修改</h3><p>●  自己改自己的密码<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">password</span>=<span class="keyword">password</span>(<span class="string">'新的密码'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>●  root用户修改指定用户的密码<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">password</span> <span class="keyword">for</span> <span class="string">'用户名'</span>@<span class="string">'主机名'</span>=<span class="keyword">password</span>(<span class="string">'新的密码'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 例如给luoluo改密码</span></span><br><span class="line"><span class="keyword">set</span> <span class="keyword">password</span> <span class="keyword">for</span> <span class="string">'luoluo'</span>@<span class="string">'localhost'</span>=<span class="keyword">password</span>(<span class="string">'abcdef'</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="数据库权限"><a href="#数据库权限" class="headerlink" title="数据库权限"></a>数据库权限</h2><p>当我们使用root权限创建一个新的用户的时候,这个用户是不具有什么权限的,他对我们主机上的数据库是没有办法进行太多操作的<br><img src="/img/261.JPG" alt><br>想要对更多数据库进行操作,就要让管理员给他更多的数据库权限<br>MySQL数据库提供的权限列表:<br><img src="/img/262.JPG" alt><br><img src="/img/263.JPG" alt></p>
+<h3 id="给用户授权"><a href="#给用户授权" class="headerlink" title="给用户授权"></a>给用户授权</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 权限列表,多个权限用逗号分开</span></span><br><span class="line"><span class="keyword">grant</span> 权限列表 <span class="keyword">on</span> 库.对象名 <span class="keyword">to</span> <span class="string">'用户名'</span>@<span class="string">'登陆地址'</span> [<span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'密码'</span>] <span class="comment">-- identified by 可选(下面说他的作用)</span></span><br></pre></td></tr></table></figure>
+<p>一些说明<br>●  赋予所有权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all [privileges] on ... -- 表示赋予该用户在该对象上的所有权限</span><br></pre></td></tr></table></figure></p>
+<p>●  <em>.</em>:代表本系统中的所有数据库的所有对象(表,视图,存储过程等)<br>●  库.*:表示某个数据库中的所有数据对象(表,视图,存储过程等)<br>●  identified by可选.如果用户存在,赋予权限的同时修改密码,如果用户不存在,就是创建用户<br>权限赋予举例:<br>上面我们看到luoluo这个用户是看不到同其他数据库的,我们现在仅仅给他查看scott数据库,dept表的权限,整个过程如下图<br><img src="/img/264.JPG" alt><br>●  如果发现赋权限后,没有生效,执行刷新指令<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">flush</span> <span class="keyword">privileges</span>;</span><br></pre></td></tr></table></figure></p>
+<p>如果还是没有生效,就关闭客户端,重新进入</p>
+<h3 id="回收权限"><a href="#回收权限" class="headerlink" title="回收权限"></a>回收权限</h3><p>给了一个用户什么权限,我们当然还能收回这个权限<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">revoke</span> 权限列表 <span class="keyword">on</span> 库.对象名  <span class="keyword">from</span> <span class="string">'用户名'</span>@<span class="string">'登陆位置'</span>;</span><br></pre></td></tr></table></figure></p>
+<p>示例:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 回收luoluo对数据库的所有权限</span></span><br><span class="line"><span class="keyword">revoke</span> <span class="keyword">all</span> <span class="keyword">on</span> scott.dept <span class="keyword">from</span> <span class="string">'luoluo'</span>@<span class="string">'localhost'</span>;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/265.JPG" alt></p>
+<h1 id="数据库知识总结暂时到此结束"><a href="#数据库知识总结暂时到此结束" class="headerlink" title="数据库知识总结暂时到此结束~"></a>数据库知识总结暂时到此结束~</h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/日常学习/" rel="tag"># 日常学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/12/26/初识MySQL/" rel="next" title="MySQL数据库从入门到跑路(一)">
+                <i class="fa fa-chevron-left"></i> MySQL数据库从入门到跑路(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2019/01/13/Java操纵数据库之JDBC编程/" rel="prev" title="Java操纵数据库之JDBC编程">
+                Java操纵数据库之JDBC编程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Qi</p>
+              <p class="site-description motion-element" itemprop="description">蜜汁希望</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#雇员信息表"><span class="nav-number">2.</span> <span class="nav-text">雇员信息表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#group-by子句的使用"><span class="nav-number">3.</span> <span class="nav-text">group by子句的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#显示每个部门的平均工资和最高工资"><span class="nav-number">3.1.</span> <span class="nav-text">显示每个部门的平均工资和最高工资</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示每个部门每种岗位的平均工资和最低工资"><span class="nav-number">3.2.</span> <span class="nav-text">显示每个部门每种岗位的平均工资和最低工资</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#显示平均工资低于2000的部门和他的平均工资"><span class="nav-number">3.3.</span> <span class="nav-text">显示平均工资低于2000的部门和他的平均工资</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内置函数"><span class="nav-number">4.</span> <span class="nav-text">内置函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#日期函数"><span class="nav-number">4.1.</span> <span class="nav-text">日期函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#当前日期-current-date"><span class="nav-number">4.1.1.</span> <span class="nav-text">当前日期:current_date()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#当前时间-current-time"><span class="nav-number">4.1.2.</span> <span class="nav-text">当前时间:current_time()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#当前时间戳-current-timestamp"><span class="nav-number">4.1.3.</span> <span class="nav-text">当前时间戳:current_timestamp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回datetime参数的日期部分-date-datetime"><span class="nav-number">4.1.4.</span> <span class="nav-text">返回datetime参数的日期部分:date(datetime)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在date中添加时期或时间-date-add-date-interval-d-value-type"><span class="nav-number">4.1.5.</span> <span class="nav-text">在date中添加时期或时间:date_add(date,interval d_value_type)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在date中减去日期或时间-date-sub-date-interval-d-value-type"><span class="nav-number">4.1.6.</span> <span class="nav-text">在date中减去日期或时间:date_sub(date,interval d_value_type)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个日期的差-单位是天-detediff-datel-date2"><span class="nav-number">4.1.7.</span> <span class="nav-text">两个日期的差,单位是天:detediff(datel,date2)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#当前日期时间-now"><span class="nav-number">4.1.8.</span> <span class="nav-text">当前日期时间:now()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单案例一-创建一个生日表"><span class="nav-number">4.1.9.</span> <span class="nav-text">简单案例一:创建一个生日表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单案例二-创建一个留言板"><span class="nav-number">4.1.10.</span> <span class="nav-text">简单案例二:创建一个留言板</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示所有留言信息-发布时间只显示日期-不显示时间"><span class="nav-number">4.1.10.1.</span> <span class="nav-text">显示所有留言信息,发布时间只显示日期,不显示时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询在2分钟内发布的帖子"><span class="nav-number">4.1.10.2.</span> <span class="nav-text">查询在2分钟内发布的帖子</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串函数"><span class="nav-number">4.2.</span> <span class="nav-text">字符串函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#charset-返回字符串的字符集"><span class="nav-number">4.2.1.</span> <span class="nav-text">charset(返回字符串的字符集)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#concat-连接字符串"><span class="nav-number">4.2.2.</span> <span class="nav-text">concat(连接字符串)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#length-string"><span class="nav-number">4.2.3.</span> <span class="nav-text">length(string)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replace-字符串替换"><span class="nav-number">4.2.4.</span> <span class="nav-text">replace(字符串替换)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#substring-截取字符串"><span class="nav-number">4.2.5.</span> <span class="nav-text">substring(截取字符串)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lcase-转换成小写-ucase-转换成大写"><span class="nav-number">4.2.6.</span> <span class="nav-text">lcase(转换成小写)/ucase(转换成大写)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数学函数"><span class="nav-number">4.3.</span> <span class="nav-text">数学函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#绝对值"><span class="nav-number">4.3.1.</span> <span class="nav-text">绝对值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向上取整"><span class="nav-number">4.3.2.</span> <span class="nav-text">向上取整</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向下取整"><span class="nav-number">4.3.3.</span> <span class="nav-text">向下取整</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保留两位小数-小数四舍五入"><span class="nav-number">4.3.4.</span> <span class="nav-text">保留两位小数(小数四舍五入)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#产生随机数"><span class="nav-number">4.3.5.</span> <span class="nav-text">产生随机数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他函数"><span class="nav-number">4.4.</span> <span class="nav-text">其他函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#user-查询当前用户"><span class="nav-number">4.4.1.</span> <span class="nav-text">user()查询当前用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#md5-str-对一个字符串进行md5摘要-摘要后得到一个32位字符串"><span class="nav-number">4.4.2.</span> <span class="nav-text">md5(str)对一个字符串进行md5摘要,摘要后得到一个32位字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示当前正在使用的数据库"><span class="nav-number">4.4.3.</span> <span class="nav-text">显示当前正在使用的数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#password-函数-MySQL数据库使用该函数对用户加密"><span class="nav-number">4.4.4.</span> <span class="nav-text">password()函数,MySQL数据库使用该函数对用户加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ifnull-val1-val2-如果val1为null-返回val2-否则返回val1的值"><span class="nav-number">4.4.5.</span> <span class="nav-text">ifnull(val1,val2) 如果val1为null,返回val2,否则返回val1的值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#复合查询"><span class="nav-number">5.</span> <span class="nav-text">复合查询</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多表查询"><span class="nav-number">5.1.</span> <span class="nav-text">多表查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#显示雇员名-雇员工资以及所在部门的名字"><span class="nav-number">5.1.1.</span> <span class="nav-text">显示雇员名,雇员工资以及所在部门的名字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示部门号为10的部门名-员工名和工资"><span class="nav-number">5.1.2.</span> <span class="nav-text">显示部门号为10的部门名,员工名和工资</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示各个员工的姓名-工资-及工资级别"><span class="nav-number">5.1.3.</span> <span class="nav-text">显示各个员工的姓名,工资,及工资级别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自连接"><span class="nav-number">5.2.</span> <span class="nav-text">自连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子查询"><span class="nav-number">5.3.</span> <span class="nav-text">子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单行子查询"><span class="nav-number">5.3.1.</span> <span class="nav-text">单行子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示SMITH同一部门的员工"><span class="nav-number">5.3.1.1.</span> <span class="nav-text">显示SMITH同一部门的员工</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多行自查询"><span class="nav-number">5.3.2.</span> <span class="nav-text">多行自查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例题1-in关键字的使用"><span class="nav-number">5.3.2.1.</span> <span class="nav-text">例题1:in关键字的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例题2-all关键字的使用"><span class="nav-number">5.3.2.2.</span> <span class="nav-text">例题2:all关键字的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例三-any关键字的使用"><span class="nav-number">5.3.2.3.</span> <span class="nav-text">例三:any关键字的使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多列子查询"><span class="nav-number">5.3.3.</span> <span class="nav-text">多列子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例-查询和SMITH的部门和岗位完全相同的所有雇员-不含SMITH本人"><span class="nav-number">5.3.3.1.</span> <span class="nav-text">例:查询和SMITH的部门和岗位完全相同的所有雇员,不含SMITH本人</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在from子句中使用子查询"><span class="nav-number">5.3.4.</span> <span class="nav-text">在from子句中使用子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例一-显示高于自己所在部门平均工资的员工的姓名-部门-工资-平均工资"><span class="nav-number">5.3.4.1.</span> <span class="nav-text">例一:显示高于自己所在部门平均工资的员工的姓名,部门,工资,平均工资</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例二-查找每个部门工资最高的人的姓名-工资-部门-最高工资"><span class="nav-number">5.3.4.2.</span> <span class="nav-text">例二:查找每个部门工资最高的人的姓名,工资,部门,最高工资</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#例三-显示每个部门的信息-部门名-编号-地址-和人员数量"><span class="nav-number">5.3.4.3.</span> <span class="nav-text">例三:显示每个部门的信息(部门名,编号,地址)和人员数量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并查询"><span class="nav-number">5.3.5.</span> <span class="nav-text">合并查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#union"><span class="nav-number">5.3.5.1.</span> <span class="nav-text">union</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#union-all"><span class="nav-number">5.3.5.2.</span> <span class="nav-text">union all</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#表的内外连接"><span class="nav-number">6.</span> <span class="nav-text">表的内外连接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#内连接"><span class="nav-number">6.1.</span> <span class="nav-text">内连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外连接"><span class="nav-number">6.2.</span> <span class="nav-text">外连接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#左外连接"><span class="nav-number">6.2.1.</span> <span class="nav-text">左外连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#右外连接"><span class="nav-number">6.2.2.</span> <span class="nav-text">右外连接</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引特性"><span class="nav-number">7.</span> <span class="nav-text">索引特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#索引具体用途举例"><span class="nav-number">7.1.</span> <span class="nav-text">索引具体用途举例:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本原理"><span class="nav-number">7.2.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建索引"><span class="nav-number">7.3.</span> <span class="nav-text">创建索引</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主键索引-聚集索引"><span class="nav-number">7.3.1.</span> <span class="nav-text">主键索引(聚集索引)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#唯一索引-非聚集索引"><span class="nav-number">7.3.2.</span> <span class="nav-text">唯一索引(非聚集索引)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#普通索引的创建"><span class="nav-number">7.3.3.</span> <span class="nav-text">普通索引的创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全文索引的创建"><span class="nav-number">7.3.4.</span> <span class="nav-text">全文索引的创建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询索引"><span class="nav-number">7.4.</span> <span class="nav-text">查询索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除索引"><span class="nav-number">7.5.</span> <span class="nav-text">删除索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引的创建原则"><span class="nav-number">7.6.</span> <span class="nav-text">索引的创建原则</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事务管理"><span class="nav-number">8.</span> <span class="nav-text">事务管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是事务"><span class="nav-number">8.1.</span> <span class="nav-text">什么是事务?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务基本操作举例"><span class="nav-number">8.2.</span> <span class="nav-text">事务基本操作举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务操作注意事项"><span class="nav-number">8.3.</span> <span class="nav-text">事务操作注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务的隔离级别"><span class="nav-number">8.4.</span> <span class="nav-text">事务的隔离级别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#无隔离性会造成的问题"><span class="nav-number">8.4.1.</span> <span class="nav-text">无隔离性会造成的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#脏读"><span class="nav-number">8.4.1.1.</span> <span class="nav-text">脏读</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不可重复读"><span class="nav-number">8.4.1.2.</span> <span class="nav-text">不可重复读</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#幻读"><span class="nav-number">8.4.1.3.</span> <span class="nav-text">幻读</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务的隔离级别-1"><span class="nav-number">8.4.2.</span> <span class="nav-text">事务的隔离级别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务的ACID特性"><span class="nav-number">8.5.</span> <span class="nav-text">事务的ACID特性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#视图"><span class="nav-number">9.</span> <span class="nav-text">视图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是视图"><span class="nav-number">9.1.</span> <span class="nav-text">什么是视图?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图的主要作用"><span class="nav-number">9.2.</span> <span class="nav-text">视图的主要作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图的基本使用"><span class="nav-number">9.3.</span> <span class="nav-text">视图的基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number">9.4.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图规则和限制"><span class="nav-number">9.5.</span> <span class="nav-text">视图规则和限制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户管理"><span class="nav-number">10.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用户"><span class="nav-number">10.1.</span> <span class="nav-text">用户</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户信息"><span class="nav-number">10.1.1.</span> <span class="nav-text">用户信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建用户"><span class="nav-number">10.1.2.</span> <span class="nav-text">创建用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除用户"><span class="nav-number">10.1.3.</span> <span class="nav-text">删除用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户密码修改"><span class="nav-number">10.1.4.</span> <span class="nav-text">用户密码修改</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库权限"><span class="nav-number">10.2.</span> <span class="nav-text">数据库权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#给用户授权"><span class="nav-number">10.2.1.</span> <span class="nav-text">给用户授权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回收权限"><span class="nav-number">10.2.2.</span> <span class="nav-text">回收权限</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库知识总结暂时到此结束"><span class="nav-number">11.</span> <span class="nav-text">数据库知识总结暂时到此结束~</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

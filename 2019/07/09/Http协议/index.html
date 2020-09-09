@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="日常学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言HTTP协议(超文本传输协议)最初的目的是为了提供一种发布和接收HTML页面的方法。通过HTTP协议请求的资源由统一资源标识符（Uniform Resource Identifiers，URI）来标识。HTTP报文是面向数据报的，报文中的每一个字段都是一些ASCII码串，各个字段的长度是不确定的。作为一个应用层协议，Http是一个基于TCP/IP的短连接，无状态的协议。TCP协议来保证Http">
+<meta name="keywords" content="日常学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Http协议">
+<meta property="og:url" content="http://seevae.github.io/2019/07/09/Http协议/index.html">
+<meta property="og:site_name" content="Hero">
+<meta property="og:description" content="前言HTTP协议(超文本传输协议)最初的目的是为了提供一种发布和接收HTML页面的方法。通过HTTP协议请求的资源由统一资源标识符（Uniform Resource Identifiers，URI）来标识。HTTP报文是面向数据报的，报文中的每一个字段都是一些ASCII码串，各个字段的长度是不确定的。作为一个应用层协议，Http是一个基于TCP/IP的短连接，无状态的协议。TCP协议来保证Http">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://seevae.github.io/img/310.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/311.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/312.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/313.JPG">
+<meta property="og:updated_time" content="2019-07-13T10:10:51.712Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Http协议">
+<meta name="twitter:description" content="前言HTTP协议(超文本传输协议)最初的目的是为了提供一种发布和接收HTML页面的方法。通过HTTP协议请求的资源由统一资源标识符（Uniform Resource Identifiers，URI）来标识。HTTP报文是面向数据报的，报文中的每一个字段都是一些ASCII码串，各个字段的长度是不确定的。作为一个应用层协议，Http是一个基于TCP/IP的短连接，无状态的协议。TCP协议来保证Http">
+<meta name="twitter:image" content="http://seevae.github.io/img/310.JPG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://seevae.github.io/2019/07/09/Http协议/">
+
+
+
+
+
+  <title>Http协议 | Hero</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hero</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">十年一开花的忍者神龟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/blog/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://seevae.github.io/blog/2019/07/09/Http协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Http协议</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>HTTP协议(超文本传输协议)最初的目的是为了提供一种发布和接收HTML页面的方法。通过HTTP协议请求的资源由统一资源标识符（Uniform Resource Identifiers，URI）来标识。HTTP报文是面向数据报的，报文中的每一个字段都是一些ASCII码串，各个字段的长度是不确定的。作为一个应用层协议，Http是一个基于TCP/IP的短连接，无状态的协议。TCP协议来保证Http协议消息的可靠传送<br><a id="more"></a></p>
+<h1 id="TCP-IP-五层-四层网络模型"><a href="#TCP-IP-五层-四层网络模型" class="headerlink" title="TCP/IP(五层)四层网络模型"></a>TCP/IP(五层)四层网络模型</h1><p>在计算机网络当中,国际组织OSI将其分为7层,从上到下依次是应用层,会话层,表示层,传输层,网络层,数据链路层,物理层它是一种开放式系统互联参考模型.这种七层模型比较复杂,所以之后的文章都围绕TCP/IP网络模型来展开说明</p>
+<p><strong>TCP/IP四层模型与OSI七层模型的区别</strong><br>在TCP/IP网络模型中,会话层和表示层与应用层规整成了一个层,于是从上到下有如下五层:<br>应用层,传输层,网络层,数据链路层,物理层.<br>因为物理层属于比较底层的一层模型.他的工作牵扯到许多的硬件原理,和我们用Java处理应用相差较远.所以有时在TCP/IP模型当中不描述这一层. 即TCP/IP四层模型  </p>
+<p><strong>TCP/IP模型各层基本职能</strong>  </p>
+<ul>
+<li><strong>物理层</strong>: 负责光/电信号的传递方式 . 例如现在以太网通用的网线(双绞线),光纤.以及现在wifi使用的电磁波等都属于物理层的概念. <em>物理层的能力决定了最大传输速率,传输距离,抗干扰性等.集线器就工作在这一层</em>      </li>
+<li><strong>数据链路层</strong>: 负责设备之间的数据帧的传送和识别.<em>交换机就工作在这一层</em></li>
+<li><strong>网络层</strong>: 负责地址管理和路由选择.例如在IP协议中,通过ip地址来标志一台主机,并通过路由表的方式规划出两台主机之间的数据传输的线路(路由).路由器就在这一层,解决的是数据包转发的问题.解决的是广域网之间的通信问题  </li>
+<li><strong>传输层</strong>: 负责两台主机的数据传输任务.例如tcp,能够确保数据可靠的从源主发送到目标主机   </li>
+<li><strong>应用层</strong>: 负责应用程序间通信,网络编程主要就是针对这一层  </li>
+</ul>
+<h1 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h1><p><strong>URL称作统一资源定位符</strong> , 他唯一标识了一个网络资源在互联网中的位置.URL就是我们俗称的网址,通过url我们可以准确的找到想要访问的资源.<br>为什么要先说说URL呢,因为url可以帮助我们给一个特定的网络资源发送一个网络请求<br>举个栗子: 就像我们想要去找一个朋友,那么肯定要先知道他的家在哪里.此时这个url就相当于他家的地址,能够帮助我们找到我们想要找到的人<br>还有一个和URL 相似的标志符叫做URI(统一资源标识符),他们的区别简单来说就是: URI用某一字符串标识某一互联网资源,而URL表示资源的地址(互联网上所处的位置).可见URL是URI的子集</p>
+<h1 id="Http协议"><a href="#Http协议" class="headerlink" title="Http协议"></a>Http协议</h1><p>之后打算从最上层到最下层依次介绍一下每一层的一些常见协议,首先就是应用层的Http协议(超文本传输协议)<br>在浏览器发送一个请求到目标服务器依靠的就是Http协议<br>Http协议是一种无状态的协议,具体表现为Http协议自身不对请求和响应之间的通信状态进行保存.也就是说在Http这个级别,协议对于发送过的请求和响应都不做持久化处理</p>
+<h2 id="Http协议格式"><a href="#Http协议格式" class="headerlink" title="Http协议格式"></a>Http协议格式</h2><h3 id="Http请求格式如下"><a href="#Http请求格式如下" class="headerlink" title="Http请求格式如下"></a>Http请求格式如下</h3><p><img src="/img/310.JPG" alt="image"></p>
+<p>一个Http请求一般由四部分组成:<br>请求行、请求头、空行、正文部分   </p>
+<h4 id="请求行"><a href="#请求行" class="headerlink" title="请求行"></a>请求行</h4><p><strong>请求行内容分为三部分</strong>    请求方法，请求路径，使用的协议及版本号<br><img src="/img/311.JPG" alt="image">  </p>
+<p><strong>请求方法</strong><br>常见的请求方法有GET,POST,PUT,HEAD,DELETE,OPTION等<br>每一种请求方法都有适合他应用的场景 .<br>例如在日常生活中使用浏览器访问一个网站或者资源,http请求一般都使用的是GET方法;而当要发起一个携带有参数的请求时往往使用的是POST方法.下面列出不同请求方法的使用场景   </p>
+<blockquote>
+<p>GET方法: 用来获取资源.对应请求资源的实体会作为响应返回.<br>POST方法: 用来传输实体的主体.向指定资源提交数据进行处理请求(提交表单,上传文件),有可能导致新的资源的创建或旧的资源的修改 &gt; PUT方法: 一般用于传输文件<br>PUT方法: 传输文件.就像FTP协议的文件上传一样,要求在请求报文的主体中包含文件内容,然后保存到请求URI指定的位置<br>HEAD方法: 发送一个请求但是不返回请求的实体,只获得报文首部. 一般用来测试服务器的运行是否正常,也用来确认URI的有效性及资源更新的日期时间等.<br>DELETE方法: 按照请求URI删除指定页资源文件<br>OPTIONS方法: 用来查询针对请求URI指定的资源支持的方法<br>TRACE方法: 可以在使用代理上网的时候查看代理是否修改了自己的http请求<br>CONNECT方法: 要求用隧道协议连接代理.CONNECT方法要求在与代理服务器通信时建立隧道,实现用隧道协议进行TCP通信.主要使用SSL和TLS协议把通信内容加密后经网络隧道传输  </p>
+</blockquote>
+<p>前五个方法在HTTP/1.0和HTTP/1.1中都支持,后面的方法只有HTTP/1.1支持</p>
+<p><strong>具体的请求路径</strong><br>用来标识请求资源在网络中的具体位置(目标资源的URL)  </p>
+<p><strong>协议及版本号</strong><br>指明此次所使用的协议是那个协议以及协议的版本号<br>在http 1.0中默认的连接方式是短连接,一次请求结束之后,客户端和服务端建立的连接就断开<br>在http 1.1中默认的连接方式是长连接,一次请求结束之后,客户端和服务端建立的连接不断开,下次请求仍然通过该已有的连接进行发送   </p>
+<h4 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h4><p>请求头中包含了许多以key-value形式存储的字段.这些字段中包含了一些客户端对服务器端的额外需求.下面是一些常见的请求头的含义:   </p>
+<h5 id="通用请求头-在请求和响应的报文里都会出现的请求头字段"><a href="#通用请求头-在请求和响应的报文里都会出现的请求头字段" class="headerlink" title="通用请求头(在请求和响应的报文里都会出现的请求头字段)"></a>通用请求头(在请求和响应的报文里都会出现的请求头字段)</h5><p><strong>Connetion</strong> : 连接类型,客户端发送的报文首部中该字段为keep-alive时表示长连接.在http 1.1 中默认的就是长连接.当服务器想要明确指定断开连接的时候,在响应的请求头中会明确指定此字段为close (该字段还有一个作用是控制不再转发给代理的首部字段)<br><strong>Cache-Control:no-cache</strong> : 用来控制使用缓存的请求头,客户端发送的请求中如果包含no-cache指令,则表示客户端不会接收缓存过的响应.于是,”中间”的缓存服务器必须把客户端请求转发给源服务器;如果服务器返回的响应中也包含no-cache指令,那么缓存服务器将不再对资源进行缓存.源服务器以后对于缓存服务器中提出的资源有效性不再进行确认,且禁止其对服务器响应进行缓存<br><strong>date</strong> : 首部Date表明创建Http报文的时间和日期<br><strong>pragma</strong> : 如果该字段指定no-cache,那么从发送请求的客户端开始一直到返回响应的服务器,整个过程中都不使用缓存.那么为什么不直接使用Cache-Control请求头呢.这是因为该请求头只在HTTP/1.1中适用.所有的转发器服务器并不能保证都使用的是HTTP/1.1.而pragma适用于1.1和1.0<br><strong>via</strong> : 关于代理或者网关的请求头字段.当一个请求从客户端发送之后,没经过一个代理服务器,就会在该字段中添加当前代理服务器本身服务器的信息. </p>
+<h5 id="请求首部字段"><a href="#请求首部字段" class="headerlink" title="请求首部字段"></a>请求首部字段</h5><p>请求首部字段是从客户端向服务器端发送请求报文中所使用的报文,他的主要作用在于告诉服务器端客户端的一些附加信息,客户端的信息,对响应内容的一些优先级设置等<br><strong>Accept</strong> :用户代理可处理的媒体类型<br><strong>Host</strong> : 请求的资源所处的互联网的主机名和端口号.此字段是唯一一个必须包含在请求头当中的 ;为什么要有该字段,因为一个ip地址可能对应着多个域名,当访问一个ip地址时,服务端很有可能并不知道这个请求到底是从哪发来的,所以就要使用该字段,明确说明请求的来源<br><strong>User-Agent</strong> : 将创建请求的浏览器和用户代理名称等信息传达给服务器.记录了客户端程序的信息,包括使用的浏览器内核,版本,驱动等.<br><strong>Accept-Encoding</strong> : 表示浏览器接收的字符编码<br><strong>Accept-Language</strong> : 表示浏览器支持的语言,例如此例中,浏览器支持的语言分别是简体中文和中文，优先支持简体中文,zh-cn表示简体中文；zh 表示中文<br><strong>Cookie</strong> : 客户机通过这个头告诉服务器，可以向服务器带数据,客户端和服务端也是通过这个请求头来交换cookie信息的<br><strong>referer</strong> : 当前页面是从哪个页面跳转过来的<br><strong>location</strong> : 搭配3xx状态码使用,告诉浏览器接下来去哪里,常用与重定向和请求转发<br><strong>range</strong> : 对于只需获取部分资源的范围请求,包含首部字段Range即可告知服务器资源的指定范围<br><strong>Content-length</strong> : 表示该次请求中实体数据的大小是多少.例如上例中空行后的body中数据共有36个字节,所有这个Content-length就为36<br><strong>Content-type</strong> : 规定了客户端请求中有效载荷的媒体类型,当指定了字符编码则客户端和服务端都需要遵循此编码才能正确解读有效载荷中的内容<br><strong>last-modify</strong> : 表示了服务端资源最后一次的修改时间    </p>
+<h4 id="空行"><a href="#空行" class="headerlink" title="空行"></a>空行</h4><p>空行上面的请求行和请求头合称为报文首部<br>空行的主要作用是用来告诉服务器请求的头部到此结束,下面的内容是请求的正文部分,例如post请求方法中的参数内容   </p>
+<h4 id="有效载荷-报文主体"><a href="#有效载荷-报文主体" class="headerlink" title="有效载荷(报文主体)"></a>有效载荷(报文主体)</h4><p>请求中如果需要携带数据给服务器.则数据信息就存放在有效载荷中,也称为响应体.例如提交一个表单的时候表单数据就存放在响应体中</p>
+<h3 id="Http响应格式"><a href="#Http响应格式" class="headerlink" title="Http响应格式"></a>Http响应格式</h3><p><img src="/img/312.JPG" alt="image"><br>响应报文也分为四部分,分别为:<br>响应行,响应头,空行,响应体   </p>
+<h4 id="响应行"><a href="#响应行" class="headerlink" title="响应行"></a>响应行</h4><p>响应行中包括三部分  </p>
+<p><strong>第一部分</strong> :  使用的应用层协议及版本号,这个一般和请求的报文使用的都是同一协议   </p>
+<p><strong>第二部分</strong> :  响应状态码,状态码是用来反应服务端对客户端请求的响应情况的,大致分为5个状态,如下表<br><img src="/img/313.JPG" alt="image"><br>还有一些比较重要的单独列出:   </p>
+<ul>
+<li>200 表明从客户端发送来的请求在服务器端被正常处理了</li>
+<li>204 表明服务器接收到的请求已成功处理,但在返回的响应报文中不包含实体的主体部分</li>
+<li>301/302  永久/临时重定向</li>
+<li>303 改状态码表示访问的资源存在着另外一个URI, 应使用GET方法定向获取请求的资源  </li>
+<li>304(Not Modified) 未修改  –&gt;这条状态码返回的信息是说 此时网页内容没有变动,此次的访问是从本地缓存进行的,而没有直接通过服务器(减轻了服务器的压力)  服务器告诉客户端,该网页没有被修改过,这时候客户端就知道去缓存中找了 </li>
+<li>307 重定向中保持原有的请求数据:<br>用处: 假如我们现在的请求方式是post,那么请求过来是携带着用户数据的,如果在第一次请求后又一次重定向行为,那么在重定向过后,请求中携带的数据是会丢失的,所以这时候应该使用状态码为307的重定向,这样就可以保留原有请求中的数据了   </li>
+<li>400 4xx类型的响应结果表明客户端是发生错误的原因所在. 该状态码表示请求报文中出现了语法错误</li>
+<li>404 服务器无法找到请求的资源;除此之外,服务端有时不想接受请求且不想说明原因的时候也会返回此状态码</li>
+<li>500 该状态码表明服务器端在执行请求的时候发生了错误,也有可能是Web应用存在的bug或某些临时的故障</li>
+<li>503 表明服务器现在正处于超负荷或者维护的状态,暂时不能够处理请求  </li>
+</ul>
+<p><strong>第三部分</strong><br>状态文字,如果显示Ok,则代表响应正常完成   </p>
+<h4 id="响应首部字段"><a href="#响应首部字段" class="headerlink" title="响应首部字段"></a>响应首部字段</h4><p>响应首部字段是由服务器端向客户端返回响应报文中所使用的字段,用于补充响应的附加消息,服务器消息,以及对客户端的附加要求等信息<br><strong>Accept-Ranges</strong> : 首部字段Accept-Ranges是用来告知客户端服务器是否能够处理范围请求,以指定获取服务器端某个部分的资源<br><strong>age</strong> : 告诉客户端,源服务器在多久前创建了响应,单位值为秒<br><strong>location</strong> : 常常和3xx配合用来进行重定向<br><strong>retry-after</strong> : 告知客户端应该在多久之后再次发起请求.主要配合状态码503和3xx响应一起<br><strong>server</strong> : 告知客户端当前服务器上安装的HTTP服务器应用程序信息.不单单会标出服务器上的软件应用名称,还有可能包括版本号和安装时日用的可选项<br><strong>set-cookie</strong> : 开始状态管理所使用的Cookie信息  </p>
+<h4 id="空行-1"><a href="#空行-1" class="headerlink" title="空行"></a>空行</h4><p>分割响应头部和响应体,空行的下部就是响应报文的具体内容   </p>
+<h4 id="响应体"><a href="#响应体" class="headerlink" title="响应体"></a>响应体</h4><p>响应体中包含了对请求报文的回复,有可能是一个html页面,也有可能是一个文件,音频等.响应体允许为空.如果响应体不为空,则在响应报文的响应头中会有一个Content-Length来说明响应体中响应内容的大小  </p>
+<p><strong>以上就是Http请求报文和响应报文的基本内容,当浏览器给服务器发送一个http请求之后,服务器就会响应的返回一个http响应.数据的请求与传输的规则定义就是由Tttp协议规定的,Http协议是一个基于Tcp传输协议的应用层协议.是网络模型中最上层中的一个协议</strong></p>
+<h1 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h1><p>前面说了HTTP协议是一种无状态的协议,每当有一个新的请求发出后就会有一个新的响应产生,也就是说,无法根据之前的状态进行本次请求的处理.这种无状态的方式可以快速的处理大量事务,确保协议的可伸缩性,同时也使得HTTP协议十分简单.<br>但随着Web的不断发展,这种无状态的协议也带来了一些不便,例如用户登陆到一个商城,在他跳转到另外一个购物界面的时候,他需要的是能够继续保持登陆状态,但是由于是一个新的请求,所以此时兵并不能继续保存用户信息<br>为了解决这种情况,实现期望的保持状态功能,于是有了Cookie技术.有了Cookie再用HTTP协议通信,就可以保管状态了   </p>
+<h2 id="使用Cookie的状态管理"><a href="#使用Cookie的状态管理" class="headerlink" title="使用Cookie的状态管理"></a>使用Cookie的状态管理</h2><p>Cookie技术通过在请求和响应报文中写入Coolie信息来控制客户端的状态<br>客户端会根据从服务端中发回的响应报文内的Set-Cookie的首部字段信息,通知客户端保存Cookie. 当下次客户端再往该服务器发送请求的时会在请求字段中携带上这个Cookie值<br>服务器端发现客户端发送过来的Cookie后,会去检查究竟是从哪一个客户端发来的连接请求,然后对比服务器上的记录,最终得到之前的状态信息   </p>
+<h3 id="为Cookie服务的首部字段"><a href="#为Cookie服务的首部字段" class="headerlink" title="为Cookie服务的首部字段"></a>为Cookie服务的首部字段</h3><h4 id="服务端-Set-Cookie"><a href="#服务端-Set-Cookie" class="headerlink" title="服务端: Set-Cookie"></a>服务端: Set-Cookie</h4><p>当服务端开始准备管理客户端的状态的时,他会事先准备好各种信息,并使用set-cookie转告给客户端<br>Set-Cookie字段的部分属性<br>name=value : 赋予cookie的名称和其值(必须项)<br>expires = date : 指定cookie的有效期,到有效时期之后cookie失效,如果不设置该字段那么在浏览器关闭的时候cookie就会失效<br>secure: 用于限制web页面仅在HTTPS安全连接的时候,才可以发送cookie    </p>
+<h4 id="客户端-Cookie"><a href="#客户端-Cookie" class="headerlink" title="客户端: Cookie"></a>客户端: Cookie</h4><p>首部字段cookie会告知服务器,当客户端想获得HTTP状态管理支持时,就会在请求中包含从服务器接收到的cookie.接收到多个cookie时,同样可以以多个cookie的形式发送  </p>
+<h1 id="长连接-持久连接"><a href="#长连接-持久连接" class="headerlink" title="长连接(持久连接)"></a>长连接(持久连接)</h1><p>早期的HTTP协议只支持短链接,即一次请求,回应的过程后TCP连接就会断开.等到下一次的请求到来时便再次建立连接.这种方式对于文件量小的请求来说没有什么影响. 可随着HTTP的普及,文档中包含图片的情况越来越多.这也就意味着在访问包含图片的HTML页面时还会访问每一个图片资源.因此每一次的请求都会造成无谓的TCP连接建立和断开,增加通信量的开销<br>为了解决上述问题,HTTP/1.1和部分HTTP/1.0想出了持久连接的方法.持久连接的特点是: 只要任意一端没有明确提出断开连接,则保持TCP连接状态<br><strong>长连接的好处:</strong>  </p>
+<ul>
+<li>持久连接的好处在于减少了TCP连接的重复建立和断开所造成的额外开销,减轻了服务器端的负载. </li>
+<li>减少开销的那部分时间,使得HTTP请求和响应能够更早的结束,这样Web页面的显示速度也就相应提高了<br>在HTTP/1.1中,所有的连接默认的都是持久连接 </li>
+</ul>
+<h1 id="什么是管线化"><a href="#什么是管线化" class="headerlink" title="什么是管线化"></a>什么是管线化</h1><p>持久连接使得多数请求以管线化方式发送成为可能.从前发送请求后需要等待响应才能继续发送请求.管线化技术出现后,不用等待响应亦可直接发送下一个请求.<br>这样就能够做到同时并行发送多个请求,而不需要一个接一个的等待响应了</p>
+<h1 id="HTTP的缺点"><a href="#HTTP的缺点" class="headerlink" title="HTTP的缺点"></a>HTTP的缺点</h1><ol>
+<li>HTTP是不安全的传输协议,使用HTTP传输的内容在网络中全部以明文的形式传播,这样对于用户重要信息的保护是远远不够的,为了解决这样的问题,HTTP常常和SSL(安全套接层)组合使用,加密HTTP的通信内容<br>在SSL建立安全通信线路之后,就可以在这条线路上进行HTTP通信了.与SSL组合使用的HTTP被称为HTTPS(超文本传输安全协议)</li>
+<li>无法确定发送双方是否就是真正的通信对象,例如一个客户端对一个服务器端发送一个请求,这个请求很有可能被一个代理服务器拦截,实际请求等于并没有到真正想要请求的服务器;同理,服务器发送的响应也很有可能会被一个”冒牌”的客户端接收<br>解决的方法就是: 使用SSL提供的 <strong>证书</strong>  ,证书由值得信赖的第三方机构颁布,用以证明服务器和客户端是实际存在的.另外,伪造证书从技术角度来说是异常困难的.所以只要能够确认通信双方持有的证书,即可判断通信双方的真实意图   </li>
+<li>中间人攻击(完整性问题)<br>HTTP无法证明报文的完整性,也就是说在报文的传输过程中,内容可能已经遭到了篡改<br>举个例子: 比如从某个Web网站上下载内容,是无法确定客户端下载的文件和服务器上存放的文件是否前后一致.文件内容在传输的过程中如果被修改了,作为客户端的我们也是不知道的<br>解决方法: 还是配合SSL使用HTTP.SSL提供认证和加密处理及摘要功能.<h1 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h1><h2 id="HTTP-加密-认证-完整性保护-HTTPS"><a href="#HTTP-加密-认证-完整性保护-HTTPS" class="headerlink" title="HTTP+加密+认证+完整性保护 = HTTPS"></a>HTTP+加密+认证+完整性保护 = HTTPS</h2><h2 id="SSL的加密方式"><a href="#SSL的加密方式" class="headerlink" title="SSL的加密方式"></a>SSL的加密方式</h2><strong>共享密钥加密:</strong> 加密和解密通用一个密钥的方式称为使用一把密钥的共享密钥加密,也被叫做对称密钥加密.使用这种方式的密钥缺点在于发送方在发送请求报文时需要把密钥也一同发送,那么就存在密钥在发送的过程中被截获的问题,也是不安全的.<br><strong>两把密钥的公开密钥加密:</strong> 这种公开密钥的方式采用两把非对称的密钥.一把叫做私有密钥,另一把叫做公开密钥.使用公开密钥加密方式,发送密文的一方使用对方的公开密钥进行加密处理,对方收到被加密的信息后,在使用自己的私有密钥进行解密.利用这种方式,不需要发送用来解密的私有密钥,也不必担心密钥被攻击者窃听<br>SSL采用共享密钥加密和公开密钥加密混合的方式对报文进行加密<br>在确保交换的密钥是安全的前提下,使用共享密钥加密方式进行通信<br>否则<br>使用公开密钥加密方式安全的交换稍后在共享密钥加密中所要使用的密钥<br>可以使用由数字证书认证机构和其相关机关颁发的公开密钥证书来证明密钥本身的正确性  </li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/日常学习/" rel="tag"># 日常学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/07/04/重新认识Servlet/" rel="next" title="重新认识Servlet">
+                <i class="fa fa-chevron-left"></i> 重新认识Servlet
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2019/07/10/传输控制协议TCP/" rel="prev" title="传输层两兄弟之TCP与UDP">
+                传输层两兄弟之TCP与UDP <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Qi</p>
+              <p class="site-description motion-element" itemprop="description">蜜汁希望</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP-IP-五层-四层网络模型"><span class="nav-number">2.</span> <span class="nav-text">TCP/IP(五层)四层网络模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#URL"><span class="nav-number">3.</span> <span class="nav-text">URL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Http协议"><span class="nav-number">4.</span> <span class="nav-text">Http协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Http协议格式"><span class="nav-number">4.1.</span> <span class="nav-text">Http协议格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Http请求格式如下"><span class="nav-number">4.1.1.</span> <span class="nav-text">Http请求格式如下</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求行"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">请求行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求头"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">请求头</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#通用请求头-在请求和响应的报文里都会出现的请求头字段"><span class="nav-number">4.1.1.2.1.</span> <span class="nav-text">通用请求头(在请求和响应的报文里都会出现的请求头字段)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#请求首部字段"><span class="nav-number">4.1.1.2.2.</span> <span class="nav-text">请求首部字段</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#空行"><span class="nav-number">4.1.1.3.</span> <span class="nav-text">空行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有效载荷-报文主体"><span class="nav-number">4.1.1.4.</span> <span class="nav-text">有效载荷(报文主体)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Http响应格式"><span class="nav-number">4.1.2.</span> <span class="nav-text">Http响应格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#响应行"><span class="nav-number">4.1.2.1.</span> <span class="nav-text">响应行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应首部字段"><span class="nav-number">4.1.2.2.</span> <span class="nav-text">响应首部字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#空行-1"><span class="nav-number">4.1.2.3.</span> <span class="nav-text">空行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应体"><span class="nav-number">4.1.2.4.</span> <span class="nav-text">响应体</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cookie"><span class="nav-number">5.</span> <span class="nav-text">Cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Cookie的状态管理"><span class="nav-number">5.1.</span> <span class="nav-text">使用Cookie的状态管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为Cookie服务的首部字段"><span class="nav-number">5.1.1.</span> <span class="nav-text">为Cookie服务的首部字段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端-Set-Cookie"><span class="nav-number">5.1.1.1.</span> <span class="nav-text">服务端: Set-Cookie</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端-Cookie"><span class="nav-number">5.1.1.2.</span> <span class="nav-text">客户端: Cookie</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#长连接-持久连接"><span class="nav-number">6.</span> <span class="nav-text">长连接(持久连接)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是管线化"><span class="nav-number">7.</span> <span class="nav-text">什么是管线化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP的缺点"><span class="nav-number">8.</span> <span class="nav-text">HTTP的缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩展"><span class="nav-number">9.</span> <span class="nav-text">扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-加密-认证-完整性保护-HTTPS"><span class="nav-number">9.1.</span> <span class="nav-text">HTTP+加密+认证+完整性保护 = HTTPS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSL的加密方式"><span class="nav-number">9.2.</span> <span class="nav-text">SSL的加密方式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

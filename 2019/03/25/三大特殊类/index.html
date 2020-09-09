@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="日常学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言在Java中有三大特殊类:String类,Object类,包装类.针对于这三个特殊类做了相对应的总结">
+<meta name="keywords" content="日常学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="三大特殊类">
+<meta property="og:url" content="http://seevae.github.io/2019/03/25/三大特殊类/index.html">
+<meta property="og:site_name" content="Hero">
+<meta property="og:description" content="前言在Java中有三大特殊类:String类,Object类,包装类.针对于这三个特殊类做了相对应的总结">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-25T09:32:18.933Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="三大特殊类">
+<meta name="twitter:description" content="前言在Java中有三大特殊类:String类,Object类,包装类.针对于这三个特殊类做了相对应的总结">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://seevae.github.io/2019/03/25/三大特殊类/">
+
+
+
+
+
+  <title>三大特殊类 | Hero</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hero</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">十年一开花的忍者神龟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/blog/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://seevae.github.io/blog/2019/03/25/三大特殊类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">三大特殊类</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/JavaSE/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaSE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在Java中有三大特殊类:String类,Object类,包装类.针对于这三个特殊类做了相对应的总结<br><a id="more"></a></p>
+<h1 id="一-String类"><a href="#一-String类" class="headerlink" title="一.String类"></a>一.String类</h1><h2 id="1-String类的两种实例化方式"><a href="#1-String类的两种实例化方式" class="headerlink" title="1.String类的两种实例化方式"></a>1.String类的两种实例化方式</h2><p>首先我们应该知道String是一个类,而不是一个简单类型(int,float…),作为一个类,它具有类的所有特性,自然也和其他类一样能够通过new来进行实例化,同时他也和数组一样,在实例化时有更为简洁的方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//String类的两种实例化方式</span></span><br><span class="line">String str = <span class="string">"hello world"</span>;   <span class="comment">//最为简洁的方式</span></span><br><span class="line">String str1 = <span class="keyword">new</span> String(<span class="string">"hello world"</span>);  <span class="comment">//通过关键字new来实例化对象,这只是String类构造方法的一种</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="2-字符串相等比较"><a href="#2-字符串相等比较" class="headerlink" title="2.字符串相等比较"></a>2.字符串相等比较</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String str1 = <span class="string">"abc"</span>;</span><br><span class="line">String str2 = <span class="string">"abc"</span>;</span><br><span class="line">String str3 = <span class="keyword">new</span> String(<span class="string">"abc"</span>);</span><br></pre></td></tr></table></figure>
+<p>如上有三个字符串,他们的内容全都一样,现在想要比较一下他们是否相等,有人可能会问,内容都一样了,怎么会不相等?<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(str1 == str2);  <span class="comment">//true</span></span><br><span class="line">System.out.println(str2 == str3);  <span class="comment">//false</span></span><br></pre></td></tr></table></figure></p>
+<p>答案如注释所示,为什么会出现这种情况?<br><strong>在JAVA中,==比较的是两个对象的引用.</strong><br>str1,str2没有通过new来创建对象,其实他们的内容是在一个叫做字符常量池的空间中存放着,只要有新的没有用new产生的String变量生成就会到常量池中去寻找看是否有这个字符串,如果有就将引用指向这个字符串,所以str1和str2他们引用的指向都是一个地方,故相等.即==一般用于数值比较,在对象之间他比较的是两个对象的引用(即内容所处的地址)<br>而str3是通过类的实例化得来的,所以他的abc是保存在堆上的,并且由一个在栈中的引用指向他,这个引用指向的位置自然和str1与str2不同,故不等<br><strong>equals方法</strong><br>想要比较两个字符串的内容是否相等,就要用String类提供的equals()方法.他比较的是两个字符串的内容,如果内容一致,就是true,否则相反<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(str.equals(str1));  <span class="comment">//true</span></span><br><span class="line">System.out.println(str.equals(str2));  <span class="comment">//true</span></span><br></pre></td></tr></table></figure></p>
+<p> 在日后的开发过程之中，如果要判断用户输入的字符串是否等同于特定字符串，一定要将特定字符串写在前面,以此来避免空指针异常的错误    </p>
+<h2 id="3-String类两种实例化方式的区别"><a href="#3-String类两种实例化方式的区别" class="headerlink" title="3.String类两种实例化方式的区别"></a>3.String类两种实例化方式的区别</h2><h3 id="1-直接赋值法"><a href="#1-直接赋值法" class="headerlink" title="1.直接赋值法"></a>1.直接赋值法</h3><p>String类的设计采用共享模式,使用直接赋值法时,<br>在JVM底层实际上会自动维护一个对象池（字符串对象池），如果现在采用了直接赋值的模式进行String类的对象<br>实例化操作，那么该实例化对象（字符串内容）将自动保存到这个对象池之中。如果下次继续使用直接赋值的模式<br>声明String类对象，此时对象池之中如若有指定内容，将直接进行引用；如若没有，则开辟新的字符串对象而后将<br>其保存在对象池之中以供下次使用<br>所谓的对象池就是一个对象数组（目的就是减少开销）</p>
+<h3 id="2-类的实例化方式"><a href="#2-类的实例化方式" class="headerlink" title="2.类的实例化方式"></a>2.类的实例化方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="keyword">new</span> String(<span class="string">"abc"</span>);</span><br></pre></td></tr></table></figure>
+<p>使用此种方式实际上JVM会前后开辟两块空间,当开始执行此条语句的时候,会在new之前先在堆上开创一片空间,将”abc”放入,然后在使用new时又会创建一片空间将相同的内容放入,然后引用指向这片空间,之前那片空间便成为了垃圾空间  .并且由这种方式创建出来的字符串是不能共享的,但是String提供了手工入池的方法intern().将字符串入池之后就和其他直接赋值创建的字符串一样了<br><strong>总结区别:</strong><br><strong>方式1</strong>.只会开辟一块空间,并且该字符串对象可以自动保存在对象池中供下次使用<br><strong>方式2</strong>.会开辟两块内存空间,并且第一块会变为垃圾空间,该字符串不能自动保存在对象池中,但是可以手工入池(手工入池要注意一点,一定要在对象创建好的时候就手工入池,不能之后  通过引用来调用入池操作)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//正确手工入池操作</span></span><br><span class="line">String str = <span class="keyword">new</span> String(<span class="string">"abc"</span>).intern();</span><br><span class="line"></span><br><span class="line"><span class="comment">//错误方式</span></span><br><span class="line">str.intern();</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-字符串一旦定义就不能修改"><a href="#3-字符串一旦定义就不能修改" class="headerlink" title="3.字符串一旦定义就不能修改"></a>3.字符串一旦定义就不能修改</h3><p>字符串底层实现都是字符数组,数组的最大缺陷就是一旦定义好了变不能够修改大小,所以字符串一但定义好就不能再修改.<br>但是字符串可以使用”+”号进行拼接,例如<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> str1+str2</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-字符串和字符数组的相互转换"><a href="#4-字符串和字符数组的相互转换" class="headerlink" title="4.字符串和字符数组的相互转换"></a>4.字符串和字符数组的相互转换</h3><ul>
+<li><p>字符串转换为字符数组<br>使用String类中提供的toCharArray()方法,使得一个字符串能够转换为一个字符数组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">"abdef"</span>;</span><br><span class="line">str.toCharArray();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符数组转变为一个字符串<br>在String类中,有一个构造方法,他需要一个参数便是一个字符数组.所以将要转变的字符数组当作一个参数传递给一个String的构造方法,便可以达到转变的目的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span>[] arr = &#123;a,b,c,s,a&#125;;</span><br><span class="line">String str = <span class="keyword">new</span> String(arr);  <span class="comment">//转换完成</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="获得指定索引处字符的方法-charAt"><a href="#获得指定索引处字符的方法-charAt" class="headerlink" title="获得指定索引处字符的方法 charAt();"></a>获得指定索引处字符的方法 charAt();</h4><h3 id="5-字节数组和字符串之间的相互转化"><a href="#5-字节数组和字符串之间的相互转化" class="headerlink" title="5.字节数组和字符串之间的相互转化"></a>5.字节数组和字符串之间的相互转化</h3><ul>
+<li><p>字节数组转变为字符串</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span>[] arr = &#123;<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>&#125;;</span><br><span class="line">String str = <span class="keyword">new</span> String(arr);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串转变为字符数组<br>直接调用getBytes()方法就可进行转换<br>需要注意的是字节数组并不适合处理中文,只有字符适合处理中文,因为一个字符默认的是两个字节的大小.字节只适合处理二进制数据</p>
+<h3 id="6-equals-equalsIgnoreCase和compareTo"><a href="#6-equals-equalsIgnoreCase和compareTo" class="headerlink" title="6.equals,equalsIgnoreCase和compareTo"></a>6.equals,equalsIgnoreCase和compareTo</h3><p>前两个都为比较方法,他们的区别在于第一个比较是区分大小的比较,第二个比较是不区分大小写的.<br>compareTo()方法可以比较两个字符串的大小,他的结果会返回一个整型,如果字符串大于被比较的字符串则返回一个大于零的数,等于就返回零,小于就返回一个小于零的数  </p>
+<h3 id="7-字符串查找"><a href="#7-字符串查找" class="headerlink" title="7.字符串查找"></a>7.字符串查找</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">"abcdefghi"</span>;</span><br><span class="line">      String str1 = <span class="string">"cde"</span>;</span><br><span class="line"></span><br><span class="line">      System.out.println(str.contains(<span class="string">"abc"</span>));  <span class="comment">//str中包含str1</span></span><br><span class="line">      System.out.println(str.indexOf(<span class="string">"hi"</span>));  <span class="comment">//在一个字符串中从头开始查找指定字符串出现的位置并返回索引</span></span><br><span class="line">      System.out.println(str.indexOf(<span class="string">"hi"</span>,<span class="number">2</span>));  <span class="comment">//从指定索引处开始查找,并返回查找到的字符串的开头索引位置</span></span><br><span class="line">      System.out.println(str.lastIndexOf(<span class="string">"ef"</span>));  <span class="comment">//从后向前查找指定字符串,返回指定字符串在原字符串中的索引</span></span><br><span class="line">      System.out.println(str.lastIndexOf(<span class="string">"ef"</span>,str.length())); <span class="comment">//从后往前,指定起始下标位置,返回索引(同上)</span></span><br><span class="line">      System.out.println(str.startsWith(<span class="string">"abc"</span>)); <span class="comment">//判断字符串是否已某个指定字符串开头</span></span><br><span class="line">      System.out.println(str.startsWith(<span class="string">"ab"</span>,<span class="number">0</span>)); <span class="comment">//判断指定索引处是否以某个字符串开头</span></span><br><span class="line">      System.out.println(str.endsWith(<span class="string">"i"</span>)); <span class="comment">//判断字符串是否以某个字符串结尾</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="8-字符串替换"><a href="#8-字符串替换" class="headerlink" title="8.字符串替换"></a>8.字符串替换</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//字符串替换</span></span><br><span class="line">        System.out.println(str.replaceAll(<span class="string">"k"</span>,<span class="string">"o"</span>));  <span class="comment">//将所有的字符全部替换</span></span><br><span class="line">        System.out.println(str.replaceFirst(<span class="string">"k"</span>,<span class="string">"o"</span>));  <span class="comment">//只替换指定字符第一次出现的位置</span></span><br></pre></td></tr></table></figure>
+<h3 id="9-字符串拆分"><a href="#9-字符串拆分" class="headerlink" title="9.字符串拆分"></a>9.字符串拆分</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//字符串拆分</span></span><br><span class="line">       <span class="comment">//1.全部拆分</span></span><br><span class="line">       String s = <span class="string">"hello world hello bit haha"</span>;</span><br><span class="line">       String[] arrStr = s.split(<span class="string">" "</span>);</span><br><span class="line">       <span class="keyword">for</span>(String i: arrStr)&#123;</span><br><span class="line">           System.out.println(i);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//2.部分拆分</span></span><br><span class="line">       String[] arrStr2 = s.split(<span class="string">" "</span>,<span class="number">4</span>);</span><br><span class="line">       <span class="keyword">for</span>(String i: arrStr2)&#123;</span><br><span class="line">           System.out.println(i);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//拆分一个ip地址</span></span><br><span class="line">       String str = <span class="string">"192.168.1.1"</span> ;</span><br><span class="line">       String[] ipArr = str.split(<span class="string">"\\."</span>);</span><br><span class="line">       <span class="keyword">for</span>(String i: ipArr)&#123;</span><br><span class="line">           System.out.println(i);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">//多次拆分</span></span><br><span class="line">       String strr = <span class="string">"yuisama:27|yui:25"</span> ;</span><br><span class="line">       String[] first = strr.split(<span class="string">"\\|"</span>);</span><br><span class="line">       <span class="keyword">for</span>(String i:first)&#123;</span><br><span class="line">           String[] second = i.split(<span class="string">"\\:"</span>);</span><br><span class="line">           System.out.println(second[<span class="number">0</span>]+<span class="string">" "</span>+second[<span class="number">1</span>]);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="10-字符串截取"><a href="#10-字符串截取" class="headerlink" title="10.字符串截取"></a>10.字符串截取</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//字符串截取</span></span><br><span class="line">        String aa = <span class="string">"abcdefrg"</span>;</span><br><span class="line">        System.out.println(aa.substring(<span class="number">1</span>,<span class="number">5</span>));  <span class="comment">//从指定索引处开始截取到指定索引处 注意截取范围: [start,end)</span></span><br><span class="line">        System.out.println(aa.substring(<span class="number">2</span>));    <span class="comment">//从制定索引出截取到末尾 [start,str.length]</span></span><br></pre></td></tr></table></figure>
+<h3 id="11-其他方法"><a href="#11-其他方法" class="headerlink" title="11.其他方法"></a>11.其他方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//去掉一个字符串左右两边的空格,保留中间的空格</span></span><br><span class="line">        String s = <span class="string">" a b c d e "</span>;</span><br><span class="line">        System.out.println(<span class="string">"["</span>+s+<span class="string">"]"</span>);</span><br><span class="line">        System.out.println(<span class="string">"["</span>+s.trim()+<span class="string">"]"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//字符串变大写</span></span><br><span class="line">        System.out.println(s.toUpperCase());</span><br><span class="line">        <span class="comment">//字符串变小写</span></span><br><span class="line">        System.out.println(s.toUpperCase().toLowerCase());</span><br><span class="line">        <span class="comment">//需要注意的是此方法只会转变字母</span></span><br></pre></td></tr></table></figure>
+<h3 id="12-StringBuffer类"><a href="#12-StringBuffer类" class="headerlink" title="12.StringBuffer类"></a>12.StringBuffer类</h3><p>String类只要定义了一个字符串,那么这个字符串就不能够进行更改,为了方便的对一个字符串进行修改操作,便有了StringBuffer类,这个类提供了许多字符串修改的操作  </p>
+<h4 id="1-连接操作"><a href="#1-连接操作" class="headerlink" title="1.连接操作"></a>1.连接操作</h4><p>String中连接两个字符串使用+就好了.在StringBuffer中需要使用append方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStringBuffer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        sb.append(<span class="string">"Hello"</span>).append(<span class="string">"World"</span>);</span><br><span class="line">        fun(sb);</span><br><span class="line">        System.out.println(sb);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">(StringBuffer temp)</span> </span>&#123;</span><br><span class="line">        temp.append(<span class="string">"\n"</span>).append(<span class="string">"www.bit.com.cn"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意上面这段代码,StringBuffer和数组一样,在一个方法中是会被修改的.<br>StringBuffer和String的最大区别就是他可以对字符串进行修改</p>
+<h4 id="2-String和StringBuffer互相转换"><a href="#2-String和StringBuffer互相转换" class="headerlink" title="2.String和StringBuffer互相转换"></a>2.String和StringBuffer互相转换</h4><ul>
+<li><p>String–&gt;StringBuffer: 将String作为参数传给StringBuffer的一个构造方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb1 = <span class="keyword">new</span> StringBuffer(s);</span><br><span class="line">        System.out.println(sb1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>StringBuffer–&gt;String<br>使用StringBuffer中的toString方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        sb.append(<span class="string">"Hello"</span>).append(<span class="string">"World"</span>);</span><br><span class="line">        System.out.println(sb.toString());</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3-StringBuffer中的其他方法"><a href="#3-StringBuffer中的其他方法" class="headerlink" title="3.StringBuffer中的其他方法"></a>3.StringBuffer中的其他方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">"abcdef"</span>);</span><br><span class="line">        <span class="comment">//字符串反转</span></span><br><span class="line">        sb.reverse();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//删除指定范围的内容</span></span><br><span class="line">        sb.delete(<span class="number">2</span>,<span class="number">4</span>);</span><br><span class="line">        System.out.println(sb);</span><br><span class="line">        <span class="comment">//删除指定下标处的内容</span></span><br><span class="line">        sb.deleteCharAt(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//插入操作</span></span><br><span class="line">        sb.insert(<span class="number">1</span>,<span class="string">"hahahah"</span>);</span><br><span class="line">        System.out.println(sb);</span><br></pre></td></tr></table></figure>
+<h4 id="4-StringBuild"><a href="#4-StringBuild" class="headerlink" title="4.StringBuild"></a>4.StringBuild</h4><p>与StringBuffer相同的还有个StringBuild,StringBuild和StringBuffer的区别在于前者是线程不安全的,他适合于在单线程中工作,效率比较高;后者是线程安全的,但是相对效率会低于前者.常用于多线程中</p>
+<h1 id="二-Object类"><a href="#二-Object类" class="headerlink" title="二.Object类"></a>二.Object类</h1><p>Object是Java默认提供的一个类,他是所有类的父类.即所有类的对象都可以使用Object类来接收,所有的类也都具备Object类的特性(包括方法,属性等)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestObject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//使用Object类来接收对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">(Object oj)</span></span>&#123;</span><br><span class="line">        System.out.println(oj);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        fun(<span class="keyword">new</span> Person());</span><br><span class="line">        fun(<span class="keyword">new</span> Student());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123; &#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>&#123; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行结果(后面会解释):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">io.github.Object.Person@1540e19d</span><br><span class="line">io.github.Object.Student@677327b6</span><br></pre></td></tr></table></figure></p>
+<p>在开发中,Object是形参的最高同一类型.</p>
+<h2 id="Object类提供的方法"><a href="#Object类提供的方法" class="headerlink" title="Object类提供的方法"></a>Object类提供的方法</h2><p>Object中提供了很多方法,在这里总结两个很关键的方法.<br>equals和toString方法</p>
+<h3 id="1-toString-获取对象信息"><a href="#1-toString-获取对象信息" class="headerlink" title="1.toString:获取对象信息"></a>1.toString:获取对象信息</h3><p>在一开始的代码中,我们使用fun()方法来打印了每一个对象的信息,然后发现结果是:<strong>io.github.Object.Person@1540e19d</strong>, 这是什么东西呢? —&gt;<br>首先需要知道,当打印一个对象信息的时候便默认调用了这个对象类中的toString方法,这个方法便是用来打印对象信息的.<br>Object中的toString方法:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> getClass().getName() + <span class="string">"@"</span> + Integer.toHexString(hashCode());</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>所以,在使用对象直接输出的时候,默认输出的是一个地址编码.</strong><br><strong><em>为什么String类的对象在使用对象直接输出的时候不是编码呢?</em></strong><br>.Object是所有引用类型的父类,在Object中有一个方法是toString,他返回的结果是对象的地址编码.String类是继承自Object类的,但他覆写了Object类中的toString方法. 在实例化一个类的对象时,如果子类覆写了父类的某个方法,那么在调用此方法时如果没有明确指定是调用父类中的方法就会默认调用覆写过后的方法,所以在String类实例化对象后打印信息时会自动调用String中覆写过的toString方法<br>String类中覆写过的toString方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到String类中的toString方法是直接返回String中的内容的,所以不是我们看到的地址编码<br><strong>启示:我们所写的每一个类也都是Object的子类,如果不想在打印对象信息的时候出现的结果是地址编码,那么我们就需要按照自己的需求也将toString方法进行覆写</strong><br>改写第一个例子:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestObject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">(Object oj)</span></span>&#123;</span><br><span class="line">        System.out.println(oj);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        fun(<span class="keyword">new</span> Person());</span><br><span class="line">        fun(<span class="keyword">new</span> Student());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name = <span class="string">"Alice"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age = <span class="number">19</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"name: "</span>+name+<span class="string">" \nage: "</span>+age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>&#123; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>此时输出内容:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name: Alice </span><br><span class="line">age: <span class="number">19</span></span><br><span class="line">io.github.Object.Student@<span class="number">1540e19</span>d</span><br></pre></td></tr></table></figure></p>
+<p>覆写过后的toString方法就能够按照我们意愿打印对象信息了!</p>
+<h3 id="2-equals-对象比较"><a href="#2-equals-对象比较" class="headerlink" title="2.equals:对象比较"></a>2.equals:对象比较</h3><p>在Object中提供了equals方法用来比较两个对象<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是他仅仅是简单的做了一下对象引用的比较.所以在其他子类中一般都需要重新覆写该方法.例如String类就重新覆写了equals方法.<br>我们也可以在自己定义的类中重新覆写该方法,按照我们的意愿来进行两个对象的比较<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestObject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">(Object oj)</span></span>&#123;</span><br><span class="line">        System.out.println(oj);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Person per1 = <span class="keyword">new</span> Person(<span class="string">"Alice"</span>,<span class="number">21</span>);</span><br><span class="line">        Person per2 = <span class="keyword">new</span> Person(<span class="string">"Jack"</span>,<span class="number">22</span>);</span><br><span class="line">        System.out.println(per1.equals(per2));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name ;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"name: "</span>+name+<span class="string">" \nage: "</span>+age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(obj == <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span> == obj)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(!(obj <span class="keyword">instanceof</span> Person))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Person per = (Person)obj;  <span class="comment">//向下转型,比较属性值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.age==per.age &amp;&amp; <span class="keyword">this</span>.name.equals(per.name);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样就覆写了Object中的equals方法</p>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h2><p>在Java中,Object是所有类的父类,所有的类都继承自Object类,都拥有Object所提供的开放方法及属性.为了达到准确编程的目的我们在必要的时候需要覆写Object中的方法.Object由于是所有类的父类,所以他可以接收所有的引用类型,包括数组,接口,类!!  </p>
+<h1 id="三-包装类型"><a href="#三-包装类型" class="headerlink" title="三.包装类型"></a>三.包装类型</h1><p>Object可以接受所有的引用类型,那么基本类型怎么办?这里就要使用到包装类型了</p>
+<h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><p>包装类就是将基本数据类型封装到类中<br><strong>自己定义一个int类型的包装类</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Object intDome = <span class="keyword">new</span> IntDome(<span class="number">45</span>);</span><br><span class="line">        IntDome intDome1 = (IntDome)intDome;</span><br><span class="line">        System.out.println(intDome1.getInt());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//自己定义一个int类型的包装类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IntDome</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> num;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IntDome</span><span class="params">(<span class="keyword">int</span> num)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.num = num;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getInt</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样我们便自己定义好了一个int类型的包装类,他可以使用Object来接收并且能够和int一样定义我们需要的数据 ,我们定义的这个类就是一个基本的包装类,他将一个基本数据类型包装成了一个可以使用Object接收的引用数据类型<br><strong>结论:将基本数据类型包装为一个类对象的本质就是使用Object进行接收处理。</strong><br>但是,基本数据类型有8种,每一种都在自己编程的时候进行包装未免太过于麻烦,代码重复度也会增加,所以,JDK为我们直接提供了包装类的使用,而对于包装类的使用，提供了两种类型:  </p>
+<ul>
+<li>对象型(Object的直接子类):Boolean、Character(char)；</li>
+<li>数值型(Number的直接子类): Byte、Double、Short、Long、Integer(int)、Float<br>这些包装类型直接当作引用类型使用就可以了  <h2 id="装箱拆箱"><a href="#装箱拆箱" class="headerlink" title="装箱拆箱"></a>装箱拆箱</h2>在包装类与基本数据类型处理之中存在有两个概念：<br><strong>装箱:将基本数据类型变为包装类对象,利用每一个包装类提供的构造方法实现装箱处理</strong><br><strong>拆箱:将包装类中包装的基本数据类型取出.利用Number类中提供的方法</strong><br>int类型装箱拆箱实例:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestInt</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">55</span>;</span><br><span class="line">        Integer integer = <span class="keyword">new</span> Integer(a);  <span class="comment">//装箱</span></span><br><span class="line">       </span><br><span class="line">        <span class="keyword">int</span> b = integer.intValue();  <span class="comment">//拆箱</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>以上示范采用的是手工的装箱拆箱操作,在JDK1.5之后,提供了自动装箱拆箱处理,自此可以使用包装类对象直接进行数值上的逻辑运算<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer a = <span class="number">55</span>;<span class="comment">//自动装箱</span></span><br><span class="line">System.out.println(++a); <span class="comment">//逻辑运算时,自动拆箱</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="包装类型的一个大坑"><a href="#包装类型的一个大坑" class="headerlink" title="包装类型的一个大坑"></a>包装类型的一个大坑</h2><p>观察问题:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Integer n1 =  <span class="number">11</span>;</span><br><span class="line">Integer n2 = <span class="number">11</span>;</span><br><span class="line">Integer n3 = <span class="keyword">new</span> Integer(<span class="number">11</span>);</span><br><span class="line">Integer n4 = -<span class="number">2</span>;</span><br><span class="line">Integer n5 = <span class="number">129</span>;</span><br><span class="line">Integer n6 = <span class="number">129</span>;</span><br><span class="line">Integer n7 = <span class="keyword">new</span> Integer(<span class="number">129</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(n4);  </span><br><span class="line">System.out.println(n1 == n3);   <span class="comment">//false</span></span><br><span class="line">System.out.println(n1==n2);     <span class="comment">//true</span></span><br><span class="line">System.out.println(n5==n6);     <span class="comment">//false</span></span><br><span class="line">System.out.println(n5==n7);     <span class="comment">//false</span></span><br></pre></td></tr></table></figure></p>
+<p>我们知道包装类型和引用类型一样,使用等号比较的时候,比较的还是引用,所以n1!=n3,n1=n2,n5!=n7<br>但是为什么n1==n2,n5!=n6呢?<br><strong>原因是这样的: 当产生一个Integer的对象,如果这个值是在-127–+128之间,那么这个值会在IntegerCache.cache 产生,并且会复用已有对象,这个区间的值可以直接使用”\==”来判断,但是这个区间之外的值,会在堆上产生,并且不会复用已有对象,只有用equals来比较才能得到我们想要的结果</strong><br><strong><em>阿里编码规范：</em></strong></p>
+<ul>
+<li>所有的相同类型的包装类对象之间值的比较，全部使用 equals 方法比较</li>
+<li>【强制】RPC 方法(远程方法调用)的返回值和参数必须使用包装数据类型。</li>
+<li><p>【推荐】所有的局部变量使用基本数据类型。</p>
+<h2 id="字符串与基本数据类型的转换"><a href="#字符串与基本数据类型的转换" class="headerlink" title="字符串与基本数据类型的转换"></a>字符串与基本数据类型的转换</h2><p>在开发中,我们从外部接收的数据都是字符串类型的,那么如何把这些字符串类型的内容转变为我们需要的基本类型呢,这时候就要使用我们的包装类型了</p>
+</li>
+<li><p>String变为int 类型（Integer类）：public static int parseInt(String s) throws<br>NumberFormatException</p>
+</li>
+<li>double parseDouble(String s) throws<br>NumberFormatException</li>
+<li>String变为Boolean类型（Boolean类）：public static boolean parseBoolean(String s)<br>具体使用:<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//字符串转int</span></span><br><span class="line">        String str = <span class="string">"123456"</span>;</span><br><span class="line">        <span class="keyword">int</span> rstr = Integer.parseInt(str);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//字符串转double</span></span><br><span class="line">        <span class="keyword">double</span> rstr1 = Double.parseDouble(str);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//字符串转boolean</span></span><br><span class="line">        Boolean.parseBoolean(str);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>及每一种包装类型都有自己的parse方法能够将String类型转变为包装类型在自动拆箱成基本类型<br>问题: 字符串转数字时一定要注意给定的字符串中不能出现非数字,否则会出现（NumberFormatException)<br><strong><em>基本类型如何变为字符串类型?</em></strong></p>
+<ul>
+<li>任何数据类型只要使用+连接空白字符串就会变为字符串类型<br>举个例子:  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> b= <span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> c = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">System.out.println(a+b+c);</span><br><span class="line">System.out.println(a+<span class="string">""</span>+b+c);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>运行结果:<br>6<br>123<br>上面一行直接用+号连接,求出来的就是三个值的和<br>下面一行使用+连接空符串(什么字符串都可以完成转换),在空包字符串后面的内容就自动被转换成了字符串  </p>
+<ul>
+<li>使用String类提供的valueOf方法也可以进行基本类型到字符串的转换<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String str = String.valueOf(<span class="number">100</span>);</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/日常学习/" rel="tag"># 日常学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/03/25/抽象类与接口/" rel="next" title="抽象类与接口">
+                <i class="fa fa-chevron-left"></i> 抽象类与接口
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2019/04/18/面向对象基础知识补充/" rel="prev" title="面向对象基础知识补充">
+                面向对象基础知识补充 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Qi</p>
+              <p class="site-description motion-element" itemprop="description">蜜汁希望</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一-String类"><span class="nav-number">2.</span> <span class="nav-text">一.String类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-String类的两种实例化方式"><span class="nav-number">2.1.</span> <span class="nav-text">1.String类的两种实例化方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-字符串相等比较"><span class="nav-number">2.2.</span> <span class="nav-text">2.字符串相等比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-String类两种实例化方式的区别"><span class="nav-number">2.3.</span> <span class="nav-text">3.String类两种实例化方式的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-直接赋值法"><span class="nav-number">2.3.1.</span> <span class="nav-text">1.直接赋值法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-类的实例化方式"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.类的实例化方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-字符串一旦定义就不能修改"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.字符串一旦定义就不能修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-字符串和字符数组的相互转换"><span class="nav-number">2.3.4.</span> <span class="nav-text">4.字符串和字符数组的相互转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#获得指定索引处字符的方法-charAt"><span class="nav-number">2.3.4.1.</span> <span class="nav-text">获得指定索引处字符的方法 charAt();</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-字节数组和字符串之间的相互转化"><span class="nav-number">2.3.5.</span> <span class="nav-text">5.字节数组和字符串之间的相互转化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-equals-equalsIgnoreCase和compareTo"><span class="nav-number">2.3.6.</span> <span class="nav-text">6.equals,equalsIgnoreCase和compareTo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-字符串查找"><span class="nav-number">2.3.7.</span> <span class="nav-text">7.字符串查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-字符串替换"><span class="nav-number">2.3.8.</span> <span class="nav-text">8.字符串替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-字符串拆分"><span class="nav-number">2.3.9.</span> <span class="nav-text">9.字符串拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-字符串截取"><span class="nav-number">2.3.10.</span> <span class="nav-text">10.字符串截取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-其他方法"><span class="nav-number">2.3.11.</span> <span class="nav-text">11.其他方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-StringBuffer类"><span class="nav-number">2.3.12.</span> <span class="nav-text">12.StringBuffer类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-连接操作"><span class="nav-number">2.3.12.1.</span> <span class="nav-text">1.连接操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-String和StringBuffer互相转换"><span class="nav-number">2.3.12.2.</span> <span class="nav-text">2.String和StringBuffer互相转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-StringBuffer中的其他方法"><span class="nav-number">2.3.12.3.</span> <span class="nav-text">3.StringBuffer中的其他方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-StringBuild"><span class="nav-number">2.3.12.4.</span> <span class="nav-text">4.StringBuild</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-Object类"><span class="nav-number">3.</span> <span class="nav-text">二.Object类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Object类提供的方法"><span class="nav-number">3.1.</span> <span class="nav-text">Object类提供的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-toString-获取对象信息"><span class="nav-number">3.1.1.</span> <span class="nav-text">1.toString:获取对象信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-equals-对象比较"><span class="nav-number">3.1.2.</span> <span class="nav-text">2.equals:对象比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-总结"><span class="nav-number">3.2.</span> <span class="nav-text">4.总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三-包装类型"><span class="nav-number">4.</span> <span class="nav-text">三.包装类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本原理"><span class="nav-number">4.1.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装箱拆箱"><span class="nav-number">4.2.</span> <span class="nav-text">装箱拆箱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包装类型的一个大坑"><span class="nav-number">4.3.</span> <span class="nav-text">包装类型的一个大坑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串与基本数据类型的转换"><span class="nav-number">4.4.</span> <span class="nav-text">字符串与基本数据类型的转换</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

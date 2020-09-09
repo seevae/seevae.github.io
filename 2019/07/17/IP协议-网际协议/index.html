@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="日常学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言位于网络层中的IP协议主要负责将数据包发送给最终的目标计算机.IP协议主要有三个作用分别是IP寻址,路由以及IP分包与组包。他的主要任务就是”实现终端节点之间的通信”.这种终端节点之间的通信也叫”点对点通信” 。以下会对IP协议进行一个较为详细的总结">
+<meta name="keywords" content="日常学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IP协议(网际协议)">
+<meta property="og:url" content="http://seevae.github.io/2019/07/17/IP协议-网际协议/index.html">
+<meta property="og:site_name" content="Hero">
+<meta property="og:description" content="前言位于网络层中的IP协议主要负责将数据包发送给最终的目标计算机.IP协议主要有三个作用分别是IP寻址,路由以及IP分包与组包。他的主要任务就是”实现终端节点之间的通信”.这种终端节点之间的通信也叫”点对点通信” 。以下会对IP协议进行一个较为详细的总结">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="d:/youdaoPicture/016.png">
+<meta property="og:image" content="http://seevae.github.io/img/316.JPG">
+<meta property="og:updated_time" content="2019-07-19T07:56:05.270Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IP协议(网际协议)">
+<meta name="twitter:description" content="前言位于网络层中的IP协议主要负责将数据包发送给最终的目标计算机.IP协议主要有三个作用分别是IP寻址,路由以及IP分包与组包。他的主要任务就是”实现终端节点之间的通信”.这种终端节点之间的通信也叫”点对点通信” 。以下会对IP协议进行一个较为详细的总结">
+<meta name="twitter:image" content="d:/youdaoPicture/016.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://seevae.github.io/2019/07/17/IP协议-网际协议/">
+
+
+
+
+
+  <title>IP协议(网际协议) | Hero</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hero</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">十年一开花的忍者神龟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/blog/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://seevae.github.io/blog/2019/07/17/IP协议-网际协议/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">IP协议(网际协议)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>位于网络层中的IP协议主要负责将数据包发送给最终的目标计算机.IP协议主要有三个作用分别是IP寻址,路由以及IP分包与组包。他的主要任务就是”实现终端节点之间的通信”.这种终端节点之间的通信也叫”点对点通信” 。以下会对IP协议进行一个较为详细的总结<br><a id="more"></a></p>
+<h1 id="为什么要有网络层"><a href="#为什么要有网络层" class="headerlink" title="为什么要有网络层"></a>为什么要有网络层</h1><p>因为网络上的数据大多要进行跨网络传输,网络层保证了数据端到端的传输<br>网络层的下一层是数据链路层,数据链路层的主要作用是在互连同一种数据链路的两个节点之间进行包传递.而一旦跨越多种数据链路,就需要借助网络层.网络层可以跨越不同的数据链路.即使是在不同的数据链路上也能实现两端节点之间的数据包传输</p>
+<h1 id="网络层和数据链路层的关系"><a href="#网络层和数据链路层的关系" class="headerlink" title="网络层和数据链路层的关系"></a>网络层和数据链路层的关系</h1><p>数据链路层提供直连两个设备之间的通信功能.与之相比,作为网络层的IP则负责在没有两个直连的两个网络之间进行通信传输.   </p>
+<p>举个例子:<br>假如有一个人想要去一个很远的地方旅行.由于目标地很远,可能要先乘坐飞机,再乘坐火车,最后还要坐一段路的汽车才能够到达他想要去的地方.于是,为了方便,他直接报了一个旅行社. </p>
+<p>旅行社看到了他想去的地方之后,专门为他制定了一套行程表.并且预定好了所有的机票,火车票,车票,详细到某天某时在哪里乘坐哪个交通工具,最终,这个老哥拿着所有的票按照乘车的时间最终到达了他想要到达的地方      </p>
+<p>分析上述过程:<br>不论是飞机票,火车票还是汽车票都有一个特点,那就是他们都是从一个固定的地点行驶到另一个固定的地点,这个区间都是被计划好的. 这个区间就如同通信网络上的数据链路.而这个区间的出发地和目的地就如同某一个数据链路的源地址和目标地址等首部信息.而整个过程的行程表就相当于网络层.他规划了整个数据的传输线路,而链路层负责点到点的传输  </p>
+<p>如果只有行程表而没有车票,就无法搭乘交通工具到达目的地;如果只有车票而没有行程表,那压根就不知道要去哪里搭乘交通工具.与之类似,在计算机网络中只有网络层和数据链路相互配合,才能够实现向最终目标地址的通信    </p>
+<h1 id="IP基础知识点"><a href="#IP基础知识点" class="headerlink" title="IP基础知识点"></a>IP基础知识点</h1><h2 id="IP地址属于网络层"><a href="#IP地址属于网络层" class="headerlink" title="IP地址属于网络层"></a>IP地址属于网络层</h2><p>在数据链路层当中,MAC地址标识唯一的一台主机.<br>作为网络层中的IP,也有这种地址信息.一般叫做IP地址.IP地址用于在”连接到网络中的所有主机中识别出进行通信的目标地址”.因此,在TCP/IP通信中所有主机或路由器都必须设定自己的IP地址   </p>
+<h2 id="路由控制"><a href="#路由控制" class="headerlink" title="路由控制"></a>路由控制</h2><p>路由控制是指将分组数据发送到最终目标地址的功能。即使传输的数据从一端到达一端非常的远，中间的网络情况特别的复杂，也是可以通过路由控制确定到达目标地址的通路。一旦这个路由控制的运行出现异常，分组数据极有可能“迷失”，无法到达目标地址。因此，一个数据包能否成功的到达最终的目标地址，全靠路由控制   </p>
+<p><strong>网络传输中的“跳”指什么？</strong><br>跳的英文称为Hop，它是指网络中的一个区间。IP包正是在一个个跳间进行传送，最终到达目标主机的，在每一个区间内决定下一跳被转发的路径<br><strong>那么一跳的区间到底是哪个区间？</strong><br>一跳的范围是指利用数据链路层及以下分层的功能传输数据帧的一个区间。<br>简单点说，在数据链路层上两台主机点到点的一个传输区间就称为一跳。<br>以太网等数据链路中使用MAC地址传输数据帧。此时的一跳是指从源MAC地址到目标MAC地址之间传输帧的区间。也就是说他是主机或路由器网卡不经其他路由器而能直接到达的相邻主机或路由器网卡之间的一个区间。在每一跳的同时会指定好吓一跳的目的地<br><strong>多跳路由</strong><br>在网络层的数据路由中，一般都采用多跳路由的方式。多跳路由是指路由器或主机再转发IP数据包的时候不会直接将到达最终目的地址所要经过的路由全部指定出来，而是每一个经过的路由只指定下一个路由器或者主机的地址，直至包到达最终目标地址。<br>拿路由举个栗子： 假如现在某人要坐车从A（源地址）去D（目标地址），但是他不知道路，于是他问了地铁乘务员他该怎么走。此时地铁乘务员告诉他先坐车去B然后在问人怎么走，于是他先坐车来到了B，然后他又问工作人员，工作人员说要想去D现在要从B坐车到C，于是他又来到了C，继续询问得知，从C可以直接坐车到D。 这个过程就是一个多跳路由的过程。即每一个主机或路由不会直接指出全部的路由路径，而是每一个路由器都会告诉下一跳的位置在哪<br><strong>路由控制表</strong><br>路由控制表中记录了IP数据在下一步应该发给哪个路由器。IP包将根据这个路由表在各个数据链路上传输</p>
+<h2 id="数据链路的抽象化"><a href="#数据链路的抽象化" class="headerlink" title="数据链路的抽象化"></a>数据链路的抽象化</h2><p>IP是实现多个数据链路之间通信的协议。数据链路根据种类的不同各有特点。对这些不同数据链路的相异特性进行抽象化也是IP的重要作用之一。    </p>
+<p>数据链路的地址可以被抽象为IP地址。因此，对IP上一层来说，不论底层是以太网还是无线LAN或其他的，都被一视同仁。  </p>
+<p>不同数据链路有个最大的区别，就是他们各自要求的最大传输单位（MTU）不同。就好像在寄快递时包裹的大小有所限制一样。如：以太网中MTU=1500字节，在FDDI中是4352字节。而IP的上层所传输来到数据很有可能会大于MTU    </p>
+<p>因此IP要对数据包进行分片处理，在数据链路上传输比MTU小的数据包。所谓分片处理，是指将大的IP包分为多个较小的IP包。分片的包到了对端目标地址以后会在被组合起来传给上一层。所以从IP的上层来看，他完全可以忽略数据包在途中的各个数据链路上的MTU，而只需要按照源地址发送的长度就收数据包。IP就是以这种方式抽象数据链路使得上层不需要关心不同数据链路中的数据传输问题   </p>
+<h2 id="广播地址"><a href="#广播地址" class="headerlink" title="广播地址"></a>广播地址</h2><p>在同一个数据链路中,发送的消息可以被所有在此链路上的主机都接收到的主机称为广播,他的地址叫做广播地址    </p>
+<p>广播地址的主机号全部为1</p>
+<p>广播地址分为两类: <strong>本地广播</strong> 和 <strong>直接广播</strong><br><strong>本地广播</strong><br>在本网络内的广播叫做本地广播。例如网络地址为192.168.0.0/24的情况下，广播地址为192.168.0.255。这个广播地址的IP包会被路由器屏蔽，所以不会到达192.168.0.0/24以外的其他链路上<br><strong>直接广播</strong><br>在不同网络之间的广播叫做直接广播。例如网络地址为192.168.0.0/24的主机向192.168.1.255/24的目标地址发送IP包。收到这个包的路由器，将数据转发给192.168.1.0/24，从而使得所有192.168.1.1~192.168.1.254的主机都能收到这个</p>
+<h1 id="路由控制-1"><a href="#路由控制-1" class="headerlink" title="路由控制"></a>路由控制</h1><p>发送数据包时所使用的地址是网络地址，也就是IP地址。然而，仅仅知道目标主机的IP地址还是远远不够的，因为上面说过了数据包的传输是经过多跳最终到达目标主机的。所以在数据的发送过程中还需要类似于指明“路由器或主机”的信息。即在经过每一跳的时候需要知道下一跳要去哪里。而用来保存这种信息的便是路由控制表。实现IP的所有主机和路由器都必须要有这样的一张表。也正是在这个表的基础上才能保证数据的正确传输<br>路由控制表的形成有两种方式： 一种称为静态路由控制，是由管理员手动设置的；另一种称为动态路由控制，是由路由器与其他路由器相互交换信息的时候自动刷新的 ，为了让动态路由及时刷新路由表，在互联网上互联的路由器之间必须设置好路由协议，保证正常读取路由控制信息   </p>
+<h2 id="IP地址与路由控制"><a href="#IP地址与路由控制" class="headerlink" title="IP地址与路由控制"></a>IP地址与路由控制</h2><p>IP地址的网络地址部分用于进行路由控制<br>路由表图例：<br><img src="D:/youdaoPicture/016.png" alt="image"><br>如上图所示，路由表中记录着网络地址与下一步应该发送至路由器的地址。在发送IP包的时候，首先要确定IP包首部中的目标地址，再从路由控制表中找到与该目标地址具有相同网络地址的记录，然后根据该记录将IP包转发给相应的下一个路由器。如果路由控制表中存在多条与目标网络相同的网络地址的记录，就找出最吻合的一条进行匹配，所谓最吻合是指相同位数最多的意思<br>例子： 172.20.100.52的网络地址与172.20/16和172.20.100/24两项都匹配，此时应该选择匹配长度较多的172.20.100/24 。此外，如果下一个路由器的位置记录的是某个主机或路由器网卡的IP地址，那就意味着“发送的目标地址属于同一个链路”</p>
+<h1 id="IP分割处理与再重组"><a href="#IP分割处理与再重组" class="headerlink" title="IP分割处理与再重组"></a>IP分割处理与再重组</h1><p><strong>数据链路不同，MTU相异</strong><br>前面说过,不同数据链路的MTU值各不相同,IP包在封装为数据帧传输的时候必须小于MTU。之所以不同链路的MTU值不同，是因为不同的数据链路使用的目各不相同。使用目的不同，承载的MTU也就不同。鉴于IP属于数据链路的上一层，他必须受限于不同的MTU，所以说，IP抽象了数据链路层。      </p>
+<p><strong>IP报文的分片与重组</strong><br>当网络层发送数据的时候，当所发的报文大于MTU，无法一次性发送的时候，就需要进行报文的分片。<br>以以太网为例： 以太网默认的MTU是1500字节，当需要发送一个4342字节的报文时，无法在一个帧中一次性全部发送，这时，路由器便把该报文划分为三个分片进行发送。而这种分片处理只要路由器觉得有必要就会一直进行。<br>经过分片之后的IP数据报在被重组的时候，只能由目标主机进行重组，路由器虽然做分片但是并不会进行重组<br>之所以这样规定路由器的分片功能是因为数据在传输的过程中路径是不确定的，因此被分片的报文可能走多条不同的路径，这样如果想要在某一个路由器进行重组，很有可能等不到所有的报文；另外，每一个路由器都有分片的功能和义务，所以如果在路由器上进行重组，便很有可能又要在下一个路由器上进行分片，这样就给路由器增加了不必要的压力 。所以规定，分片一般都在目标主机上进行重组   </p>
+<p><strong>路径MTU发现</strong><br>上述的分片机制，在现在大流量，高传输的网络中已经不再适用，这种分片机制会给路由器增加很大的负荷。而现在的路由器不光进行路由，还要对网络过滤等安全性时间进行处理，所以，只要允许，是不希望由路由器进行IP数据包的分片处理的<br>其次，在早期，TCP的设计初期还曾使用过更小的分片进行传输。其结果是网路的利用率大大下降<br>为了解决上述问题，产生了一种新的技术“路径MTU发现” 。所谓“路径MTU发现”是指从发送端主机到接收端主机之间不需要分片时最大MTU的大小。即路径中存在的所有数据链路中最小的MTU。<br>这种路径MTU发现的方式会在主机端直接将报文按照路径中最小MTU值将数据报进行分片后进行发送，这样就可以避免在中途的路由器中再次进行分片处理，也可以在TCP中发送更大的包。现在很多操作系统都实现了这种功能<br>工作原理：<br>首先在发送端主机发送IP数据报时将其首部的分片禁止标志位设置为1。根据这个标志位，途中的路由器即使遇到需要分片才能处理的大片数据，他也不会进行分片，而是将包抛弃。随后，通过一个ICMP的不可达消息将数据链路上MTU的值给发送主机<br>下一次，在给同一个主机发送数据报时，可以从之前该主机路由线路上返回的ICMP值的大小来作为当前MTU的值。发送主机根据这个MTU的值将数据报进行分片处理。如此反复，直到在没有ICMP返回，就认为最后一次的ICMP值是最合适的MTU值。<br>前面是UDP的例子。在TCP的情况下，根据路径MTU的大小计算出最大段长度（MSS），然后再根据最大段长度进行数据包的发送。因此，在TCP中使用路径MTU发现，则在IP层不再进行分片 </p>
+<h1 id="IPv4首部"><a href="#IPv4首部" class="headerlink" title="IPv4首部"></a>IPv4首部</h1><p><img src="/img/316.JPG" alt="image"><br><strong>4位版本号</strong> ： 指定IP协议的版本，对于IPv4来说就是4<br><strong>4位首部长度</strong> ： 表示IP报头的大小。四位首部长度的单位是32bit，即四字节。也就是说四位首部长度能表示的最大报头大小是<br>16（1111）x 4字节=60字节<br><strong>8位服务类型</strong> ： 3位优先权字段(已经弃用), 4位TOS字段, 和1位保留字段(必须置为0). 4位<br>TOS分别表示: 最小延时, 最大吞吐量, 最高可靠性, 最小成本. 这四者相互冲突, 只能选择一个. 对于<br>ssh/telnet这样的应用程序, 最小延时比较重要; 对于ftp这样的程序, 最大吞吐量比较重要.<br><strong>16位总长度</strong> ： IP数据包整体占多少个字节（包括数据部分）<br><strong>16位标识</strong> ：唯一的标识主机发送的报文。如果IP报文在被分片了。那么每一片中的这个标识都是相同的。该字段常常用来进行分片的重组<br><strong>3位标志字段</strong> ：第一位保留（即现在不用，以后可能会在规定该字段的作用）；第二位置为1时，表示禁止分片，这时候如果报文长度超过MTU，IP模块就会丢弃报文；第三位表示更多分片，如果分片了，最后一片置为1，其他置为0，类似于一个结束标记<br><strong>13位片偏移</strong> ： 是分片相对于原始IP报文开始处的偏移，其实就是在表示当前分片在原报文中的位置。实际偏移的字节数是这个值*8得到的。因此，除了最后一个报文之外，其他报文的长度必须是8的整数倍（否则报文就不连续了）<br><strong>8位生存时间</strong>： 数据报到达最终目的主机的总跳数，一般这个值的大小为64，没经过一个路由就-1，如果减到0还没有到达，那么就丢弃了。这个字段主要用来防止路由循环<br><strong>8位协议</strong>：  表示上层协议的类型<br><strong>16位首部检验和</strong>   ： 使用CRC进行校验，来鉴别头部是否损坏<br><strong>32位源地址和32位目标地址</strong> ： 用来表示发送端或接收端</p>
+<h1 id="IP协议其他相关技术补充"><a href="#IP协议其他相关技术补充" class="headerlink" title="IP协议其他相关技术补充"></a>IP协议其他相关技术补充</h1><p><strong>DNS域名解析协议</strong> ： 可以将域名解析为Ip地址的技术<br><strong>ARP协议</strong>：将IP地址转换为MAC地址，用于数据链路层的传输。他是一种解决地址问题的协议，可以以目标IP地址为线索，用来定位下一个应该接收数据分包的网络设备对应的MAC地址。如果目标主机不在同一数据链路上时，可以通过ARP查找下一跳路由器的MAC地址。不过ARP只适用于IPv4，不能用于IPv6。<br><strong>ICMP</strong>：用于返回网络状态的，例如告知发送端MTU的大小<br><strong>DHCP</strong>：用于给接入网络的主机分配IP<br><strong>NAT</strong>：用于私有IP和共有IP之间的相互转换     </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/日常学习/" rel="tag"># 日常学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/07/10/传输控制协议TCP/" rel="next" title="传输层两兄弟之TCP与UDP">
+                <i class="fa fa-chevron-left"></i> 传输层两兄弟之TCP与UDP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2019/08/22/线程池总结/" rel="prev" title="线程池">
+                线程池 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Qi</p>
+              <p class="site-description motion-element" itemprop="description">蜜汁希望</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要有网络层"><span class="nav-number">2.</span> <span class="nav-text">为什么要有网络层</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络层和数据链路层的关系"><span class="nav-number">3.</span> <span class="nav-text">网络层和数据链路层的关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP基础知识点"><span class="nav-number">4.</span> <span class="nav-text">IP基础知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP地址属于网络层"><span class="nav-number">4.1.</span> <span class="nav-text">IP地址属于网络层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由控制"><span class="nav-number">4.2.</span> <span class="nav-text">路由控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据链路的抽象化"><span class="nav-number">4.3.</span> <span class="nav-text">数据链路的抽象化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#广播地址"><span class="nav-number">4.4.</span> <span class="nav-text">广播地址</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#路由控制-1"><span class="nav-number">5.</span> <span class="nav-text">路由控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP地址与路由控制"><span class="nav-number">5.1.</span> <span class="nav-text">IP地址与路由控制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP分割处理与再重组"><span class="nav-number">6.</span> <span class="nav-text">IP分割处理与再重组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IPv4首部"><span class="nav-number">7.</span> <span class="nav-text">IPv4首部</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP协议其他相关技术补充"><span class="nav-number">8.</span> <span class="nav-text">IP协议其他相关技术补充</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

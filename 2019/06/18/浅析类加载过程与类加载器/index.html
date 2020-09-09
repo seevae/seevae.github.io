@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/blog/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="日常学习,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言当我们完成了一个Java类的逻辑编写,如果想要进行逻辑的执行,就需要把他放在JVM虚拟机中进行运行.整个放入加载的过程就是由类加载器来完成的.">
+<meta name="keywords" content="日常学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析类加载过程与类加载器">
+<meta property="og:url" content="http://seevae.github.io/2019/06/18/浅析类加载过程与类加载器/index.html">
+<meta property="og:site_name" content="Hero">
+<meta property="og:description" content="前言当我们完成了一个Java类的逻辑编写,如果想要进行逻辑的执行,就需要把他放在JVM虚拟机中进行运行.整个放入加载的过程就是由类加载器来完成的.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://seevae.github.io/img/301.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/302.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/303.JPG">
+<meta property="og:updated_time" content="2019-06-19T09:33:40.064Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅析类加载过程与类加载器">
+<meta name="twitter:description" content="前言当我们完成了一个Java类的逻辑编写,如果想要进行逻辑的执行,就需要把他放在JVM虚拟机中进行运行.整个放入加载的过程就是由类加载器来完成的.">
+<meta name="twitter:image" content="http://seevae.github.io/img/301.JPG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://seevae.github.io/2019/06/18/浅析类加载过程与类加载器/">
+
+
+
+
+
+  <title>浅析类加载过程与类加载器 | Hero</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hero</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">十年一开花的忍者神龟</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/blog/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br>
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://seevae.github.io/blog/2019/06/18/浅析类加载过程与类加载器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浅析类加载过程与类加载器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/JavaSE/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaSE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>当我们完成了一个Java类的逻辑编写,如果想要进行逻辑的执行,就需要把他放在JVM虚拟机中进行运行.整个放入加载的过程就是由类加载器来完成的.<br><a id="more"></a></p>
+<h1 id="类加载过程and类加载器的作用"><a href="#类加载过程and类加载器的作用" class="headerlink" title="类加载过程and类加载器的作用"></a>类加载过程and类加载器的作用</h1><p>我们使用Java语言写出的每一个.java的文件中都存储着需要执行的程序逻辑,但这样的文件JVM是不会识别的,所以想要运行一个程序,首先要由javac编译器把.java的文件编译成为.class的文件(这一步是在JVM外部完成的),在这个.class文件中保存了Java代码经过转换后的虚拟机指令,<strong>在需要使用某个类的时候,虚拟机会加载他的.class文件,并创建对应的class对象,将class文件加载到虚拟机的内存,这个过程就是类加载的过程,完成这个过程的代码片段就叫做类加载器.</strong></p>
+<h2 id="类加载全过程"><a href="#类加载全过程" class="headerlink" title="类加载全过程"></a>类加载全过程</h2><p>类加载全过程大体来说分为三部分:<br><strong>1.加载(Loading)</strong><br><strong>2.链接(Linking),链接又分为验证,准备和解析三个部分</strong><br><strong>3.初始化(Initialization)</strong>   </p>
+<p>具体加载过程分为五步,如下图所示<br><img src="/img/301.JPG" alt><br><strong>每一步的作用:</strong>  </p>
+<ol>
+<li>加载: 类加载的一个过程,会根据一个类的完全限定查找这个类对应的字节码文件,并利用字节码文件创建一个Class对象  </li>
+<li>链接:   </li>
+</ol>
+<ul>
+<li>验证: 主要用来确保当前准备加入虚拟机中的字节码文件的可靠性,确保Class文件中的字节流中包含信息符合当前虚拟机的要求不会对虚拟机造成什么危害</li>
+<li>准备: 为类变量,即使用static修饰的全局变量进行内存的分配和数据的初始化,注意此处的初始化不包含final static 修饰的变量,因为被final修饰的静态变量在编译的时候就已经在JVM运行时数据区的方法区中为他开辟好了空间;当然也不会为实例变量分配空间,他们是在类对象初始化的时候在堆上进行空间的分配  </li>
+<li>解析: 主要将常量池中的符号引用替换为直接引用的过程   </li>
+</ul>
+<ol start="3">
+<li>初始化: 这是类加载的最后阶段,如果该类具有超类,则对其进行初始化,执行静态初始化器和静态初始化成员变量(如前面只初始化了的static的静态成员此时进行赋值,成员变量也在这时候进行初始化)     </li>
+</ol>
+<p><strong>以上就是类加载的具体过程.而类加载器的任务就是根据一个类的全限定名找到他所对应的class文件,然后读取此文件的二进制流到JVM中,转换为一个与目标类对应的java.lang.Class对象实例.</strong></p>
+<h1 id="类加载器"><a href="#类加载器" class="headerlink" title="类加载器"></a>类加载器</h1><p>在虚拟机中共提供了三种类加载器,<strong>启动类加载器(BootStrap),扩展类加载器(ExtClassLoader),应用程序类加载器(AppClassLoader)</strong>,下面将分别进行介绍  </p>
+<h2 id="BootStrap-启动类加载器"><a href="#BootStrap-启动类加载器" class="headerlink" title="BootStrap(启动类加载器)"></a>BootStrap(启动类加载器)</h2><p>启动类加载器主要用来加载JVM自身需要的一些类,这个类由c++编写,是虚拟机自身的一部分,他负责将&lt;JAVA_HOME&gt;/lib 路径下的核心类库或-Xbootclasspath参数指定的路径下的jar包加载到内存中,注意,虚拟机是按照文件名识别加载jar包的,如dt,jar,如果文件名不被虚拟机识别,即使把jar包丢到lib目录底下也是没有作用的(Bootstrap启动类加载器只加载包名为java、javax、sun等开头的类). 启动类加载器不能被Java程序直接调用  </p>
+<h2 id="ExtClassLoader-扩展类加载器"><a href="#ExtClassLoader-扩展类加载器" class="headerlink" title="ExtClassLoader(扩展类加载器)"></a>ExtClassLoader(扩展类加载器)</h2><p>扩展类加载器是指Sun公司(已被Oracle收购)实现的sun.misc.Launcher$ExtClassLoader类，是Launcher的静态内部类,由java语言实现.负责加载&lt;Java_HOME&gt;\lib\ext目录中，或者被java.ext.dirs系统变量指定的路<br>径中的类库。开发者可以直接使用扩展类加载器  </p>
+<h2 id="AppClassLoader-应用程序类加载器"><a href="#AppClassLoader-应用程序类加载器" class="headerlink" title="AppClassLoader(应用程序类加载器)"></a>AppClassLoader(应用程序类加载器)</h2><p>也称应用程序加载器是指Sun公司实现的sun.misc.Launcher$AppClassLoader.他负责加载用户路径上(classPath)指定的类库,我们开发人员一般就是直接使用这个类加载器的,一般情况下,该类加载器也是程序中默认的类加载器如果没有自定义类加载器的话  </p>
+<hr>
+<p>在程序开发中,一般都是由这三个类加载器相互协调配合进行加载的,在必要时,有时会加入自定义类加载器,需要注意的是,JVM只有在需要某一个类时才会加载他的字节码文件,生成Class对象,不需要时就不会先进行加载,而且加载class文件时,Java虚拟机采用的是<strong>双亲委派模式</strong>,接下来将介绍一下双亲委派模式  </p>
+<h1 id="双亲委派模式"><a href="#双亲委派模式" class="headerlink" title="双亲委派模式"></a>双亲委派模式</h1><p>在了解双亲委派模式之前,需要先说明一下这些类加载器之间的关系.<br><img src="/img/302.JPG" alt><br>如图所示的各种类加载器之间的这种层次关系就成为类加载器的<strong>双亲委派模型</strong>.<br>双亲委派模型要求除了顶层的类加载器之外,下层的类加载器都应该有自己的父类加载器  ,<strong>需要注意的是,这里所说的父类关系并不是通常所说的类继承关系,而是采用组合关系来复用父类加载器的相关代码</strong>  </p>
+<h2 id="双亲委派模式工作原理"><a href="#双亲委派模式工作原理" class="headerlink" title="双亲委派模式工作原理"></a>双亲委派模式工作原理</h2><p>双亲委派模型的工作流程是: 如果一个类加载器收到了类加载请求,他不会立马自己去进行类加载,而是把类加载的请求委托给父类加载器去完成,每一层的加载器都是如此.因此,一个类加载请求总会传送到顶层的BootStrap加载器中,只有当父类加载器无法满足加载请求并反馈给自己的子类加载器时(在自己的搜索范围内没有此类),子加载器才会尝试自己去加载. 即儿子都很懒,有活了都想交给自己的父亲去做,知道父亲说这个活我没有办法帮你做时,儿子才会尝试自己去做<br>双亲委派模型不是强制的,可以破坏双亲委派模型去进行类加载,例如OSGI技术   </p>
+<h2 id="双亲委派模型的优势"><a href="#双亲委派模型的优势" class="headerlink" title="双亲委派模型的优势"></a>双亲委派模型的优势</h2><p><strong>1.避免了类的重复加载</strong> : 扩展类加载器和程序应用类加载器都是可以被直接调用的,如果没有双亲委派模型,那么完全可以调用两个类加载器对同一个类进行两次加载;而双亲委派模型中Java类随着他的类加载器一起具备了一种带有优先级的层次关系.通过这种层次关系就可以避免了类的重复加载,只要父亲加载过,儿子就不需要在此加载<br><strong>2.提高了程序的安全性</strong> :  例如加载java.lang.Object类,它存在于rt.jar中,无论哪一个类加载器要加载这个类,最终都是委托给最顶层的BootStrap类加载器进行加载,因此Object类在程序的各个类加载器环境中都是同一个类.如果没有双亲委派模型,而是由各个类加载器自行加载的话,那用户自己编写一个java.lang.Object的同名类并放在ClassPath中加载,那么系统中就会出现多个不同的Object类,造成程序的混乱与不安全;而在双亲委派机制下,用户自己写的这个Object类会传到顶层的BootStrap中,他会在/lib路径下寻找,并没有发现有我们自己定义的这个类,所以即使类名完全一样也不会担心被误加载进来,大大提高了程序的安全性 </p>
+<h2 id="ClassLoader类中loadClass-方法与双亲委派模型"><a href="#ClassLoader类中loadClass-方法与双亲委派模型" class="headerlink" title="ClassLoader类中loadClass()方法与双亲委派模型"></a>ClassLoader类中loadClass()方法与双亲委派模型</h2><p>在Java中具体的类加载器是ClassLoader类提供的,他是一个抽象类,里面包含了许多的方法,Java中许多实现好的类加载器都是直接或间接的继承自此抽象类,下面以图的形式说明一下各个类加载器直接的继承关系<br><img src="/img/303.JPG" alt><br>从图中可以看出来最顶层的类加载器是ClassLoader,他是一个抽象类,其他的类加载器全部都继承自ClassLoader(不包括启动类加载器).在ClassLoader中有许多的方法,在这里说一下loadClass方法,他是ClassLoader抽象类自己实现的方法,这个方法中的逻辑就是双亲委派模型实现的<br>loadClass(String name, boolean resolve)源码如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> Class&lt;?&gt; loadClass(String name, <span class="keyword">boolean</span> resolve)</span><br><span class="line">        <span class="keyword">throws</span> ClassNotFoundException</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (getClassLoadingLock(name)) &#123;</span><br><span class="line">            <span class="comment">// 首先,在本地缓存中查找该class对象,如果有就不需要再次加载了</span></span><br><span class="line">            Class&lt;?&gt; c = findLoadedClass(name);</span><br><span class="line">            <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">long</span> t0 = System.nanoTime();</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">//如果没有本地没有该对象,则委托给父类加载器去加载</span></span><br><span class="line">                    <span class="keyword">if</span> (parent != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        c = parent.loadClass(name, <span class="keyword">false</span>);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="comment">//如果没有父类加载器,就直接去找启动类加载器  </span></span><br><span class="line">                        c = findBootstrapClassOrNull(name);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</span><br><span class="line">                    <span class="comment">// ClassNotFoundException thrown if class not found</span></span><br><span class="line">                    <span class="comment">// from the non-null parent class loader</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="comment">// If still not found, then invoke findClass in order</span></span><br><span class="line">                    <span class="comment">// to find the class.</span></span><br><span class="line">                    <span class="keyword">long</span> t1 = System.nanoTime();</span><br><span class="line">                    <span class="comment">//如果都没有找到.就去找自定义类加载器加载</span></span><br><span class="line">                    c = findClass(name);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// this is the defining class loader; record the stats</span></span><br><span class="line">                    sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);</span><br><span class="line">                    sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);</span><br><span class="line">                    sun.misc.PerfCounter.getFindClasses().increment();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (resolve) &#123;</span><br><span class="line">                resolveClass(c);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> c;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>1.首先这个方法有两个参数,第一个参数就是我们要输入的类的全名称,也就是我们需要JVM帮助我们加载的那个类;第二个参数,resolve参数代表是否生成class对象的同时进行解析相关操作.<br>2.就像上面代码展示的一样,当前类加载器接收到了加载的指令,他会首先在本地的缓存中去查找是否有当前类的对象,如果有当前类的对象,就不用去进行加载了;如果没有就会将加载请求委托给自己的父类加载器,如果该加载器没有父类加载器的话,就会直接交给顶级类加载器—-启动类加载器,最后如果还是没能加载类,就调用findClass()方法去找自定义类加载器.<br>这个方法就是双亲委派模型的一种实现形式 ~~~<br><strong>最后再总结一下类加载器之间的关系</strong>  </p>
+<ul>
+<li>启动类加载器: 由c++实现,没有父类</li>
+<li>扩展类加载器: 由Java语言实现,父类加载器为null</li>
+<li>应用程序类加载器: 由Java语言实现,父类为ExtClassLoader</li>
+<li>自定义类加载器: 父类加载器为AppClassLoader  </li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/日常学习/" rel="tag"># 日常学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/06/06/Mybatis初识/" rel="next" title="Mybatis初识">
+                <i class="fa fa-chevron-left"></i> Mybatis初识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2019/07/03/Map集合/" rel="prev" title="Map集合剖析">
+                Map集合剖析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Qi</p>
+              <p class="site-description motion-element" itemprop="description">蜜汁希望</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/blog/archives/">
+              
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/blog/categories/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/blog/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类加载过程and类加载器的作用"><span class="nav-number">2.</span> <span class="nav-text">类加载过程and类加载器的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类加载全过程"><span class="nav-number">2.1.</span> <span class="nav-text">类加载全过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类加载器"><span class="nav-number">3.</span> <span class="nav-text">类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BootStrap-启动类加载器"><span class="nav-number">3.1.</span> <span class="nav-text">BootStrap(启动类加载器)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ExtClassLoader-扩展类加载器"><span class="nav-number">3.2.</span> <span class="nav-text">ExtClassLoader(扩展类加载器)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AppClassLoader-应用程序类加载器"><span class="nav-number">3.3.</span> <span class="nav-text">AppClassLoader(应用程序类加载器)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#双亲委派模式"><span class="nav-number">4.</span> <span class="nav-text">双亲委派模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#双亲委派模式工作原理"><span class="nav-number">4.1.</span> <span class="nav-text">双亲委派模式工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双亲委派模型的优势"><span class="nav-number">4.2.</span> <span class="nav-text">双亲委派模型的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ClassLoader类中loadClass-方法与双亲委派模型"><span class="nav-number">4.3.</span> <span class="nav-text">ClassLoader类中loadClass()方法与双亲委派模型</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Qi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/blog/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
