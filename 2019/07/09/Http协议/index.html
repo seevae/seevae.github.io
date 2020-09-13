@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="Hero">
 <meta property="og:description" content="前言HTTP协议(超文本传输协议)最初的目的是为了提供一种发布和接收HTML页面的方法。通过HTTP协议请求的资源由统一资源标识符（Uniform Resource Identifiers，URI）来标识。HTTP报文是面向数据报的，报文中的每一个字段都是一些ASCII码串，各个字段的长度是不确定的。作为一个应用层协议，Http是一个基于TCP/IP的短连接，无状态的协议。TCP协议来保证Http">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://seevae.github.io/img/310.JPG">
-<meta property="og:image" content="http://seevae.github.io/img/311.JPG">
-<meta property="og:image" content="http://seevae.github.io/img/312.JPG">
-<meta property="og:image" content="http://seevae.github.io/img/313.JPG">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/09/Http协议/310.JPG">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/09/Http协议/311.JPG">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/09/Http协议/312.JPG">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/09/Http协议/313.JPG">
 <meta property="og:updated_time" content="2019-07-13T10:10:51.712Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Http协议">
 <meta name="twitter:description" content="前言HTTP协议(超文本传输协议)最初的目的是为了提供一种发布和接收HTML页面的方法。通过HTTP协议请求的资源由统一资源标识符（Uniform Resource Identifiers，URI）来标识。HTTP报文是面向数据报的，报文中的每一个字段都是一些ASCII码串，各个字段的长度是不确定的。作为一个应用层协议，Http是一个基于TCP/IP的短连接，无状态的协议。TCP协议来保证Http">
-<meta name="twitter:image" content="http://seevae.github.io/img/310.JPG">
+<meta name="twitter:image" content="http://seevae.github.io/seevae.github.io/2019/07/09/Http协议/310.JPG">
 
 
 
@@ -398,9 +398,9 @@
 </ul>
 <h1 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h1><p><strong>URL称作统一资源定位符</strong> , 他唯一标识了一个网络资源在互联网中的位置.URL就是我们俗称的网址,通过url我们可以准确的找到想要访问的资源.<br>为什么要先说说URL呢,因为url可以帮助我们给一个特定的网络资源发送一个网络请求<br>举个栗子: 就像我们想要去找一个朋友,那么肯定要先知道他的家在哪里.此时这个url就相当于他家的地址,能够帮助我们找到我们想要找到的人<br>还有一个和URL 相似的标志符叫做URI(统一资源标识符),他们的区别简单来说就是: URI用某一字符串标识某一互联网资源,而URL表示资源的地址(互联网上所处的位置).可见URL是URI的子集</p>
 <h1 id="Http协议"><a href="#Http协议" class="headerlink" title="Http协议"></a>Http协议</h1><p>之后打算从最上层到最下层依次介绍一下每一层的一些常见协议,首先就是应用层的Http协议(超文本传输协议)<br>在浏览器发送一个请求到目标服务器依靠的就是Http协议<br>Http协议是一种无状态的协议,具体表现为Http协议自身不对请求和响应之间的通信状态进行保存.也就是说在Http这个级别,协议对于发送过的请求和响应都不做持久化处理</p>
-<h2 id="Http协议格式"><a href="#Http协议格式" class="headerlink" title="Http协议格式"></a>Http协议格式</h2><h3 id="Http请求格式如下"><a href="#Http请求格式如下" class="headerlink" title="Http请求格式如下"></a>Http请求格式如下</h3><p><img src="/img/310.JPG" alt="image"></p>
+<h2 id="Http协议格式"><a href="#Http协议格式" class="headerlink" title="Http协议格式"></a>Http协议格式</h2><h3 id="Http请求格式如下"><a href="#Http请求格式如下" class="headerlink" title="Http请求格式如下"></a>Http请求格式如下</h3><p><img src="/seevae.github.io/2019/07/09/Http协议/310.JPG" alt="image"></p>
 <p>一个Http请求一般由四部分组成:<br>请求行、请求头、空行、正文部分   </p>
-<h4 id="请求行"><a href="#请求行" class="headerlink" title="请求行"></a>请求行</h4><p><strong>请求行内容分为三部分</strong>    请求方法，请求路径，使用的协议及版本号<br><img src="/img/311.JPG" alt="image">  </p>
+<h4 id="请求行"><a href="#请求行" class="headerlink" title="请求行"></a>请求行</h4><p><strong>请求行内容分为三部分</strong>    请求方法，请求路径，使用的协议及版本号<br><img src="/seevae.github.io/2019/07/09/Http协议/311.JPG" alt="image">  </p>
 <p><strong>请求方法</strong><br>常见的请求方法有GET,POST,PUT,HEAD,DELETE,OPTION等<br>每一种请求方法都有适合他应用的场景 .<br>例如在日常生活中使用浏览器访问一个网站或者资源,http请求一般都使用的是GET方法;而当要发起一个携带有参数的请求时往往使用的是POST方法.下面列出不同请求方法的使用场景   </p>
 <blockquote>
 <p>GET方法: 用来获取资源.对应请求资源的实体会作为响应返回.<br>POST方法: 用来传输实体的主体.向指定资源提交数据进行处理请求(提交表单,上传文件),有可能导致新的资源的创建或旧的资源的修改 &gt; PUT方法: 一般用于传输文件<br>PUT方法: 传输文件.就像FTP协议的文件上传一样,要求在请求报文的主体中包含文件内容,然后保存到请求URI指定的位置<br>HEAD方法: 发送一个请求但是不返回请求的实体,只获得报文首部. 一般用来测试服务器的运行是否正常,也用来确认URI的有效性及资源更新的日期时间等.<br>DELETE方法: 按照请求URI删除指定页资源文件<br>OPTIONS方法: 用来查询针对请求URI指定的资源支持的方法<br>TRACE方法: 可以在使用代理上网的时候查看代理是否修改了自己的http请求<br>CONNECT方法: 要求用隧道协议连接代理.CONNECT方法要求在与代理服务器通信时建立隧道,实现用隧道协议进行TCP通信.主要使用SSL和TLS协议把通信内容加密后经网络隧道传输  </p>
@@ -413,10 +413,10 @@
 <h5 id="请求首部字段"><a href="#请求首部字段" class="headerlink" title="请求首部字段"></a>请求首部字段</h5><p>请求首部字段是从客户端向服务器端发送请求报文中所使用的报文,他的主要作用在于告诉服务器端客户端的一些附加信息,客户端的信息,对响应内容的一些优先级设置等<br><strong>Accept</strong> :用户代理可处理的媒体类型<br><strong>Host</strong> : 请求的资源所处的互联网的主机名和端口号.此字段是唯一一个必须包含在请求头当中的 ;为什么要有该字段,因为一个ip地址可能对应着多个域名,当访问一个ip地址时,服务端很有可能并不知道这个请求到底是从哪发来的,所以就要使用该字段,明确说明请求的来源<br><strong>User-Agent</strong> : 将创建请求的浏览器和用户代理名称等信息传达给服务器.记录了客户端程序的信息,包括使用的浏览器内核,版本,驱动等.<br><strong>Accept-Encoding</strong> : 表示浏览器接收的字符编码<br><strong>Accept-Language</strong> : 表示浏览器支持的语言,例如此例中,浏览器支持的语言分别是简体中文和中文，优先支持简体中文,zh-cn表示简体中文；zh 表示中文<br><strong>Cookie</strong> : 客户机通过这个头告诉服务器，可以向服务器带数据,客户端和服务端也是通过这个请求头来交换cookie信息的<br><strong>referer</strong> : 当前页面是从哪个页面跳转过来的<br><strong>location</strong> : 搭配3xx状态码使用,告诉浏览器接下来去哪里,常用与重定向和请求转发<br><strong>range</strong> : 对于只需获取部分资源的范围请求,包含首部字段Range即可告知服务器资源的指定范围<br><strong>Content-length</strong> : 表示该次请求中实体数据的大小是多少.例如上例中空行后的body中数据共有36个字节,所有这个Content-length就为36<br><strong>Content-type</strong> : 规定了客户端请求中有效载荷的媒体类型,当指定了字符编码则客户端和服务端都需要遵循此编码才能正确解读有效载荷中的内容<br><strong>last-modify</strong> : 表示了服务端资源最后一次的修改时间    </p>
 <h4 id="空行"><a href="#空行" class="headerlink" title="空行"></a>空行</h4><p>空行上面的请求行和请求头合称为报文首部<br>空行的主要作用是用来告诉服务器请求的头部到此结束,下面的内容是请求的正文部分,例如post请求方法中的参数内容   </p>
 <h4 id="有效载荷-报文主体"><a href="#有效载荷-报文主体" class="headerlink" title="有效载荷(报文主体)"></a>有效载荷(报文主体)</h4><p>请求中如果需要携带数据给服务器.则数据信息就存放在有效载荷中,也称为响应体.例如提交一个表单的时候表单数据就存放在响应体中</p>
-<h3 id="Http响应格式"><a href="#Http响应格式" class="headerlink" title="Http响应格式"></a>Http响应格式</h3><p><img src="/img/312.JPG" alt="image"><br>响应报文也分为四部分,分别为:<br>响应行,响应头,空行,响应体   </p>
+<h3 id="Http响应格式"><a href="#Http响应格式" class="headerlink" title="Http响应格式"></a>Http响应格式</h3><p><img src="/seevae.github.io/2019/07/09/Http协议/312.JPG" alt="image"><br>响应报文也分为四部分,分别为:<br>响应行,响应头,空行,响应体   </p>
 <h4 id="响应行"><a href="#响应行" class="headerlink" title="响应行"></a>响应行</h4><p>响应行中包括三部分  </p>
 <p><strong>第一部分</strong> :  使用的应用层协议及版本号,这个一般和请求的报文使用的都是同一协议   </p>
-<p><strong>第二部分</strong> :  响应状态码,状态码是用来反应服务端对客户端请求的响应情况的,大致分为5个状态,如下表<br><img src="/img/313.JPG" alt="image"><br>还有一些比较重要的单独列出:   </p>
+<p><strong>第二部分</strong> :  响应状态码,状态码是用来反应服务端对客户端请求的响应情况的,大致分为5个状态,如下表<br><img src="/seevae.github.io/2019/07/09/Http协议/313.JPG" alt="image"><br>还有一些比较重要的单独列出:   </p>
 <ul>
 <li>200 表明从客户端发送来的请求在服务器端被正常处理了</li>
 <li>204 表明服务器接收到的请求已成功处理,但在返回的响应报文中不包含实体的主体部分</li>
@@ -568,7 +568,7 @@
               
                 <a href="/seevae.github.io/archives/">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -579,7 +579,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/seevae.github.io/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -590,7 +590,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/seevae.github.io/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

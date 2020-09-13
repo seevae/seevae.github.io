@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="Hero">
 <meta property="og:description" content="前言之前学习Java Web一直没有总结过,最近想用用忽然发现忘得都差不多了.于是赶紧复习了一下,再次做个记录.这篇文章中主要介绍了怎么创建一个servlet程序,以及servlet程序从浏览器发出请求,到最终浏览器收到响应这一个过程中都经过了什么.内容大多也都是自己的理解.有不对的地方还请指正">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://seevae.github.io/img/307.JPG">
-<meta property="og:image" content="http://seevae.github.io/img/308.JPG">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/04/重新认识Servlet/307.JPG">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/04/重新认识Servlet/308.JPG">
 <meta property="og:updated_time" content="2019-07-07T11:48:24.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="重新认识Servlet">
 <meta name="twitter:description" content="前言之前学习Java Web一直没有总结过,最近想用用忽然发现忘得都差不多了.于是赶紧复习了一下,再次做个记录.这篇文章中主要介绍了怎么创建一个servlet程序,以及servlet程序从浏览器发出请求,到最终浏览器收到响应这一个过程中都经过了什么.内容大多也都是自己的理解.有不对的地方还请指正">
-<meta name="twitter:image" content="http://seevae.github.io/img/307.JPG">
+<meta name="twitter:image" content="http://seevae.github.io/seevae.github.io/2019/07/04/重新认识Servlet/307.JPG">
 
 
 
@@ -387,7 +387,7 @@
 <h1 id="什么是servlet"><a href="#什么是servlet" class="headerlink" title="什么是servlet"></a>什么是servlet</h1><p>Servlet是采用Java语言编写的服务器端程序,他运行于Web服务器中的Servlet容器中,其主要功能是提供请求/响应的Web服务模式,可以生成动态的Web内容.</p>
 <h1 id="怎么写一个Servlet"><a href="#怎么写一个Servlet" class="headerlink" title="怎么写一个Servlet?"></a>怎么写一个Servlet?</h1><p>想要完成一个Servlet程序的编写,首先需要一个正确的程序目录结构.需要让在客户端(这要是能发送http请求的都可以认为是客户端,常见的客户端就是浏览器)发送的请求能够被Servlet程序接收,这样Servlet才能对他有一定响应    </p>
 <p>以下是一个正确的servlet程序的目录结构  </p>
-<p><img src="/img/307.JPG" alt="image"><br>servlet程序和普通程序相比在main中多了一个<strong>webapp</strong>目录,想要写一个servlet程序,这个目录比不可少并且必须按照图中的名称严格命名,在webapp目录下有一个<strong>WEB-INF</strong>文件夹,其中有一个核心的配置文件<strong>web.xml</strong>. 这三个必须按照图中这样严格进行名称的命名和路径位置的选择,只有这样,服务器(tomcat)才能读懂程序解析请求和响应    </p>
+<p><img src="/seevae.github.io/2019/07/04/重新认识Servlet/307.JPG" alt="image"><br>servlet程序和普通程序相比在main中多了一个<strong>webapp</strong>目录,想要写一个servlet程序,这个目录比不可少并且必须按照图中的名称严格命名,在webapp目录下有一个<strong>WEB-INF</strong>文件夹,其中有一个核心的配置文件<strong>web.xml</strong>. 这三个必须按照图中这样严格进行名称的命名和路径位置的选择,只有这样,服务器(tomcat)才能读懂程序解析请求和响应    </p>
 <p>pom文件中需要配置servlet和jsp相关的jar包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">        &lt;!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api --&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;javax.servlet&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;3.1.0&lt;/version&gt;</span><br><span class="line">            &lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">        &lt;!-- https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api --&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;javax.servlet.jsp&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;javax.servlet.jsp-api&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;2.3.1&lt;/version&gt;</span><br><span class="line">            &lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/dependencies&gt;</span><br></pre></td></tr></table></figure></p>
 <p><strong>web.xml</strong>文件中要配置好文件的头部.否则webapp目录也是无效的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span><br><span class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee</span><br><span class="line">                      http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;</span><br><span class="line">         version=&quot;3.1&quot; metadata-complete=&quot;true&quot;&gt;</span><br><span class="line">    &lt;!--全局参数--&gt;</span><br><span class="line">    &lt;context-param&gt;</span><br><span class="line">        &lt;param-name&gt;encoding&lt;/param-name&gt;</span><br><span class="line">        &lt;param-value&gt;utf-8&lt;/param-value&gt;</span><br><span class="line">    &lt;/context-param&gt;</span><br><span class="line">    </span><br><span class="line">    &lt;!--配置服务器启动后的首页--&gt;</span><br><span class="line">    &lt;welcome-file-list&gt;</span><br><span class="line">        &lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;</span><br><span class="line">    &lt;/welcome-file-list&gt;</span><br><span class="line"></span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure></p>
 <p>以上就准备好了一个servlet程序的整个基本框架.接下来就是写代码了   </p>
@@ -399,7 +399,7 @@
 <h1 id="一个servlet程序具体的执行流程又是怎么样的-从request到response经历了哪些步骤"><a href="#一个servlet程序具体的执行流程又是怎么样的-从request到response经历了哪些步骤" class="headerlink" title="一个servlet程序具体的执行流程又是怎么样的?从request到response经历了哪些步骤?"></a>一个servlet程序具体的执行流程又是怎么样的?从request到response经历了哪些步骤?</h1><ul>
 <li>1.首先,在浏览器端发起http请求 </li>
 </ul>
-<p><img src="/img/308.JPG" alt="image"></p>
+<p><img src="/seevae.github.io/2019/07/04/重新认识Servlet/308.JPG" alt="image"></p>
 <ul>
 <li>2.web服务器(Apache,Nginx..)将该请求转发给相应的容器(tomcat)  </li>
 <li>3.tomcat对请求进行分析,创建HttpServletRequest和HttpServletResponse对象并读取web.xml文件   </li>
@@ -529,7 +529,7 @@
               
                 <a href="/seevae.github.io/archives/">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -540,7 +540,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/seevae.github.io/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -551,7 +551,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/seevae.github.io/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

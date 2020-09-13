@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="Hero">
 <meta property="og:description" content="前言Map是一个和Collection接口同辈分的接口.他的实现类中能够存储具有k-v映射关系的元素.这里将对Map集合中的HashMap,Hashtable,ConcurrentHashMap,TreeMap实现类做一定分析,加深一下对Map集合的理解.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://seevae.github.io/img/305.JPG">
-<meta property="og:image" content="http://seevae.github.io/img/306.JPG">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/03/Map集合/305.JPG">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/03/Map集合/306.JPG">
 <meta property="og:updated_time" content="2019-07-04T14:02:54.786Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Map集合剖析">
 <meta name="twitter:description" content="前言Map是一个和Collection接口同辈分的接口.他的实现类中能够存储具有k-v映射关系的元素.这里将对Map集合中的HashMap,Hashtable,ConcurrentHashMap,TreeMap实现类做一定分析,加深一下对Map集合的理解.">
-<meta name="twitter:image" content="http://seevae.github.io/img/305.JPG">
+<meta name="twitter:image" content="http://seevae.github.io/seevae.github.io/2019/07/03/Map集合/305.JPG">
 
 
 
@@ -393,7 +393,7 @@
 <li>ConcurrentHashMap</li>
 </ul>
 <h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><p>HashMap是一种基于散列表形式,能够存放k-v结构元素的集合</p>
-<h3 id="HashMap的内部结构"><a href="#HashMap的内部结构" class="headerlink" title="HashMap的内部结构"></a>HashMap的内部结构</h3><p>HashMap的内部是数组+链表的形式,数组的每个单元称作桶,通过哈希值决定键值对在这个数组的寻址.哈希值相等的值在同一个桶中以链表的形式串联在一起.需要的是,当链表的阈值,也就是链表的长度大于8的时候,链表会进行树化,变成一棵红黑树<br>hashmap结构图:<br><img src="/img/305.JPG" alt="image"></p>
+<h3 id="HashMap的内部结构"><a href="#HashMap的内部结构" class="headerlink" title="HashMap的内部结构"></a>HashMap的内部结构</h3><p>HashMap的内部是数组+链表的形式,数组的每个单元称作桶,通过哈希值决定键值对在这个数组的寻址.哈希值相等的值在同一个桶中以链表的形式串联在一起.需要的是,当链表的阈值,也就是链表的长度大于8的时候,链表会进行树化,变成一棵红黑树<br>hashmap结构图:<br><img src="/seevae.github.io/2019/07/03/Map集合/305.JPG" alt="image"></p>
 <h3 id="HashMap的基本概念"><a href="#HashMap的基本概念" class="headerlink" title="HashMap的基本概念"></a>HashMap的基本概念</h3><p>首先数组的优点在于查找数据的时候可以在O(1)的时间复杂度下精确快速的查找到想要的元素,所以为了查找方便hashmap底层首先使用了一个数组维护插入的数据,数组的每一个单元叫做 <strong>桶</strong>.<br>hashMap中插入的数据不同于普通数据,而是一种k-v结构的数据,就不多说了.数据插入的时候也不像普通数组那样直接按序插入,而是通过一种 <strong>hash散列</strong> 的方式插入数据.具体方式就是,插入数据的坐标 o(散列值) 等于插入元素的key值的hash值再对数组长度取余.即 <strong>hash值(散列值) o=hash(key)%len</strong>,例如上图,key值为12, 28,108的数据在一个桶内<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//默认数组初始长度是16,并规定必须是2的倍数   </span><br><span class="line">static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4;</span><br><span class="line"></span><br><span class="line">//JDK源码中计算hash值的方法</span><br><span class="line">static final int hash(Object key) &#123;</span><br><span class="line">        int h;</span><br><span class="line">        return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>此时出现了一个问题.那就是当插入的数据越来越多,肯定会出现o值相同的情况.那么此时对应数组下标的位置就需要存储不止一个数据.这种情况就称为<strong>hash冲突</strong>.<br>解决hash冲突的方法有很多种,hashMap在设计上使用了 <strong>拉链法</strong> 解决hash冲突.当有多个key值相同的数据时,会在对应的数组下标处由第一个插入的数据开始维护一个链表.一旦有相同散列值的k-v数据就全部在链表后面串联起来.当链表的长度( <strong>阈值</strong> )大于8时,自动转变为一颗红黑树.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//jdk树化链表节点的阈值  </span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TREEIFY_THRESHOLD = <span class="number">8</span>;</span><br></pre></td></tr></table></figure></p>
 <p><strong>源码证明:</strong><br>1.hashmap中数组存放的是k-v形式的数据<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组的定义   </span></span><br><span class="line"><span class="keyword">transient</span> Node&lt;K,V&gt;[] table;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Node节点(只截取了一部分源码)</span></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> hash;</span><br><span class="line">        <span class="keyword">final</span> K key;</span><br><span class="line">        V value;</span><br><span class="line">        Node&lt;K,V&gt; next;</span><br></pre></td></tr></table></figure></p>
@@ -425,7 +425,7 @@
 </ul>
 <h2 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h2><p>前面说过HashMap是线程不安全的,当多个线程同时操作一个HashMap时,如果一条线程处此时HashMap正好正在进行扩容操作,但另外的几个线程是不知道的,他们仍然在进行put操作,此时如果hash值相等,可能出现在同一数组下用链表表示,从而造成闭环,导致在get的时候出现死循环.所以说HashMap是线程不安全的.<br>而Hashtable是线程安全的,他在所有涉及多线程的操作上都加上了synchronized锁住整个table(数组),这就意味着所有线程都在竞争一把锁,在多线程的环境下,他是安全的,但是无疑也是低效的.<br>为了解决多线程下的安全问题,便出现了ConcurrentHashMap.他的底层实现和HashMap基本相同,但是他加入了保证多线程下安全操作的方法并且优化了Hashtable的做法   </p>
 <h3 id="ConcurrentHashMap加锁机制"><a href="#ConcurrentHashMap加锁机制" class="headerlink" title="ConcurrentHashMap加锁机制"></a>ConcurrentHashMap加锁机制</h3><p><strong>JDK1.7下的ConcurrentHashMap</strong><br>Hashtable之所有效率比较低下是因为在进行带锁的操作时,该锁锁住的是整个Hashtable中的数组,但是他进行插入的部分也就只是某一个桶.这就导致其他桶的操作也要停下来等待获取锁.<br>于是ConcurrentHashMap中使用锁分离的思想,将一个大锁分为许多的小锁,原来一个锁锁住的是整个table,现在把table分为许多小的table,每个小的table有自己的一把锁,操作对应的小table只需要获取相应的锁就好.<br>以此便提高了多线程下操作的效率,这就是锁分离技术,将锁的粒度降低,利用多个锁控制多个小的table   </p>
-<p><strong>ConcurrentHashMap的内部结构</strong><br>在JDK1.7版本中，ConcurrentHashMap的数据结构是由一个Segment数组和多个HashEntry组成，如下图所示<br><img src="/img/306.JPG" alt="image"><br>Segment数组的意义就是将一个大的table分割成的多个小的table来进行加锁,也就是上面说到的锁分离技术,每一个Segment元素存储的是一个数组+链表,这个和HashMap是相同的.需要注意的是,1.7种ConcurrentHashMap使用的锁是Lock锁<br><strong>JDK1.8下的ConcurrentHashMap</strong><br>在JDK1.8中基本摒弃了Segment的概念,而是采用Node数组+链表+红黑树的形式实现ConcurrentHashMap,并发控制使用synchronized关键字+CAS操作,整个看起来就像是一个经过优化并且能够保证线程安全的HashMap.<br>相比较1.7,再次降低了锁的粒度,不再像1.7中那样对部分数组加锁,而是直接给某一个行的第一个元素进行加锁.并且把1.7种数组+链表的形式改为了数组+链表+红黑树   </p>
+<p><strong>ConcurrentHashMap的内部结构</strong><br>在JDK1.7版本中，ConcurrentHashMap的数据结构是由一个Segment数组和多个HashEntry组成，如下图所示<br><img src="/seevae.github.io/2019/07/03/Map集合/306.JPG" alt="image"><br>Segment数组的意义就是将一个大的table分割成的多个小的table来进行加锁,也就是上面说到的锁分离技术,每一个Segment元素存储的是一个数组+链表,这个和HashMap是相同的.需要注意的是,1.7种ConcurrentHashMap使用的锁是Lock锁<br><strong>JDK1.8下的ConcurrentHashMap</strong><br>在JDK1.8中基本摒弃了Segment的概念,而是采用Node数组+链表+红黑树的形式实现ConcurrentHashMap,并发控制使用synchronized关键字+CAS操作,整个看起来就像是一个经过优化并且能够保证线程安全的HashMap.<br>相比较1.7,再次降低了锁的粒度,不再像1.7中那样对部分数组加锁,而是直接给某一个行的第一个元素进行加锁.并且把1.7种数组+链表的形式改为了数组+链表+红黑树   </p>
 <h2 id="treeMap"><a href="#treeMap" class="headerlink" title="treeMap"></a>treeMap</h2><p>该类也是Map接口中的一个实现类,但是他的底层没有像他的兄弟姐妹那样使用数组+链表,TreeMap的底层是一颗红黑树…树的节点都是k-v形式的元素<br>他是一个可以排序的Map子类,默认的排序方法是根据key的内容排序.之所以能够进行排序是因为他实现了Comparable接口.<br>如果想要自定义的使TreeMap中的元素排序,那么就要覆写Comparable接口中的compareTo方法,不再需要覆写equals和hashcode</p>
 
       
@@ -546,7 +546,7 @@
               
                 <a href="/seevae.github.io/archives/">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -557,7 +557,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/seevae.github.io/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -568,7 +568,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/seevae.github.io/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

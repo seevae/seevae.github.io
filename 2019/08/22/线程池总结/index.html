@@ -87,14 +87,14 @@
 <meta property="og:site_name" content="Hero">
 <meta property="og:description" content="前言在平时使用多线程的过程中,线程的创建,运行以及管理都是我们自己手动维护的。这样很不便于多线程的管理，并且频繁的创建，销毁线程都是需要较大的资源开销的。而且很多线程被创建出来执行了一次任务之后便不再用了，等待他的只有销毁，这都是很浪费资源的。于是便有了线程池，他能够帮助我们创建多个线程执行不同的任务，且在每个任务执行完毕后循环利用线程。这对于执行效率和空间占用等方面都是很大的提升…">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://seevae.github.io/img/379.JPG">
-<meta property="og:image" content="http://seevae.github.io/img/380.JPG">
-<meta property="og:image" content="http://seevae.github.io/img/381.JPG">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/08/22/线程池总结/379.JPG">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/08/22/线程池总结/380.JPG">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/08/22/线程池总结/381.JPG">
 <meta property="og:updated_time" content="2019-08-25T12:52:16.790Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程池">
 <meta name="twitter:description" content="前言在平时使用多线程的过程中,线程的创建,运行以及管理都是我们自己手动维护的。这样很不便于多线程的管理，并且频繁的创建，销毁线程都是需要较大的资源开销的。而且很多线程被创建出来执行了一次任务之后便不再用了，等待他的只有销毁，这都是很浪费资源的。于是便有了线程池，他能够帮助我们创建多个线程执行不同的任务，且在每个任务执行完毕后循环利用线程。这对于执行效率和空间占用等方面都是很大的提升…">
-<meta name="twitter:image" content="http://seevae.github.io/img/379.JPG">
+<meta name="twitter:image" content="http://seevae.github.io/seevae.github.io/2019/08/22/线程池总结/379.JPG">
 
 
 
@@ -403,7 +403,7 @@
 <li>工作线程 : 线程池创建的线程都会封装为一个工作线程Worker,工作线程会去执行相应的任务,并在任务结束后循环从阻塞队列中拿任务  </li>
 </ul>
 <p>线程池工作原理图：  </p>
-<p><img src="/img/379.JPG" alt="image"></p>
+<p><img src="/seevae.github.io/2019/08/22/线程池总结/379.JPG" alt="image"></p>
 <p>综上,线程池中的线程执行任务分两种情况:  </p>
 <ol>
 <li>在execute()方法中创建一个线程时,会让这个线程执行当前任务   </li>
@@ -449,8 +449,8 @@
 <h1 id="Executor框架"><a href="#Executor框架" class="headerlink" title="Executor框架"></a>Executor框架</h1><h2 id="Executor框架的两级调度模型"><a href="#Executor框架的两级调度模型" class="headerlink" title="Executor框架的两级调度模型"></a>Executor框架的两级调度模型</h2><p>在HotSpot VM线程模型中，Java线程被一对一映射为本地操作系统线程。<br>Java线程启动时会创建一个本地操作系统线程；当线程停止时，这个本地操作系统线程也会被回收。操作系统会调度所有的本地操作系统线程并分配给可用的cpu  </p>
 <p>在上层，Java多线程程序通常把应用分解为若干个任务，然后使用用户级调度框架（Executor框架）将这些任务映射为固定数量的线程；在底层，操作系统内核将这些线程映射到硬件处理器上。这就是两级调度模型。  </p>
 <p>即应用程序通过Executor框架控制上层的调度，而下层的调度有操作系统内核控制，下层的调度不受应用程序的控制   </p>
-<p><strong>任务的两级调度模型示意图</strong><br><img src="/img/380.JPG" alt="image"></p>
-<h2 id="Executor框架的结构与成员"><a href="#Executor框架的结构与成员" class="headerlink" title="Executor框架的结构与成员"></a>Executor框架的结构与成员</h2><p><img src="/img/381.JPG" alt="image"></p>
+<p><strong>任务的两级调度模型示意图</strong><br><img src="/seevae.github.io/2019/08/22/线程池总结/380.JPG" alt="image"></p>
+<h2 id="Executor框架的结构与成员"><a href="#Executor框架的结构与成员" class="headerlink" title="Executor框架的结构与成员"></a>Executor框架的结构与成员</h2><p><img src="/seevae.github.io/2019/08/22/线程池总结/381.JPG" alt="image"></p>
 <h3 id="Exector框架的结构"><a href="#Exector框架的结构" class="headerlink" title="Exector框架的结构"></a>Exector框架的结构</h3><p>Executor框架主要分为三部分，<strong>任务</strong>，<strong>任务的执行</strong>，<strong>异步计算的结果</strong>  </p>
 <h4 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h4><p>包括被执行任务需要实现的接口：Runnable接口或Callable接口    </p>
 <h4 id="任务的执行"><a href="#任务的执行" class="headerlink" title="任务的执行"></a>任务的执行</h4><p>包括任务执行机制的核心接口Executor，以及继承自Executor的ExecutorService接口。在ExecutorService下又有两个关键类ThreadPoolExecutor（普通线程池）和ScheduledThreadPoolExecutor（定时线程池）  </p>
@@ -599,7 +599,7 @@
               
                 <a href="/seevae.github.io/archives/">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -610,7 +610,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/seevae.github.io/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -621,7 +621,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/seevae.github.io/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

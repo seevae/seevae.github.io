@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="日常学习,">
 
 
 
@@ -79,16 +79,23 @@
 
 
 
-<meta name="description" content="蜜汁希望">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hero">
-<meta property="og:url" content="http://seevae.github.io/categories/个人空间/index.html">
+<meta name="description" content="前言在公司工作的过程中，不论是运维人员还是研发人员，我们往往需要远程登陆到公司的某台线上机器进行相应的工作或是访问相应的应用服务。而这台线上机器无论是真实的物理机还是一台虚机，又或是一个容器，我们都暂且可以将他看作是一个网络服务。在访问一个网络服务时，往往会因为通信双方的身份不能得到很好的确认从而发生中间人劫持，服务器伪造等网络攻击，">
+<meta name="keywords" content="日常学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="详解kerberos认证原理">
+<meta property="og:url" content="http://seevae.github.io/2020/09/12/详解kerberos认证流程/index.html">
 <meta property="og:site_name" content="Hero">
-<meta property="og:description" content="蜜汁希望">
+<meta property="og:description" content="前言在公司工作的过程中，不论是运维人员还是研发人员，我们往往需要远程登陆到公司的某台线上机器进行相应的工作或是访问相应的应用服务。而这台线上机器无论是真实的物理机还是一台虚机，又或是一个容器，我们都暂且可以将他看作是一个网络服务。在访问一个网络服务时，往往会因为通信双方的身份不能得到很好的确认从而发生中间人劫持，服务器伪造等网络攻击，">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/09/12/详解kerberos认证流程/kerberos1.jpg">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/09/12/详解kerberos认证流程/youdaoPicture/016.png">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/09/12/详解kerberos认证流程/hexo/source/img/kerberos1.jpg">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/09/12/详解kerberos认证流程/kerberos1.jpg">
+<meta property="og:updated_time" content="2020-09-13T04:50:19.957Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hero">
-<meta name="twitter:description" content="蜜汁希望">
+<meta name="twitter:title" content="详解kerberos认证原理">
+<meta name="twitter:description" content="前言在公司工作的过程中，不论是运维人员还是研发人员，我们往往需要远程登陆到公司的某台线上机器进行相应的工作或是访问相应的应用服务。而这台线上机器无论是真实的物理机还是一台虚机，又或是一个容器，我们都暂且可以将他看作是一个网络服务。在访问一个网络服务时，往往会因为通信双方的身份不能得到很好的确认从而发生中间人劫持，服务器伪造等网络攻击，">
+<meta name="twitter:image" content="http://seevae.github.io/seevae.github.io/2020/09/12/详解kerberos认证流程/kerberos1.jpg">
 
 
 
@@ -118,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://seevae.github.io/categories/个人空间/">
+  <link rel="canonical" href="http://seevae.github.io/2020/09/12/详解kerberos认证流程/">
 
 
 
 
 
-  <title>分类: 个人空间 | Hero</title>
+  <title>详解kerberos认证原理 | Hero</title>
   
 
 
@@ -143,7 +150,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -289,53 +296,177 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>个人空间<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://seevae.github.io/seevae.github.io/2020/09/12/详解kerberos认证流程/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Qi">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/seevae.github.io/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/seevae.github.io/2020/09/09/竣工/" itemprop="url">
-              
-                <span itemprop="name">竣工！</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">详解kerberos认证原理</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2020-09-09T20:14:50+08:00" content="2020-09-09">
-          09-09
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+          </span>
 
-    </header>
-  </article>
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/seevae.github.io/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
 
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在公司工作的过程中，不论是运维人员还是研发人员，我们往往需要远程登陆到公司的某台线上机器进行相应的工作或是访问相应的应用服务。而这台线上机器无论是真实的物理机还是一台虚机，又或是一个容<br>器，我们都暂且可以将他看作是一个网络服务。在访问一个网络服务时，往往会因为通信双方的身份不能得到很好的确认从而发生中间人劫持，服务器伪造等网络攻击，<br><a id="more"></a></p>
+<h1 id="什么是kerberos协议"><a href="#什么是kerberos协议" class="headerlink" title="什么是kerberos协议"></a>什么是kerberos协议</h1><p>kerberos是一种计算机网络认证协议，他能够为网络中通信的双方提供严格的身份验证服务，确保通信双方身份的真实性和安全性。不同于其他网络服务，kerberos协议中不是所有的客户端向想要访问的网络服务<br>发起请求，他就能够建立连接然后进行加密通信。而是在发起服务请求后必须先进行一系列的身份认证，包括客户端和服务端两方的双向认证，只有当通信双方都认证通过对方身份之后，才可以互相建立起连接，<br>进行网络通信。即kerberos协议的侧重在于认证通信双方的身份，客户端需要确认即将访问的网络服务就是自己所想要访问的服务而不是一个伪造的服务器，而服务端需要确认这个客户端是一个身份真实，安全可<br>靠的客户端，而不是一个想要进行恶意网络攻击的用户。本文将详细概述kerberos认证原理，讲述通信双方是如何一步步确认对方身份完成认证的。</p>
+<h1 id="kerberos协议的组成角色"><a href="#kerberos协议的组成角色" class="headerlink" title="kerberos协议的组成角色"></a>kerberos协议的组成角色</h1><p>在古希腊神话故事中，kerberos是一只具有三颗头颅的地狱恶犬，他守护在地狱之外，能够识别所有经此路过的亡灵，防止活着的入侵者闯入地狱。而真正的kerberos协议中也存在三个角色，分别是  </p>
+<ul>
+<li><strong>客户端（client）</strong>：发送请求的一方</li>
+<li><strong>服务端（Server）</strong>：接收请求的一方</li>
+<li><strong>密钥分发中心（Key Distribution Center，KDC）</strong>，而密钥分发中心一般又分为两部分，分别是：  <ul>
+<li><strong>AS（Authentication Server）</strong>：认证服务器，专门用来认证客户端的身份  </li>
+<li><strong>TGS（Ticket Granting Ticket）</strong>：票据授予服务器，用来发放整个认证过程以及客户端访问服务端时所需的服务票据  </li>
+</ul>
+</li>
+</ul>
+<p>在整个kerberos认证过程中，三个角色缺一不可，下面便来介绍一下整个kerberos的认证原理~</p>
+<h1 id="kerberos认证解决”如何证明我就是我的问题“"><a href="#kerberos认证解决”如何证明我就是我的问题“" class="headerlink" title="kerberos认证解决”如何证明我就是我的问题“"></a>kerberos认证解决”如何证明我就是我的问题“</h1><p>上面说到了kerberos协议当中总共有三个不同的角色，客户端和服务端就不用多说了，一个是请求的发起者一个是请求的接收者，那么KDC是做什么的呢？答案是这样的~<br>在kerberos协议中，通信的双方在通信之前必须相互证明自己的身份是可靠并且具有访问权限的（后面会说为什么是要具有访问权限的），那么双方都要如何证明自己呢？口说无凭，客户端的请求中携带自己的身份<br>信息直接给服务端，服务端是没有理由直接信任这段信息就是真实的信息的，同理，服务端返回自己的身份信息给客户端，客户端也同样是无法辨别该服务器是否是自己想要访问的服务器。   </p>
+<p>举个例子，A现在想要去访问B完成一个任务。但是AB两人之间是从来没有见过面的，他们只知道对方的名字叫A，B。此时如果A直接去找B告诉B我就是A，那么B是有理由不相信A的，因为即使A是一个冒充的他也分辨不<br>清，B同理也得不到A的认可，他们陷入了一个无法证明我就是我的困境。于是他们就想到了一个办法，AB找到了一个他俩共同信任的人C，且这个C既认识A又认识B，所以只要C告诉B，这个A确实就是真正的A那么B就会<br>信任这个A，同理B经过C的认可后，A也会相信B的身份。<br>此后，A在访问B之前会先去找C，C会交给A一个凭证，代表此时的A已经得到了C的认证，这时A拿着凭证再去找C，便可以得到C的确认了。</p>
+<p>在上面的例子中，A，B分别是客户端和服务端，C担任的角色便是<strong>KDC</strong>，全称Key Distribution Center，中文名叫做密钥分发中心。KDC中包含一个叫做TGS（票据授予中心）的组件，我们便可以理解为他就是一个发放<br>身份认证票据的服务中心，在KDC认证了（其实是KDC中的AS认证的）客户端的身份后，他会给客户端发放用于访问网络服务的服务授予票据。由于整个kerberos通信过程都采用对称加密的方式，密钥的获取也是从KDC中得<br>到，所以KDC叫做密钥分发中心。   </p>
+<p><strong>所以整个kerberos认证流程可以简化描述如下：</strong><br>客户端在访问每个想要访问的网络服务时，他需要携带一个专门用于访问该服务并且能够证明自己身份的票据，当服务端收到了该票据他才能认定客户端身份正确，向客户端提供服务。所以整个认证流程可简化为两大步：  </p>
+<ol>
+<li>客户端向KDC请求获取想要访问的目标服务的服务授予票据；</li>
+<li>客户端拿着从KDC获取的服务授予票据访问相应的网络服务；</li>
+</ol>
+<p>简化认证流程图：<br><img src="/seevae.github.io/2020/09/12/详解kerberos认证流程/kerberos1.jpg" alt><br><img src="/seevae.github.io/2020/09/12/详解kerberos认证流程/youdaoPicture/016.png" alt="image"><br>I:\hexo\source\img<br><img src="/seevae.github.io/2020/09/12/详解kerberos认证流程/hexo/source/img/kerberos1.jpg" alt="image"><br><img src="/seevae.github.io/2020/09/12/详解kerberos认证流程/kerberos1.jpg" alt="image"> </p>
+<p># </p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/seevae.github.io/tags/日常学习/" rel="tag"># 日常学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/seevae.github.io/2020/09/09/JavaSE之集合框架/" rel="next" title="JavaSE之集合框架">
+                <i class="fa fa-chevron-left"></i> JavaSE之集合框架
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -343,6 +474,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -363,8 +498,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -379,7 +523,7 @@
               
                 <a href="/seevae.github.io/archives/">
               
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -390,7 +534,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/seevae.github.io/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -401,7 +545,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/seevae.github.io/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -424,6 +568,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是kerberos协议"><span class="nav-number">2.</span> <span class="nav-text">什么是kerberos协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kerberos协议的组成角色"><span class="nav-number">3.</span> <span class="nav-text">kerberos协议的组成角色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kerberos认证解决”如何证明我就是我的问题“"><span class="nav-number">4.</span> <span class="nav-text">kerberos认证解决”如何证明我就是我的问题“</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -564,6 +724,10 @@
   
 
   
+  <script type="text/javascript" src="/seevae.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/seevae.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
