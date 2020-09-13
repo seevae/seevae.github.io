@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="Hero">
 <meta property="og:description" content="前言在JDK1.5中,synchronized是性能低效的,所以在JDK1.6中,Java对synchronized进行了优化,进行了自适应自旋,锁消除,锁粗化,轻量级锁,偏向锁等优化措施.在这里对其进行学习总结!">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/02/23/synchronized关键字优化/283.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/283.JPG">
 <meta property="og:updated_time" content="2019-03-04T12:36:12.692Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="synchronized关键字优化">
 <meta name="twitter:description" content="前言在JDK1.5中,synchronized是性能低效的,所以在JDK1.6中,Java对synchronized进行了优化,进行了自适应自旋,锁消除,锁粗化,轻量级锁,偏向锁等优化措施.在这里对其进行学习总结!">
-<meta name="twitter:image" content="http://seevae.github.io/seevae.github.io/2019/02/23/synchronized关键字优化/283.JPG">
+<meta name="twitter:image" content="http://seevae.github.io/img/283.JPG">
 
 
 
@@ -389,7 +389,7 @@
 <h3 id="CAS的操作过程"><a href="#CAS的操作过程" class="headerlink" title="CAS的操作过程"></a>CAS的操作过程</h3><p>CAS的比较交换操作可以通俗的理解为CAS（V,O,N），即他有三个操作数：V，内存地址存放的实际值；O，预期的值（旧值）；N，更新的新值。<br>当CAS操作开始执行时，会先比较V和O的值，如果预期的旧值和内存地址中存放的实际值相同，那么证明该值还没有被其他线程修改过，即此时的旧值就是最新的值的，那么便可以将N赋值给O。<br>反之，如果一个线程进来就发现V和O不相同，那么表明该值已经被其他线程改过了则该旧值不是最新版本的值了，所以不能将N赋值给O，此时返回V即可。<br>当多个线程同时使用CAS访问一个变量时，只有一个线程可以成功修改O的值，其余都会失败。失败的线程会重新尝试，或者选择挂起线程<br>CAS操作是一种原子操作，即整个比较交换过程都是一次不间断完成的，CAS的实现需要硬件指令集的支撑，在JDK1.5后虚拟机才可以使用处理器提供的CMPXCHG指令实现</p>
 <h3 id="CAS和synchronized（JDK1-5）的区别"><a href="#CAS和synchronized（JDK1-5）的区别" class="headerlink" title="CAS和synchronized（JDK1.5）的区别"></a>CAS和synchronized（JDK1.5）的区别</h3><p>未优化的synchronized有一个最主要的问题：在存在线程竞争的情况下会出现线程阻塞和唤醒锁带来的性能问题，因为互斥同步，会有线程的阻塞出现，而阻塞的线程又需要被唤醒，所以在性能上存在着缺陷<br>而CAS操作不会武断的将线程挂起，当操作失败后他会进行一定的尝试，而不是进行耗时的挂起再唤醒操作，因此他也叫做非阻塞同步，这就是两者的主要区别</p>
 <h3 id="CAS的问题"><a href="#CAS的问题" class="headerlink" title="CAS的问题"></a>CAS的问题</h3><p>Ⅰ.ABA问题<br>    因为CAS每次会检测旧值有没有发生变化，那这里就有一个问题：旧值本来是A，但是有一个线程他进来将A修改成了B，然后在结束任务的之前又将B修改回了A，那么CAS在进行检查的时候并不知道这个值是被修改过的，但是实际上确实发生了变化。解决方法可以仿照数据库中的乐观锁机制，添加一个版本号就可以解决了，在JDK1.5之后的atomic包中也提供了AtomicStampedReference来解决ABA问题，他的解决思路就是这样的<br>Ⅱ.自旋浪费大量空间<br>    前面我们说了CAS操作一个线程时如果发现和其他线程发生了冲突，不会将线程立即挂起而是重复当前操作直到获得对象锁，这个重复尝试的过程就叫做自旋过程。与线程阻塞相比，自旋过程显然会浪费大量的处理器资源，因为当前线程任然处于运行状态，只不过跑的是无用的指令，他期望在做无用指令的过程中自己想要获得的锁能够被释放出来。<br>在自旋的过程中，JVM也不知道当前占用锁的线程什么时候能够释放锁所以JVM采用了自适应自旋的方案，根据以往自旋等待时能否获取锁来动态调整自旋的时间，例如，上次A锁被占用了较长时间，自旋时间过短，那么这次自旋的时间就稍微在长点；如果上次A锁被占用的时间较短，自旋的时间较长，那么这次自旋的时间就相应的短点<br>Ⅲ.公平性<br>自旋状态带来了一个不公平的锁机制。处于阻塞状态的线程无法立刻竞争被释放的锁。处于自旋状态的锁则很有可能优先获的锁（因为他什么都没干就一直在等待着锁的释放）</p>
-<h2 id="Java对象头"><a href="#Java对象头" class="headerlink" title="Java对象头"></a>Java对象头</h2><p>我们知道Java中的对象保存在堆内存中。而一个Java对象又包括三部分：对象头，实例数据和对齐填充。其中，对象头是一个很重要的部分，也是这里我想说的部分。<br>在同步的时候线程加锁，其实就是让一个线程获得某个对象的监视器（monitor），即获得对象锁。那么这个锁怎么理解？<br>其实锁就是一个标志，这个标志就存放在Java对象的对象头中。Java对象头里的Mark Word里默认的存的对象的Hushcode，分代年龄和锁标记位。32位JVM走Mark Word默认存储结构如下图：<br><img src="/seevae.github.io/2019/02/23/synchronized关键字优化/283.JPG" alt><br>在Java SE 1.6中,锁有四种状态,级别从低到高依次为:无锁状态,偏向锁状态,轻量级锁状态,重量级锁状态。这几个锁状态会随着竞争情况升级。但是不能降级，例如一个锁从偏向锁变为了轻量级锁那么就不可以在变回偏向锁！这种单向的升级策略目的是为了提高获得锁和释放锁的效率，下面就来具体说说这些不同的锁</p>
+<h2 id="Java对象头"><a href="#Java对象头" class="headerlink" title="Java对象头"></a>Java对象头</h2><p>我们知道Java中的对象保存在堆内存中。而一个Java对象又包括三部分：对象头，实例数据和对齐填充。其中，对象头是一个很重要的部分，也是这里我想说的部分。<br>在同步的时候线程加锁，其实就是让一个线程获得某个对象的监视器（monitor），即获得对象锁。那么这个锁怎么理解？<br>其实锁就是一个标志，这个标志就存放在Java对象的对象头中。Java对象头里的Mark Word里默认的存的对象的Hushcode，分代年龄和锁标记位。32位JVM走Mark Word默认存储结构如下图：<br><img src="/img/283.JPG" alt><br>在Java SE 1.6中,锁有四种状态,级别从低到高依次为:无锁状态,偏向锁状态,轻量级锁状态,重量级锁状态。这几个锁状态会随着竞争情况升级。但是不能降级，例如一个锁从偏向锁变为了轻量级锁那么就不可以在变回偏向锁！这种单向的升级策略目的是为了提高获得锁和释放锁的效率，下面就来具体说说这些不同的锁</p>
 <h1 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h1><p>通过对大量数据的分析发现，大多数情况下，锁不仅不存在多线程竞争，而且总是由同一个线程多次获得，为了让线程获得锁的代价更低从而引入了偏向锁。偏向锁也是四种状态中乐观的一种锁：从始至终只有一个线程请求一把锁</p>
 <h2 id="偏向锁的获取"><a href="#偏向锁的获取" class="headerlink" title="偏向锁的获取"></a>偏向锁的获取</h2><p>当一个线程进入一个同步代码块并请求锁资源的时候,会在对象头和栈帧中的锁记录中保存当前线程的ID,以后线程在进入或退出此同步代码块的时候不需要在进行加锁或者解锁操作,仅需测试一下对象头Make Word中是否存储着指向当前线程的偏向锁,如果测试成功,表示线程已经获得了锁;如果测试失败,则需要先测试一下该Mark Word中偏向锁的标志位是否为1(表示当前是偏向锁),如果为1,证明已经有其他线程使用了该锁,他已经是其他线程的偏向锁,这时尝试使用CAS将对象头的偏向锁指向当前线程;如果标志不为1,则证明此锁资源暂时没有被使用,则使用CAS竞争锁资源即可</p>
 <h2 id="偏向锁的撤销"><a href="#偏向锁的撤销" class="headerlink" title="偏向锁的撤销"></a>偏向锁的撤销</h2><p>偏向锁使用了一种等到竞争出现才释放锁的机制,即当其他线程尝试竞争偏向锁时,持有偏向锁的线程才会释放锁</p>
@@ -513,7 +513,7 @@
               
                 <a href="/seevae.github.io/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

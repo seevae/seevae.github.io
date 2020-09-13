@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="Hero">
 <meta property="og:description" content="前言该文补充了关于包的基础知识,潜要的谈了谈单例设计模式.整理了异常处理方面的一些基本知识~是一篇轻量级的复习章节">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/04/18/面向对象基础知识补充/284.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/284.JPG">
 <meta property="og:updated_time" content="2019-04-18T13:42:05.710Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="面向对象基础知识补充">
 <meta name="twitter:description" content="前言该文补充了关于包的基础知识,潜要的谈了谈单例设计模式.整理了异常处理方面的一些基本知识~是一篇轻量级的复习章节">
-<meta name="twitter:image" content="http://seevae.github.io/seevae.github.io/2019/04/18/面向对象基础知识补充/284.JPG">
+<meta name="twitter:image" content="http://seevae.github.io/img/284.JPG">
 
 
 
@@ -400,7 +400,7 @@
 </ol>
 <p>上面这种单例模式成为饿汉式,不论是否调用getInstance方法,只要这个类被加载,那么就会产生一个Single的实例化对象.<br>还有一种单例模式叫做懒汉式,他在第一次调用对象的时候才会进行对象的实例化工作<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Single single = Single.getInstance(); <span class="comment">//获取的永远都是一个实例化对象</span></span><br><span class="line">        single.print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Single</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//在类的内部进行类的实例化</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">private</span> Single instance = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置一个无参的构造方法</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Single</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Single <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance == <span class="keyword">null</span>)&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> Single();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"单例模式的一个方法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>懒汉式只有在我们真正需要对象的时候他才会去创建对象  </p>
-<h1 id="异常与捕获"><a href="#异常与捕获" class="headerlink" title="异常与捕获"></a>异常与捕获</h1><p>每一个程序都有可能会出现异常,为了保证在出现异常之后程序仍然能够正常的执行完毕,就需要进行异常处理<br>在Java的异常体系中有两个大类:Error和Exception,他们都继承自Throwable<br>下面是异常体系继承的关系图:<br><img src="/seevae.github.io/2019/04/18/面向对象基础知识补充/284.JPG" alt><br><strong>Error:</strong> 这种错误描述了Java内部运行时错误和资源耗尽的错误,应用程序不会抛出此类异常,这种内部错误一旦出现,除了告知用户并使程序安全结束之外再无其他方法.<br><strong>Exception:</strong> Exception有两个子类,IOException和RuntimeException</p>
+<h1 id="异常与捕获"><a href="#异常与捕获" class="headerlink" title="异常与捕获"></a>异常与捕获</h1><p>每一个程序都有可能会出现异常,为了保证在出现异常之后程序仍然能够正常的执行完毕,就需要进行异常处理<br>在Java的异常体系中有两个大类:Error和Exception,他们都继承自Throwable<br>下面是异常体系继承的关系图:<br><img src="/img/284.JPG" alt><br><strong>Error:</strong> 这种错误描述了Java内部运行时错误和资源耗尽的错误,应用程序不会抛出此类异常,这种内部错误一旦出现,除了告知用户并使程序安全结束之外再无其他方法.<br><strong>Exception:</strong> Exception有两个子类,IOException和RuntimeException</p>
 <ul>
 <li>RuntimeException:由于程序错误导致的异常(即我们自己失误造成的错误)</li>
 <li>程序本身没有问题,但由于像I/O错误这类问题导致的异常属于IOException  </li>
@@ -555,7 +555,7 @@
               
                 <a href="/seevae.github.io/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

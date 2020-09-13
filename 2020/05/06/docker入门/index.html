@@ -87,27 +87,27 @@
 <meta property="og:site_name" content="Hero">
 <meta property="og:description" content="前言本文主要整理了docker的一些常用命令，是一篇关于容器和镜像的入门级文章，不涉及太多原理性的内容，主要做为个人笔记方便日后查找。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/dockerrun.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/067.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/068.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/069.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/attach.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/exec.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/export.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/import.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/071.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/images.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/search.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/072.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/commit.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/073.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/tag.png">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/080.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/dockerrun.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/067.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/068.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/069.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/attach.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/exec.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/export.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/import.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/071.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/images.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/search.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/072.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/commit.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/073.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/tag.png">
+<meta property="og:image" content="http://seevae.github.io/youdaoPicture/080.png">
 <meta property="og:updated_time" content="2020-05-08T08:14:45.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker基础">
 <meta name="twitter:description" content="前言本文主要整理了docker的一些常用命令，是一篇关于容器和镜像的入门级文章，不涉及太多原理性的内容，主要做为个人笔记方便日后查找。">
-<meta name="twitter:image" content="http://seevae.github.io/seevae.github.io/2020/05/06/docker入门/dockerrun.png">
+<meta name="twitter:image" content="http://seevae.github.io/youdaoPicture/dockerrun.png">
 
 
 
@@ -410,7 +410,7 @@
 </ul>
 <p>要退出终端 , 直接输入exit<br>退出后 <code>docker ps</code> 发现在没有正在运行的docker容器了   </p>
 <p><strong>注意</strong> : 需要注意的是每使用 run 命令启动一个容器 , 都是创建一个新的容器的过程 , 即使使用的镜像相同 , 也会创建出不同的容器来<br>如下图 , 有两个镜像为 ubuntu:15.04 的容器</p>
-<p><img src="/seevae.github.io/2020/05/06/docker入门/dockerrun.png" alt="image"><br>补充<code>docker run</code>命令的其他参数  </p>
+<p><img src="/youdaoPicture/dockerrun.png" alt="image"><br>补充<code>docker run</code>命令的其他参数  </p>
 <ul>
 <li>-d：后台运行容器，并返回容器ID；</li>
 <li>-i：以交互模式运行容器，通常与-t同时使用  </li>
@@ -439,31 +439,31 @@
 <li>exited（停止）</li>
 <li>dead（死亡）</li>
 </ul>
-<h2 id="启动已停止运行的容器"><a href="#启动已停止运行的容器" class="headerlink" title="启动已停止运行的容器"></a>启动已停止运行的容器</h2><p><code>docker ps -a</code>  查看容器状态, 找到一个处于停止状态的容器<br><img src="/seevae.github.io/2020/05/06/docker入门/067.png" alt="image">   </p>
-<p>使用<code>docker start</code> 启动这个已停止的容器<br><code>docker start 8a847fc4c308</code><br><img src="/seevae.github.io/2020/05/06/docker入门/068.png" alt="image"><br>可以看到后台运行中的容器中有该容器   </p>
+<h2 id="启动已停止运行的容器"><a href="#启动已停止运行的容器" class="headerlink" title="启动已停止运行的容器"></a>启动已停止运行的容器</h2><p><code>docker ps -a</code>  查看容器状态, 找到一个处于停止状态的容器<br><img src="/youdaoPicture/067.png" alt="image">   </p>
+<p>使用<code>docker start</code> 启动这个已停止的容器<br><code>docker start 8a847fc4c308</code><br><img src="/youdaoPicture/068.png" alt="image"><br>可以看到后台运行中的容器中有该容器   </p>
 <h2 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h2><p>我们可以通过 <code>-d</code> 在运行容器之初指定容器的运行模式<br>加了<code>-d</code> 参数默认不会进入容器 , 想要进入容器需要使用指令 <code>docker exec</code> </p>
-<p>例: 创建一个后台运行的ubuntu镜像, 名称为ubuntu-test<br><img src="/seevae.github.io/2020/05/06/docker入门/069.png" alt="image"><br>此容器便在后台运行 , 而不是在运行之初进入交互模式   </p>
+<p>例: 创建一个后台运行的ubuntu镜像, 名称为ubuntu-test<br><img src="/youdaoPicture/069.png" alt="image"><br>此容器便在后台运行 , 而不是在运行之初进入交互模式   </p>
 <h2 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h2><p>如上述，当使用<code>-d</code>参数时，容器启动会进入后台。此时想要进入容器，可以通过以下指令进入: </p>
 <ul>
 <li>docker attach</li>
 <li>docker exec </li>
 </ul>
 <p>推荐使用第二个<br>这两个指令的区别在于：<br><code>docker attach</code> 指令进入容器退出后容器会停止<br><code>docker exec</code> 指令进入容器退出后容器继续在后台运行不会停止   </p>
-<p>演示 :<br><strong>docker attach</strong><br><img src="/seevae.github.io/2020/05/06/docker入门/attach.png" alt="image"><br>容器退出后便停止</p>
-<p><strong>docker exec</strong><br><img src="/seevae.github.io/2020/05/06/docker入门/exec.png" alt="image"><br>容器退出后在后台运行</p>
+<p>演示 :<br><strong>docker attach</strong><br><img src="/youdaoPicture/attach.png" alt="image"><br>容器退出后便停止</p>
+<p><strong>docker exec</strong><br><img src="/youdaoPicture/exec.png" alt="image"><br>容器退出后在后台运行</p>
 <h2 id="停止容器"><a href="#停止容器" class="headerlink" title="停止容器"></a>停止容器</h2><p><code>docker stop &lt;容器Id&gt;</code><br>停止掉的容器在使用 <code>docker ps</code> 查看时便不存在了<br>使用<code>docker ps -a</code> 可以查看到所有正在运行或停止状态的容器   </p>
 <h2 id="导入和导出容器"><a href="#导入和导出容器" class="headerlink" title="导入和导出容器"></a>导入和导出容器</h2><h3 id="导出容器"><a href="#导出容器" class="headerlink" title="导出容器"></a>导出容器</h3><p>如果要导出本地某个容器 , 可以使用 <code>docker export</code> 命令  </p>
 <p>//导出到当前文件夹<br><code>docker export b00ac6809556 &gt; ubuntu.tar</code><br>//导出到指定文件夹<br><code>docker export b00ac6809556 &gt; ./docker/ubuntu.tar</code></p>
-<p>导出容器 b00ac6809556 快照到本地文件 ubuntu.tar<br><img src="/seevae.github.io/2020/05/06/docker入门/export.png" alt="image">  </p>
+<p>导出容器 b00ac6809556 快照到本地文件 ubuntu.tar<br><img src="/youdaoPicture/export.png" alt="image">  </p>
 <h3 id="导入容器快照"><a href="#导入容器快照" class="headerlink" title="导入容器快照"></a>导入容器快照</h3><p>可以使用<code>docker import</code> 从容器快照文件中再导入为镜像 , 以下实例文件将快照文件 ubuntu.tar 导入到镜像 test/ubuntu:v1  </p>
 <p>//压缩包所在的目录下执行<br><code>cat ubuntu.tar | docker import - test/ubuntu:v1</code></p>
-<p>在压缩包所在的目录处导入镜像到docker<br><img src="/seevae.github.io/2020/05/06/docker入门/import.png" alt="image"> </p>
+<p>在压缩包所在的目录处导入镜像到docker<br><img src="/youdaoPicture/import.png" alt="image"> </p>
 <p>此外, 也可以通过指定URL或者某个目录来导入 , 例如:<br><code>docker import http://example.com/exampleimage.tgz  example/imagerepo</code> </p>
 <h2 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h2><p>删除容器使用<code>docker rm &lt;容器id&gt;</code> 命令<br>下面的命令可以清理掉所有处于终止状态的容器<br><code>docker container prune</code>  </p>
 <h2 id="运行一个web应用"><a href="#运行一个web应用" class="headerlink" title="运行一个web应用"></a>运行一个web应用</h2><p>在docker容器中运行一个Python Flask应用来运行一个web应用</p>
 <p>其实就是一段简短的web程序, 访问时在网页输出一个 hello world   </p>
 <p>首先载入镜像<br><code>docker pull training/webapp</code><br>运行容器<code>docker run -d -P training/webapp python app.py</code><br>参数说明:<br>-d : 后台运行容器<br>-P : 将容器内部使用的网络端口映射到我们使用的主机上<br>至此web应用便运行起来了   </p>
-<h3 id="查看web应用容器"><a href="#查看web应用容器" class="headerlink" title="查看web应用容器"></a>查看web应用容器</h3><p>使用<code>docker ps</code> 来查看我们正在运行的容器:<br><img src="/seevae.github.io/2020/05/06/docker入门/071.png" alt="image"><br>发现多了PORTS这一列, 该列说明了端口的映射情况<br>docker开放的5000端口映射到了主机端口32768上<br>此时通过命令<code>curl localhost:32768</code> , 可以访问该应用, 打印出 hello world 即为成功   </p>
+<h3 id="查看web应用容器"><a href="#查看web应用容器" class="headerlink" title="查看web应用容器"></a>查看web应用容器</h3><p>使用<code>docker ps</code> 来查看我们正在运行的容器:<br><img src="/youdaoPicture/071.png" alt="image"><br>发现多了PORTS这一列, 该列说明了端口的映射情况<br>docker开放的5000端口映射到了主机端口32768上<br>此时通过命令<code>curl localhost:32768</code> , 可以访问该应用, 打印出 hello world 即为成功   </p>
 <p>我们也可以通过 <code>-p</code> 参数来设置不一样的端口:<br><code>docker run -d -p 5000:5000 training/webapp python app.py</code><br>然后通过 <code>curl localhost:5050</code> 得到同样结果   </p>
 <h3 id="网络端口的快捷方式"><a href="#网络端口的快捷方式" class="headerlink" title="网络端口的快捷方式"></a>网络端口的快捷方式</h3><p>网络端口映射除了使用<code>docker ps</code>查看之外, 还可以使用 <code>docker port</code>这种快捷方式 , 使用该命令可以查看指定(ID或者名字)容器的某个确定端口映射到宿主机的端口号<br>例如<br><code>docker port bf08b7f2cd89</code><br>就能查看id为bf08b7f2cd89的容器的端口映射情况   </p>
 <h3 id="查看web应用程序容器的进程"><a href="#查看web应用程序容器的进程" class="headerlink" title="查看web应用程序容器的进程"></a>查看web应用程序容器的进程</h3><p>我们还可以使用docker top来查看容器内容运行的进程<br><code>docker top &lt;容器ID/名称&gt;</code>  </p>
@@ -476,7 +476,7 @@
 <h3 id="移除WEB应用容器"><a href="#移除WEB应用容器" class="headerlink" title="移除WEB应用容器"></a>移除WEB应用容器</h3><p>我们可以使用<code>docker rm</code> 命令来删除不需要的容器  删除容器时,容器必须是停止状态,否则会报错<br><code>runoob@runoob:~$ docker rm wizardly_chandrasekhar
 Error response from daemon: You cannot remove a running container bf08b7f2cd897b5964943134aa6d373e355c286db9b9885b1f60b6e8f82b2b85. Stop the container before attempting removal or force remove</code></p>
 <h1 id="镜像使用"><a href="#镜像使用" class="headerlink" title="镜像使用"></a>镜像使用</h1><p>当想要运行一个容器时, 必须要有相对应的镜像, 如果使用的镜像不再本地中, docker就会自动从docker镜像仓库中下载, 默认是从Docker Hub公共镜像源下载   </p>
-<h2 id="列出镜像列表"><a href="#列出镜像列表" class="headerlink" title="列出镜像列表"></a>列出镜像列表</h2><p><code>docker images</code> 可以列出当前本机中有的镜像信息<br><img src="/seevae.github.io/2020/05/06/docker入门/images.png" alt="image"><br>其中各个列的含义为:  </p>
+<h2 id="列出镜像列表"><a href="#列出镜像列表" class="headerlink" title="列出镜像列表"></a>列出镜像列表</h2><p><code>docker images</code> 可以列出当前本机中有的镜像信息<br><img src="/youdaoPicture/images.png" alt="image"><br>其中各个列的含义为:  </p>
 <ul>
 <li>REPOSITORY: 表示镜像的仓库源</li>
 <li>TAG: 镜像的标签</li>
@@ -488,7 +488,7 @@ Error response from daemon: You cannot remove a running container bf08b7f2cd897b
 <p>如果不指定<code>ubuntu:15.10</code> , 则docker会默认使用 ubuntu:latest镜像, 这时候如果本地中没有TAG为latest的镜像, 他会先拉取镜像然后在运行容器   </p>
 <h2 id="查找并获取镜像"><a href="#查找并获取镜像" class="headerlink" title="查找并获取镜像"></a>查找并获取镜像</h2><p>平时使用docker的过程中我们可以在Docker Hub网站上搜索想要使用的镜像, 网址为:   <a href="https://hub.docker.com/" target="_blank" rel="noopener">www.hub.docker.com</a>  </p>
 <p>也可以在docker中直接搜索想要的镜像<br><code>docker search &lt;镜像名称&gt;</code>  </p>
-<p>以httpd的镜像为例 :<br><img src="/seevae.github.io/2020/05/06/docker入门/search.png" alt="image"><br>其中有几列信息分别为:  </p>
+<p>以httpd的镜像为例 :<br><img src="/youdaoPicture/search.png" alt="image"><br>其中有几列信息分别为:  </p>
 <ul>
 <li>NAME: 镜像仓库源的名称</li>
 <li>DESCRIPTION: 镜像的描述</li>
@@ -505,7 +505,7 @@ Error response from daemon: You cannot remove a running container bf08b7f2cd897b
 <li>使用Dokcerfile指令来创建一个新的镜像  </li>
 </ol>
 <h3 id="更新镜像并提交之commit指令"><a href="#更新镜像并提交之commit指令" class="headerlink" title="更新镜像并提交之commit指令"></a>更新镜像并提交之commit指令</h3><p>1.更新镜像之前需要先用该镜像运行一个容器 , 此处以 ubuntu为例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -t -i --name ubuntu-test ubuntu:latest /bin/bash</span><br><span class="line">root@b00ac6809556:/#</span><br></pre></td></tr></table></figure></p>
-<p>2.容器运行起来后可以注意到该容器中没有vim工具, 没有net-tools工具等, 全部给他进行安装后在家目录下创建test.txt文件并写入内容,作为之后检测容器运行是否成功的标志<br><img src="/seevae.github.io/2020/05/06/docker入门/072.png" alt="image">   </p>
+<p>2.容器运行起来后可以注意到该容器中没有vim工具, 没有net-tools工具等, 全部给他进行安装后在家目录下创建test.txt文件并写入内容,作为之后检测容器运行是否成功的标志<br><img src="/youdaoPicture/072.png" alt="image">   </p>
 <p>3.此时由ubutun:latest镜像产生的容器便被修改了, 使用<code>exit</code>退出容器<br>此时我们便可以使用<code>commit</code>命令来提交容器副本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit -m=&quot;install tools&quot; -a=&quot;tony&quot; b00ac6809556 tony/ubuntue-test:v2</span><br></pre></td></tr></table></figure></p>
 <p>参数说明:  </p>
 <ul>
@@ -514,7 +514,7 @@ Error response from daemon: You cannot remove a running container bf08b7f2cd897b
 <li>b00ac6809556: 即将作为镜像的容器的id</li>
 <li>tony/ubuntue-test:v2: 创建的目标镜像名  </li>
 </ul>
-<p>4.此时使用<code>docker images</code>再次查看镜像, 发现刚刚创建的镜像就在其中<br><img src="/seevae.github.io/2020/05/06/docker入门/commit.png" alt="image"><br>5.使用新镜像<code>tony/ubuntu-test</code>来启动一个容器<br><code>docker run -ti tony/ubuntu-test:v2 /bin/bash</code><br>并查看其中是否有刚刚下载的工具及<code>test.txt</code>文件<br><img src="/seevae.github.io/2020/05/06/docker入门/073.png" alt="image">  </p>
+<p>4.此时使用<code>docker images</code>再次查看镜像, 发现刚刚创建的镜像就在其中<br><img src="/youdaoPicture/commit.png" alt="image"><br>5.使用新镜像<code>tony/ubuntu-test</code>来启动一个容器<br><code>docker run -ti tony/ubuntu-test:v2 /bin/bash</code><br>并查看其中是否有刚刚下载的工具及<code>test.txt</code>文件<br><img src="/youdaoPicture/073.png" alt="image">  </p>
 <p>结果显示有刚才创建的<code>test.txt</code>文件, 至此已经将一个简单的应用环境打包成了一个镜像并运行为一个容器</p>
 <h3 id="使用Dockerfile来构建镜像"><a href="#使用Dockerfile来构建镜像" class="headerlink" title="使用Dockerfile来构建镜像"></a>使用Dockerfile来构建镜像</h3><p>除过上述使用<code>docker commit</code>的方式构建镜像外, 还有一种方法就是使用<code>docker build</code>命令来创建一个新的镜像.<br>使用该命令, 我们需要先有一个<code>Dockerfile</code>文件, 其中包括一组指令来告诉Docker如何构建我们的镜像    </p>
 <p>Dockerfile中每一行都是一个指令 . 每一个指令都会在镜像上创建一个新的层, 每一个指令的前缀都必须是大写的.<br>第一天FROM , 指定使用那个镜像源<br>RUN指令告诉docker在镜像内执行命令, 安装什么<br>最后使用<code>Dokcerfile</code>文件, 通过<code>docker build</code> 命令来构建镜像, 下面是一个例子:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">FROM centos:6.7</span><br><span class="line">MAINTAINER      Fisher &quot;fisher@sudops.com&quot;</span><br><span class="line"></span><br><span class="line">RUN     /bin/echo &apos;root:123456&apos; | chpasswd</span><br><span class="line">RUN     useradd runoob</span><br><span class="line">RUN     /bin/echo &apos;runoob:123456&apos; |chpasswd</span><br><span class="line">RUN     /bin/echo -e &quot;LANG=\&quot;en_US.UTF-8\&quot;&quot; &gt;/etc/default/local</span><br><span class="line">EXPOSE  22</span><br><span class="line">EXPOSE  80</span><br><span class="line">CMD     /usr/sbin/sshd -D</span><br></pre></td></tr></table></figure></p>
@@ -525,7 +525,7 @@ Error response from daemon: You cannot remove a running container bf08b7f2cd897b
 <li>. : Dockerfile文件所在目录, 可以指定Dockerfile的绝对路径     </li>
 </ul>
 <p>然后<code>docker images</code> 查看镜像便有了该镜像<br>通过<code>docker run -ti &lt;镜像id&gt; /bin/bash</code> 运行容器后 , 通过命令<code>id runoob</code>可以看到此时这个centos容器中已经有了该runoob用户 , 所以镜像创建成功  </p>
-<h2 id="设置镜像标签"><a href="#设置镜像标签" class="headerlink" title="设置镜像标签"></a>设置镜像标签</h2><p>我们可以使用<code>docker tag</code>命令, 为镜像添加一个新的标签<br><code>dokcer tag &lt;镜像id&gt; 镜像名称:新的标签</code><br>例如:<br><code>docker tag 91a22f989e96 tony/centos:dev</code><br>此时便会生成一个新的标签为dev的tony/centos镜像<br><img src="/seevae.github.io/2020/05/06/docker入门/tag.png" alt="image">  </p>
+<h2 id="设置镜像标签"><a href="#设置镜像标签" class="headerlink" title="设置镜像标签"></a>设置镜像标签</h2><p>我们可以使用<code>docker tag</code>命令, 为镜像添加一个新的标签<br><code>dokcer tag &lt;镜像id&gt; 镜像名称:新的标签</code><br>例如:<br><code>docker tag 91a22f989e96 tony/centos:dev</code><br>此时便会生成一个新的标签为dev的tony/centos镜像<br><img src="/youdaoPicture/tag.png" alt="image">  </p>
 <h1 id="Docker容器连接"><a href="#Docker容器连接" class="headerlink" title="Docker容器连接"></a>Docker容器连接</h1><p>上面展示了通过网络端口来访问正在运行的docker容器内的服务<br>容器中可以运行一些网络应用, 要让外部也可以访问这些应用, 可以通过<code>-P</code> 或 <code>-p</code>参数来指定端口映射<br>下面说说容器之间通过端口连接实现互相访问   </p>
 <p><strong>回顾网络端口映射</strong><br>创建一个python的应用容器 , 并映射容器端口到主机端口<br>1.使用-P随机映射端口<br><code>docker run -d -P training/webapp python app.py</code>   </p>
 <p>使用<code>docker ps</code>可以查看映射后的端口情况<br>可以直接使用<code>docker port &lt;容器名&gt; 容器端口号</code> 来查看该端口的映射情况</p>
@@ -537,7 +537,7 @@ Error response from daemon: You cannot remove a running container bf08b7f2cd897b
 <p><strong>2.连接容器</strong><br>运行一个容器并连接到新建的test-net网络<br><code>docker run -tid --name test1 --network test-net tony/ubuntu-test:v2 /bin/bash</code><br>再运行一个容器并连接到新建的test-net网络<br><code>docker run -tid --name test2 --network test-net tony/ubuntu-test:v2 /bin/bash</code>  </p>
 <p><strong>3.通过ping命令证明test1容器和test2容器建立了互联关系</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it test1 /bin/bsh</span><br><span class="line">ping test2</span><br></pre></td></tr></table></figure></p>
 <p>发现<code>ping</code>命令成功,以此证明两个容器建立了互连关系   </p>
-<p>整个过程如下图所示<br><img src="/seevae.github.io/2020/05/06/docker入门/080.png" alt="image"><br><strong>如果有多个容器需要互相连接, 推荐使用Docker Compose</strong>  </p>
+<p>整个过程如下图所示<br><img src="/youdaoPicture/080.png" alt="image"><br><strong>如果有多个容器需要互相连接, 推荐使用Docker Compose</strong>  </p>
 
       
     </div>
@@ -657,7 +657,7 @@ Error response from daemon: You cannot remove a running container bf08b7f2cd897b
               
                 <a href="/seevae.github.io/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

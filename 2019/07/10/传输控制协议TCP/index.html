@@ -87,24 +87,24 @@
 <meta property="og:site_name" content="Hero">
 <meta property="og:description" content="前言本文对TCP以及UDP协议做了详细的总结，知识的来源大部分都是通过阅读《图解TCP/IP》得到的。也是因为总是装着个书看不怎么现实，所以总结啦一下，以后有什么忘记的地方就能方便的回过头来复习啦~~">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/10/传输控制协议TCP/317.JPG">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/10/传输控制协议TCP/319.JPG">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/10/传输控制协议TCP/320.JPG">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/10/传输控制协议TCP/321.JPG">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/10/传输控制协议TCP/322.JPG">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/10/传输控制协议TCP/333.JPG">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/10/传输控制协议TCP/334.JPG">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/10/传输控制协议TCP/hexo/source/img/335.JPG">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/10/传输控制协议TCP/336.JPG">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/10/传输控制协议TCP/337.JPG">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/10/传输控制协议TCP/338.JPG">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/10/传输控制协议TCP/318.JPG">
-<meta property="og:image" content="http://seevae.github.io/seevae.github.io/2019/07/10/传输控制协议TCP/339.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/317.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/319.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/320.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/321.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/322.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/333.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/334.JPG">
+<meta property="og:image" content="http://seevae.github.io/seevae.github.io//seevae.github.io/2019/07/10/传输控制协议TCP/hexo/source/img/335.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/336.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/337.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/338.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/318.JPG">
+<meta property="og:image" content="http://seevae.github.io/img/339.JPG">
 <meta property="og:updated_time" content="2019-08-04T08:15:10.942Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="传输层两兄弟之TCP与UDP">
 <meta name="twitter:description" content="前言本文对TCP以及UDP协议做了详细的总结，知识的来源大部分都是通过阅读《图解TCP/IP》得到的。也是因为总是装着个书看不怎么现实，所以总结啦一下，以后有什么忘记的地方就能方便的回过头来复习啦~~">
-<meta name="twitter:image" content="http://seevae.github.io/seevae.github.io/2019/07/10/传输控制协议TCP/317.JPG">
+<meta name="twitter:image" content="http://seevae.github.io/img/317.JPG">
 
 
 
@@ -405,11 +405,11 @@
 <h1 id="什么是TCP协议"><a href="#什么是TCP协议" class="headerlink" title="什么是TCP协议"></a>什么是TCP协议</h1><p>传输控制协议( TCP,全称Transmission Control Protocol),是一个面向连接的,保证可靠性的,基于字节流的传输层协议. 他的具体任务是保证数据在复杂的网络中能够端到端安全的传输. 举个例子来说,Http请求就像一个等待发送的包裹,而TCP协议就像一个快递公司,他规定了包裹具体怎么发送,走哪条路,以及包裹的安全送达.数据包在传输层中成为段.接下来从段的格式入手,说一说TCP协议  </p>
 <p>TCP是一种“负责任的传输协议”，他充分实现了数据传输时各种控制功能，可以进行丢包时的重发控制，还可以对次序乱掉的分包进行顺序控制。此外，TCP，作为一种面向有连接的协议，只有在确认对端存在时才会发送数据，从而可以控制流量的浪费  </p>
 <p><strong>TCP通过校验和，序列号，确认应答，重发控制，连接管理，以及窗口控制等机制实现可靠性传输</strong>  </p>
-<h1 id="TCP不同于UDP的功能"><a href="#TCP不同于UDP的功能" class="headerlink" title="TCP不同于UDP的功能"></a>TCP不同于UDP的功能</h1><h2 id="通过序列号和确认应答提高可靠性"><a href="#通过序列号和确认应答提高可靠性" class="headerlink" title="通过序列号和确认应答提高可靠性"></a>通过序列号和确认应答提高可靠性</h2><p>在TCP中，当发送端的数据到达接收端时，接收端主机会返回一个已收到消息的通知，这个消息叫做确认应答（ACK）。<br>例子： 当A给B打电话的时候，号码播出接听后，A说“喂，您好，B” ，此时B说 “你好,A”。这时B对A的回话就相当于一个ACK，让A知道B收到了A说的话<br><img src="/seevae.github.io/2019/07/10/传输控制协议TCP/317.JPG" alt="image"></p>
-<p>TCP通过肯定的确认应答（ACK）实现可靠的数据传输，当发送端将数据发出之后会等待对方的应答，如果有确认，则说明数据成功到达对端，如果没有收到确认则数据丢失的可能性较大。如下图中数据在从A端向B端发送的过程中数据丢失，自然不会受到来自B端的ACK，所以在一定时间间隔之后，A会重新进行数据的发送 ， 因此，即使产生了丢包，仍然能保证数据到达对端，实现可靠传输<br><img src="/seevae.github.io/2019/07/10/传输控制协议TCP/319.JPG" alt="image">  </p>
-<p>没有收到ACK并不代表着数据一定没有成功发送，也有可能是B主机接收到了数据并发送了一个ACK给主机A，但是ACK（确认应答）却在传输的过程中丢失了。此时A主机也会认为没有成功发送数据，并进行一次重发，此时B主机又收到相同的数据，他会进行丢弃<br><img src="/seevae.github.io/2019/07/10/传输控制协议TCP/320.JPG" alt="image"> </p>
+<h1 id="TCP不同于UDP的功能"><a href="#TCP不同于UDP的功能" class="headerlink" title="TCP不同于UDP的功能"></a>TCP不同于UDP的功能</h1><h2 id="通过序列号和确认应答提高可靠性"><a href="#通过序列号和确认应答提高可靠性" class="headerlink" title="通过序列号和确认应答提高可靠性"></a>通过序列号和确认应答提高可靠性</h2><p>在TCP中，当发送端的数据到达接收端时，接收端主机会返回一个已收到消息的通知，这个消息叫做确认应答（ACK）。<br>例子： 当A给B打电话的时候，号码播出接听后，A说“喂，您好，B” ，此时B说 “你好,A”。这时B对A的回话就相当于一个ACK，让A知道B收到了A说的话<br><img src="/img/317.JPG" alt="image"></p>
+<p>TCP通过肯定的确认应答（ACK）实现可靠的数据传输，当发送端将数据发出之后会等待对方的应答，如果有确认，则说明数据成功到达对端，如果没有收到确认则数据丢失的可能性较大。如下图中数据在从A端向B端发送的过程中数据丢失，自然不会受到来自B端的ACK，所以在一定时间间隔之后，A会重新进行数据的发送 ， 因此，即使产生了丢包，仍然能保证数据到达对端，实现可靠传输<br><img src="/img/319.JPG" alt="image">  </p>
+<p>没有收到ACK并不代表着数据一定没有成功发送，也有可能是B主机接收到了数据并发送了一个ACK给主机A，但是ACK（确认应答）却在传输的过程中丢失了。此时A主机也会认为没有成功发送数据，并进行一次重发，此时B主机又收到相同的数据，他会进行丢弃<br><img src="/img/320.JPG" alt="image"> </p>
 <p>数据的重发不仅仅局限于上述两种情况，真实的网络中还有很多原因造成确认应答延迟到达，在源主机重发数据以后ACK才到达情况也十分常见，此时，源主机只要按照重发机制重发即可。但是对于目标主机来说却是很大的负担。他会反复收到很多相同的数据，而为了对提供可靠的传输，他又要不断的放弃重复的数据包。为此便有了一种机制<strong>序号</strong>：他能够识别是否已经接收数据，又能够判断是否需要接收</p>
-<h2 id="序号与确认序号"><a href="#序号与确认序号" class="headerlink" title="序号与确认序号"></a>序号与确认序号</h2><p>上述这些确认应答处理，重发控制以及重复控制等功能都可以通过序列号实现。序号是按顺序给发送的数据的每一个字节都标上号码的编号。接收端查询接收数据TCP首部中的序列号和数据的长度(同一个数据段的序号都是相同的)，将自己下一步应该接收的序号作为确认应答返回回去。就这样，通过序号和确认序号Tcp可以实现可靠传输<br><img src="/seevae.github.io/2019/07/10/传输控制协议TCP/321.JPG" alt="image"><br><img src="/seevae.github.io/2019/07/10/传输控制协议TCP/322.JPG" alt="image"> </p>
+<h2 id="序号与确认序号"><a href="#序号与确认序号" class="headerlink" title="序号与确认序号"></a>序号与确认序号</h2><p>上述这些确认应答处理，重发控制以及重复控制等功能都可以通过序列号实现。序号是按顺序给发送的数据的每一个字节都标上号码的编号。接收端查询接收数据TCP首部中的序列号和数据的长度(同一个数据段的序号都是相同的)，将自己下一步应该接收的序号作为确认应答返回回去。就这样，通过序号和确认序号Tcp可以实现可靠传输<br><img src="/img/321.JPG" alt="image"><br><img src="/img/322.JPG" alt="image"> </p>
 <h2 id="重发超时如何确定"><a href="#重发超时如何确定" class="headerlink" title="重发超时如何确定"></a>重发超时如何确定</h2><p>重发超时是指数据发送过后,等待确认应答到来的那个特定的时间间隔。如果超过了该时间间隔那么发送端将进行数据重发，那么这个时间又是如何确认呢？<br>在tcp中采用一种试探的重发超时机制<br>在Linux系统中，超时都以0.5秒为单位进行控制，因此重发超时都是0.5的整数倍。不过，由于最初的数据包还不知道往返时间，所以其超时重发一般规定为6秒左右。即数据被重发之后若还是收不到确认应答，则进行再次发送。此时，等待确认应答时间会以2倍，四倍的指数函数延长（2*0.5 ， 4*0.5 …）<br>此外,数据并不会被无限、反复的重发。达到一定重发次数后，如果仍没有任何确认应答，就会判断为网络或对端主机异常，强制关闭连接。并且通知应用通信异常强行终止  </p>
 <h2 id="连接管理"><a href="#连接管理" class="headerlink" title="连接管理"></a>连接管理</h2><p>TCP提供面向有连接的通信传输。面向有连接是指在数据通信开始之前，先做好通信两端的准备工作。   </p>
 <h3 id="用于建立连接的三次握手过程"><a href="#用于建立连接的三次握手过程" class="headerlink" title="用于建立连接的三次握手过程"></a>用于建立连接的三次握手过程</h3><p>通信双方为了建立连接首先会由发送请求的一段开始试图建立连接，具体过程如下：    </p>
@@ -446,20 +446,20 @@
 <li>客户端在等待了2*MSL的时间段内，如果没有收到任何的消息，那么则进入CLOSED状态，四次挥手完成  </li>
 </ol>
 <p><strong>为什么是2*MSL?</strong><br>MSL: MSL就是maximum segment lifetime(最大分节生命期），这是一个IP数据包可以在网络中生存的最大时间单位,超过这个时间IP数据包将在网络中消失。<br>设置TIME_WAIT状态的一个目的是为了保证双方连接都能正确断开，另一个目的就是为了保证双方所发送的数据能够在网络中尽可能消散   </p>
-<p><strong>放一张三次握手，四次挥手的图</strong><br><img src="/seevae.github.io/2019/07/10/传输控制协议TCP/333.JPG" alt="image"></p>
+<p><strong>放一张三次握手，四次挥手的图</strong><br><img src="/img/333.JPG" alt="image"></p>
 <h2 id="TCP以段为单位发送数据"><a href="#TCP以段为单位发送数据" class="headerlink" title="TCP以段为单位发送数据"></a>TCP以段为单位发送数据</h2><p>在建立连接的同时，收发数据的双方会确定一个发送数据包的单位，称为“最大消息长度（MSS：Max Segment Size）”。最理想的情况下，最大消息长度为IP中不会被分片处理的最大数据长度。   </p>
 <p>TCP在传输大量数据的时候，是以MSS的大小将数据进行分割发送。进行重发时也是按照MSS的大小进行重发   </p>
 <p>MSS的大小是在三次握手的时候，在两端主机之间计算得出的。两端的主机在发出建立连接的请求时，会在TCP首部中写入MSS选项，告诉对方自己的接口能够适应的MSS的大小是多少，最后从两端中选出一个较小的值作为MSS值<br>① 通过建立连接的SYN包互相通知对方网络接口的MSS值<br>② 在两者间选择一个较小的MSS的值，发送数据   </p>
 <h2 id="滑动窗口与快重传"><a href="#滑动窗口与快重传" class="headerlink" title="滑动窗口与快重传"></a>滑动窗口与快重传</h2><p>TCP以段位单位，当一个主机向另一个发送一个段之后，当收到了对端主机的应答确认之后才会发送下一个段，这样的方式有一个缺点，那就是在不同的网络状况下包的往返时间越长通信性能就会越低，网络的吞吐量就越差，即如果一个数据包发送了，但他的ACK迟迟没有到来，就不能发送下一个数据包   </p>
 <p>于是便引入了窗口机制。即使在往返时间较长的情况下，他也能控制网络性能的下降。  </p>
-<p>如下图所示，数据的发送不再是以段为单位，而是以一个窗口为一个单位，而一个窗口内可能有多个段，确认应答也是以更大的单位进行确认。也就是说，在一个窗口内，当客户端发送了一个段之后不必等到这个段的确认应答来之前就可以发送下一个段<br><img src="/seevae.github.io/2019/07/10/传输控制协议TCP/334.JPG" alt="image">  </p>
+<p>如下图所示，数据的发送不再是以段为单位，而是以一个窗口为一个单位，而一个窗口内可能有多个段，确认应答也是以更大的单位进行确认。也就是说，在一个窗口内，当客户端发送了一个段之后不必等到这个段的确认应答来之前就可以发送下一个段<br><img src="/img/334.JPG" alt="image">  </p>
 <p>窗口大小就是指无需等待确认应答而可以继续发送数据的最大值。如上图中，窗口大小为四个段   </p>
-<p>滑动窗口示意图<br><img src="/seevae.github.io/2019/07/10/传输控制协议TCP/hexo/source/img/335.JPG" alt="image"></p>
+<p>滑动窗口示意图<br><img src="/seevae.github.io//seevae.github.io/2019/07/10/传输控制协议TCP/hexo/source/img/335.JPG" alt="image"></p>
 <p>在滑动窗口机制中，当收到了第一个ACK的时候，滑动窗口向后移动，继续发送第五个段的数据，以此类推    </p>
 <p>操作系统内核为了维护这个滑动窗口，需要开辟发送缓冲区来记录当前还有哪些数据没有应答；只有确认应答过的数据，才能从缓冲区删掉    </p>
 <p><strong>那么如果出现了段丢失，如何进行重传？</strong><br>此处分两种情况  </p>
 <p><em>情况一： 数据段到达了，但是ACK在返回的路上丢失了</em><br>这种情况下，数据段已经到达对端，不需要进行重发。然而们在没有使用滑动窗口的机制下，没有收到确认应答也是会被重发的。而使用了滑动窗口，某些确认应答丢失了也无需重发，只要收到了一个ACK，则这个ACK之前的数据段都是成功发送到对端了的   </p>
-<p><em>情况二：数据段本身丢失</em><br>如果一个段在发送的过程中丢失了，那么接收端便会一直返回对于这个段的确认应答，例如从1001序号开始的数据段丢失了，那么接收端会一直返回给接收端1001的ACK。而发送端如果连续三次接收到了同一个确认应答，就会将其所对应的数据进行重发。这种机制又叫做<strong>快重传</strong>，比之前说到的超时重发效率要高很多。<br>具体丢段重发过程如下图所示<br><img src="/seevae.github.io/2019/07/10/传输控制协议TCP/336.JPG" alt="image"></p>
+<p><em>情况二：数据段本身丢失</em><br>如果一个段在发送的过程中丢失了，那么接收端便会一直返回对于这个段的确认应答，例如从1001序号开始的数据段丢失了，那么接收端会一直返回给接收端1001的ACK。而发送端如果连续三次接收到了同一个确认应答，就会将其所对应的数据进行重发。这种机制又叫做<strong>快重传</strong>，比之前说到的超时重发效率要高很多。<br>具体丢段重发过程如下图所示<br><img src="/img/336.JPG" alt="image"></p>
 <h2 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h2><p>流量控制解决的问题：<br>接收端处理数据的速度是有限的。如果发送端发送数据的速度太快，将接收端的缓冲区很快注满了，这个时候如果发送端还继续发送数据，就会造成数据的丢包，继而引起丢包重传等一系列的连锁反应。<br>为了解决上述问题，便有了<strong>流量控制</strong> 这个机制  </p>
 <p><strong>流量控制是指 发送端根据接收端的接收能力来决定发送端的发送速度</strong>  </p>
 <p>他的具体操作是 ：<br>接收端向发送端主机通知自己可以接收数据的大小，于是发送端会发送不超过这个大小限度的数据。该大小限度就被称为窗口大小。即发送端的窗口大小是由接收端来决定的。</p>
@@ -487,7 +487,7 @@
 <li>cwnd的值设置为ssthresh的值   </li>
 <li>此时不使用慢启动策略而是采用拥塞避免机制（这点也是超时重传和快重传的区别之处）   </li>
 </ol>
-<p><strong>下面带一张拥塞控制的示意图 ：</strong>　　<br><img src="/seevae.github.io/2019/07/10/传输控制协议TCP/337.JPG" alt="image"></p>
+<p><strong>下面带一张拥塞控制的示意图 ：</strong>　　<br><img src="/img/337.JPG" alt="image"></p>
 <h2 id="延迟应答"><a href="#延迟应答" class="headerlink" title="延迟应答"></a>延迟应答</h2><p>如果接收数据的主机每次都立刻返回ACK，这个时候发送端接收到的接收端的窗口大小可能比较小<br>举个例子：<br>假设接收缓冲区的大小为1M,一次收到了500K的数据，如果立刻进行认答，返回的窗口大小就是500k；<br>但实际上，处理端的处理速度可能是很快的，也许10ms之内就把500k数据从缓冲区消费掉了；<br>如果接收端稍微等一会在进行应答，比如再等待200ms，可能缓冲区中的500k数据就被消费掉了，此时返回给客户端的窗口大小就是1M.客户端在下次发送数据时就能够发送的更多   </p>
 <p>遵循的原则: 窗口越大,网络吞吐量越大,传输效率就越高,我们的目标是在保证网络不拥堵的情况下尽可能的提高传输效率   </p>
 <p>那么所有的包都可以遵循延迟应答吗?答案是否定的,这里有两个限制   </p>
@@ -497,7 +497,7 @@
 </ol>
 <p>具体的数量限制和时间限制具体的操作系统间有所不同<br>一般N取2,超时时间取200ms   </p>
 <h2 id="捎带应答"><a href="#捎带应答" class="headerlink" title="捎带应答"></a>捎带应答</h2><p>根据应用层协议,发送出去的数据到达对端，对端进行处理之后，会返回一个回执。例如FTP,SMTP，POP以及HTTP 1.1都是如此。<br>在此类通信中，TCP的确认应答和回执数据可以通过一个包发送。这种方式就叫做捎带应答。通过这种机制，可以使收发的数据量减小   </p>
-<p>需要注意的是，捎带应答是基于延迟应答的，接收数据以后如果立刻返回确认应答就无法实现捎带应答。<br><img src="/seevae.github.io/2019/07/10/传输控制协议TCP/338.JPG" alt="image"></p>
+<p>需要注意的是，捎带应答是基于延迟应答的，接收数据以后如果立刻返回确认应答就无法实现捎带应答。<br><img src="/img/338.JPG" alt="image"></p>
 <h2 id="面向字节流"><a href="#面向字节流" class="headerlink" title="面向字节流"></a>面向字节流</h2><p>创建一个Socket，同时在内核中创建一个发送缓冲区和接收缓冲区   </p>
 <ul>
 <li>调用write方法时，数据会先写入发送缓冲区；</li>
@@ -508,7 +508,7 @@
 <li>TCP的一个连接，既有发送缓冲区又有接收缓冲区，那么对于一个连接，既可以发数据又可以读数据，这种就叫做全双工    </li>
 </ul>
 <p>由于缓冲区的存在，TCP程序的读和写不需要像UDP那样一一对应<br>例如写100个字节的数据，既可以调用一次write写100个字节，也可以调用10次write每次写10个字节，读数据时也相同   </p>
-<h1 id="TCP数据段格式"><a href="#TCP数据段格式" class="headerlink" title="TCP数据段格式"></a>TCP数据段格式</h1><p><img src="/seevae.github.io/2019/07/10/传输控制协议TCP/318.JPG" alt="image"><br><strong>每一个字段的作用解释</strong>：   </p>
+<h1 id="TCP数据段格式"><a href="#TCP数据段格式" class="headerlink" title="TCP数据段格式"></a>TCP数据段格式</h1><p><img src="/img/318.JPG" alt="image"><br><strong>每一个字段的作用解释</strong>：   </p>
 <ul>
 <li>源端口号/目标端口号：表示数据从哪个进程来到哪个进程去</li>
 <li>32位序号/32位确认序号：用来保证通信双方的可靠性，保证数据的按序到达，保证报文不会缺失等</li>
@@ -543,7 +543,7 @@
 <li>广播通信</li>
 <li>限定于LAN等特定网络中的应用通信  </li>
 </ul>
-<h2 id="UDP首部格式"><a href="#UDP首部格式" class="headerlink" title="UDP首部格式"></a>UDP首部格式</h2><p><img src="/seevae.github.io/2019/07/10/传输控制协议TCP/339.JPG" alt="image"><br><strong>各个字段的意义</strong>：   </p>
+<h2 id="UDP首部格式"><a href="#UDP首部格式" class="headerlink" title="UDP首部格式"></a>UDP首部格式</h2><p><img src="/img/339.JPG" alt="image"><br><strong>各个字段的意义</strong>：   </p>
 <ul>
 <li>16位源端口号： 表示发送端端口号。该字段是可选项，有时可能不会设置源端口号。没有源端口号的时候该字段的值设置为0.可用于不需要返回的通信中</li>
 <li>16位目标端口号： 表示接收端端口号  </li>
@@ -682,7 +682,7 @@
               
                 <a href="/seevae.github.io/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
