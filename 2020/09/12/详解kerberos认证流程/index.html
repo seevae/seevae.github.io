@@ -91,9 +91,9 @@
 <meta property="og:image" content="http://seevae.github.io/img/kerberos01.png">
 <meta property="og:image" content="http://seevae.github.io/img/kerberos3.png">
 <meta property="og:image" content="http://seevae.github.io/img/kerberos03.png">
-<meta property="og:image" content="http://seevae.github.io/img/kerberos.png">
+<meta property="og:image" content="http://seevae.github.io/img/kerberos2.png">
 <meta property="og:image" content="http://seevae.github.io/img/kerberos6.jpg">
-<meta property="og:updated_time" content="2020-09-14T15:47:17.402Z">
+<meta property="og:updated_time" content="2020-09-14T15:52:27.689Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="详解kerberos认证原理">
 <meta name="twitter:description" content="前言Kerberos协议是一个专注于验证通信双方身份的网络协议，不同于其他网络安全协议的保证整个通信过程的传输安全，kerberos侧重于通信前双方身份的认定工作，帮助客户端和服务端解决“证明我自己是我自己”的问题，从而使得通信两端能够完全信任对方身份，在一个不安全的网络中完成一次安全的身份认证继而进行安全的通信。由于整个Kerberos认证过程较为复杂繁琐且网上版本较多，特整理此文以便复习与分享">
@@ -429,7 +429,7 @@
 <p>至此，第二次通信完成。</p>
 <h2 id="第三次通信"><a href="#第三次通信" class="headerlink" title="第三次通信"></a>第三次通信</h2><p>此时的客户端收到了来自KDC（TGS）的响应，并使用缓存在本地的CT_SK解密了第二部分内容（第一部分内容中的ST是由Server密码加密的，客户端无法解密），检查时间戳无误后取出其中的CS_SK准备向服务端发起最后的请求。<br><img src="/img/kerberos03.png" alt><br>客户端：<br><strong>①</strong>  客户端使用CK_SK将自己的主机信息和时间戳进行加密作为交给服务端的第一部分内容，然后将ST（服务授予票据）作为第二部分内容都发送给服务端。<br>服务端：<br><strong>①</strong>  服务器此时收到了来自客户端的请求，他会使用自己的密钥，即Server密钥将客户端第二部分内容进行解密，核对时间戳之后将其中的CS_SK取出，使用CS_SK将客户端发来的第一部分内容进行解密，从而获得经过TGS认证过后的客户端信息，此时他将这部分信息和客户端第二部分内容带来的自己的信息进行比对，最终确认该客户端就是经过了KDC认证的具有真实身份的客户端，是他可以提供服务的客户端。此时服务端返回一段使用CT_SK加密的表示接收请求的响应给客户端，在客户端收到请求之后，使用缓存在本地的CS_ST解密之后也确定了服务端的身份（其实服务端在通信的过程中还会使用数字证书证明自己身份）。  </p>
 <p>至此，第三次通信完成。此时也代表着整个kerberos认证的完成，通信的双方都确认了对方的身份，此时便可以放心的进行整个网络通信了。 </p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>整个kerberos认证的过程较为复杂，三次通信中都使用了密钥，且密钥的种类一直在变化，并且为了防止网络拦截密钥，这些密钥都是临时生成的Session Key，即他们只在一次Session会话中起作用，即使密钥被劫持，等到密钥被破解可能这次会话都早已结束。<br>这为整个kerberos认证过程保证了较高的安全性。以下补充两个kerberos认证的整体流图，一个是kerberos认证的时序图，一个是kerberos认证的示意图，望能加深kerberos认证印象~~<br>示意图：<br><img src="/img/kerberos.png" alt><br>时序图：<br><img src="/img/kerberos6.jpg" alt> </p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>整个kerberos认证的过程较为复杂，三次通信中都使用了密钥，且密钥的种类一直在变化，并且为了防止网络拦截密钥，这些密钥都是临时生成的Session Key，即他们只在一次Session会话中起作用，即使密钥被劫持，等到密钥被破解可能这次会话都早已结束。<br>这为整个kerberos认证过程保证了较高的安全性。以下补充两个kerberos认证的整体流图，一个是kerberos认证的时序图，一个是kerberos认证的示意图，望能加深kerberos认证印象~~<br>示意图：<br><img src="/img/kerberos2.png" alt><br>时序图：<br><img src="/img/kerberos6.jpg" alt> </p>
 
       
     </div>
